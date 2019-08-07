@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+  <meta charset="utf-8">
+  <style>
+  code {
+    display: block;
+    margin: 8px;
+  }
+
+  body.styled {
+  }
+
+  body.styled.dark {
+    --primary-background-color: #424242;
+    --secondary-text-color: #616161;
+  }
+
+  body.styled.material {
+    --secondary-text-color: #616161;
+  }
+
+  body.styled.material.dark {
+    --secondary-text-color: #9E9E9E;
+  }
+  </style>
+</head>
+<body>
+  <div id="demo"></div>
+  <script type="module" src="index.js"></script>
+
+  <script>
+    function validate() {
+      document.getElementById('inputForValidation').validate();
+    }
+
+    function clearInput() {
+      document.getElementById('inputWithButton').value = '';
+    }
+  </script>
+</body>
+</html>
