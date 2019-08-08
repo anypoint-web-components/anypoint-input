@@ -368,7 +368,7 @@ describe('<anypoint-input>', function() {
     });
   });
 
-  describe.only('_checkPatternValidity()', () => {
+  describe('_checkPatternValidity()', () => {
     it('returns true when no argument', async () => {
       const element = await basicFixture();
       const result = element._checkPatternValidity();
@@ -393,4 +393,17 @@ describe('<anypoint-input>', function() {
       assert.isTrue(result);
     });
   });
+
+  // describe.only('_onChange()', () => {
+  //   let element;
+  //   beforeEach(async () => {
+  //     element = await basicFixture();
+  //   });
+  //
+  //   it('returns true when no argument', async () => {
+  //     const element = await basicFixture();
+  //     const result = element._checkPatternValidity();
+  //     assert.isTrue(result);
+  //   });
+  // });
 });
