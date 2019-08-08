@@ -1,22 +1,25 @@
-import { html } from "lit-html";
-import { ArcDemoPage } from "@advanced-rest-client/arc-demo-helper/ArcDemoPage.js";
-import "@advanced-rest-client/arc-demo-helper/arc-demo-helper.js";
-import "@anypoint-web-components/anypoint-checkbox/anypoint-checkbox.js";
-import "@anypoint-web-components/anypoint-radio-button/anypoint-radio-button.js";
-import "@anypoint-web-components/anypoint-radio-button/anypoint-radio-group.js";
-import "@anypoint-web-components/anypoint-styles/colors.js";
-import "@anypoint-web-components/anypoint-button/anypoint-button.js";
-import "@polymer/iron-icon/iron-icon.js";
-import "@polymer/iron-icons/iron-icons.js";
-import "../anypoint-input.js";
-import "./arc-interactive-demo.js";
+import { html } from 'lit-html';
+import { ArcDemoPage } from '@advanced-rest-client/arc-demo-helper/ArcDemoPage.js';
+import '@advanced-rest-client/arc-demo-helper/arc-demo-helper.js';
+import '@anypoint-web-components/anypoint-checkbox/anypoint-checkbox.js';
+import '@anypoint-web-components/anypoint-radio-button/anypoint-radio-button.js';
+import '@anypoint-web-components/anypoint-radio-button/anypoint-radio-group.js';
+import '@anypoint-web-components/anypoint-styles/colors.js';
+import '@anypoint-web-components/anypoint-button/anypoint-button.js';
+import '@polymer/iron-icon/iron-icon.js';
+import '@polymer/iron-icons/iron-icons.js';
+import '../anypoint-input.js';
+import './arc-interactive-demo.js';
+import './minimum-maximum-length.js';
+import './number-required.js';
+import './uppercase-required.js';
 
 // const hasFormAssociatedElements = 'attachInternals' in document.createElement('span');
 
 class ComponentDemo extends ArcDemoPage {
   constructor() {
     super();
-    this._componentName = "anypoint-input";
+    this._componentName = 'anypoint-input';
     this.initObservableProperties();
     this._readonlyHandler = this._readonlyHandler.bind(this);
     this._valueHandler = this._valueHandler.bind(this);
@@ -27,27 +30,27 @@ class ComponentDemo extends ArcDemoPage {
       this
     );
     this._textFiledTypeHandler = this._textFiledTypeHandler.bind(this);
-    this.textFieldStates = ["Normal", "Outlined", "Legacy"];
+    this.textFieldStates = ['Normal', 'Outlined', 'Legacy'];
     this.textFieldLegacy = false;
     this.textFieldOutlined = false;
-    this.typeSelector = "text";
+    this.typeSelector = 'text';
   }
 
   initObservableProperties() {
     [
-      "readonly",
-      "formData",
-      "textFieldOutlined",
-      "textFieldLegacy",
-      "textFiledLeading",
-      "textFiledTrailing",
-      "textFieldError",
-      "textFieldInfo",
-      "typeSelector"
-    ].forEach(item => {
+      'readonly',
+      'formData',
+      'textFieldOutlined',
+      'textFieldLegacy',
+      'textFiledLeading',
+      'textFiledTrailing',
+      'textFieldError',
+      'textFieldInfo',
+      'typeSelector'
+    ].forEach((item) => {
       Object.defineProperty(this, item, {
         get() {
-          return this["_" + item];
+          return this['_' + item];
         },
         set(newValue) {
           this._setObservableProperty(item, newValue);
@@ -69,9 +72,9 @@ class ComponentDemo extends ArcDemoPage {
 
   _mdHandler(e) {
     if (e.target.checked) {
-      document.body.classList.add("material");
+      document.body.classList.add('material');
     } else {
-      document.body.classList.remove("material");
+      document.body.classList.remove('material');
     }
   }
 
@@ -119,10 +122,10 @@ class ComponentDemo extends ArcDemoPage {
     if (!checked) {
       return;
     }
-    if (name === "info") {
+    if (name === 'info') {
       this.textFieldError = false;
       this.textFieldInfo = true;
-    } else if (name === "error") {
+    } else if (name === 'error') {
       this.textFieldError = true;
       this.textFieldInfo = false;
     } else {
@@ -175,7 +178,7 @@ class ComponentDemo extends ArcDemoPage {
       textFieldInfo,
       textFieldError
     } = this;
-    const infoMessage = textFieldInfo ? "Assistive text label" : undefined;
+    const infoMessage = textFieldInfo ? 'Assistive text label' : undefined;
     return html`
       <section class="documentation-section">
         <h3>Interactive demo</h3>
@@ -198,35 +201,36 @@ class ComponentDemo extends ArcDemoPage {
               ?invalid="${textFieldError}"
             >
               <label slot="label">Label</label>
-              ${textFiledLeading
-                ? html`
+              ${textFiledLeading ? html`
                     <iron-icon icon="lock-outline" slot="prefix"></iron-icon>
                   `
                 : undefined}
-              ${textFiledTrailing
-                ? html`
+              ${textFiledTrailing ? html`
                     <iron-icon icon="clear" slot="suffix"></iron-icon>
                   `
                 : undefined}
             </anypoint-input>
           </section>
 
-          <label slot="options">Options</label>
+          <label slot="options" id="mainOptionsLabel">Options</label>
           <anypoint-checkbox
+            aria-describedby="mainOptionsLabel"
             slot="options"
             @change="${this._textFiledLeadingHandler}"
             >Leading icon</anypoint-checkbox
           >
           <anypoint-checkbox
+            aria-describedby="mainOptionsLabel"
             slot="options"
             @change="${this._textFiledTrailingHandler}"
             >Trailing icon</anypoint-checkbox
           >
 
-          <label slot="options">Assistive text</label>
+          <label slot="options" id="mainAssistiveLabel">Assistive text</label>
           <anypoint-radio-group
             slot="options"
             selectable="anypoint-radio-button"
+            aria-labelledby="mainAssistiveLabel"
           >
             <anypoint-radio-button
               @change="${this._textFiledAssistiveHandler}"
@@ -357,6 +361,11 @@ class ComponentDemo extends ArcDemoPage {
           >
         </anypoint-input>
 
+        <anypoint-input type="email" outlined>
+          <label slot="label">Email</label>
+          <div slot="suffix">@mulesoft.com</div>
+        </anypoint-input>
+
         <h3>Assistive text</h3>
 
         <p>
@@ -438,10 +447,11 @@ class ComponentDemo extends ArcDemoPage {
             <label slot="label">Text field</label>
           </anypoint-input>
 
-          <label slot="options">Input type</label>
+          <label slot="options" id="typesLabel">Input type</label>
           <anypoint-radio-group
             slot="options"
             selectable="anypoint-radio-button"
+            aria-labelledby="typesLabel"
           >
             <anypoint-radio-button
               @change="${this._textFiledTypeHandler}"
@@ -520,11 +530,84 @@ class ComponentDemo extends ArcDemoPage {
     `;
   }
 
+  _customValidatorsTemplate() {
+    return html`<section class="documentation-section">
+      <h3>Validation</h3>
+
+      <h3>Built-in validators</h3>
+      <p>
+        Preffered way of dealing with validation is to use native input's validation
+        properties like <code>required</code>, <code>minLength</code>, <code>maxLength</code>, and so on.
+        The element preffers native validation over custom logic as it is more performant.
+      </p>
+
+      <p>
+        Use this attributes with cobination with <code>autovalidate</code> attribute which
+        validates the state on user input
+      </p>
+
+      <anypoint-input
+        title="This input is required"
+        type="text"
+        autovalidate
+        required
+        invalidmessage="The value is required"
+      >
+        <label slot="label">Required input</label>
+      </anypoint-input>
+
+      <anypoint-input
+        title="Min and max length"
+        type="text"
+        autovalidate
+        minlength="5"
+        maxlength="10"
+        invalidmessage="Use 5 to 10 characters"
+      >
+        <label slot="label">Min and max length</label>
+      </anypoint-input>
+
+      <anypoint-input
+        title="Letters only via pattern"
+        type="text"
+        autovalidate
+        pattern="[a-zA-Z]"
+        invalidmessage="Only letters are allowed"
+      >
+        <label slot="label">Pattern</label>
+      </anypoint-input>
+
+      <h3>Custom validators</h3>
+      <p>
+        Anypoint web components offers <code>ValidatorMixin</code> that allows to define
+        a custom element that validates an input field. This allows to reuse validation
+        logic accross different parts of the application.
+      </p>
+
+      <minimum-maximum-length></minimum-maximum-length>
+      <number-required></number-required>
+      <uppercase-required></uppercase-required>
+
+      <anypoint-input
+        title="Custom validation is enabled"
+        type="text"
+        autovalidate
+        validator="minimum-maximum-length number-required uppercase-required"
+        infomessage="Try to create a password"
+      >
+        <label slot="label">Custom validation</label>
+      </anypoint-input>
+    </section>`;
+  }
+
   contentTemplate() {
     return html`
       <h2>Anypoint text field</h2>
-      ${this._demoTemplate()} ${this._introductionTemplate()}
-      ${this._usageTemplate()} ${this._typesTemplate()}
+      ${this._demoTemplate()}
+      ${this._introductionTemplate()}
+      ${this._usageTemplate()}
+      ${this._typesTemplate()}
+      ${this._customValidatorsTemplate()}
     `;
   }
 }

@@ -2,54 +2,6 @@ import { ControlStateMixin } from '@anypoint-web-components/anypoint-control-mix
 import { ValidatableMixin } from '@anypoint-web-components/validatable-mixin/validatable-mixin.js';
 let nextLabelID = 0;
 /**
- * A list of properties to be used to initialize UA's default properties.
- */
-const defaultProperties = [
-  'value',
-  'disabled',
-  'type',
-  'pattern',
-  'required',
-  'autofocus',
-  'inputMode',
-  'min',
-  'max',
-  'step',
-  'name',
-  'placeholder',
-  'readOnly',
-  'list',
-  'size',
-  'autocapitalize',
-  'results',
-  'accept',
-  'multiple'
-];
-/**
- * Cached map of default input's properties.
- */
-const defaultsMap = {};
-/**
- * Initializes UA's default properties of an input element.
- * LitElement sets `undefined` value if the default value is not initalized.
- * This may cause problems when interacting with the input. This ensures consistent
- * experience for the user.
- *
- * @param {Element} node Instance of `anypoint-input`
- */
-function initializeDefaultProperties(node) {
-  const keys = Object.keys(defaultsMap);
-  if (!keys.length) {
-    const i = document.createElement('input');
-    defaultProperties.forEach((prop) => {
-      defaultsMap[prop] = i[prop];
-      node[prop] = i[prop];
-    });
-  } else {
-    keys.forEach((prop) => node[prop] = defaultsMap[prop]);
-  }
-}
-/**
  * Use `AnypointInputMixin` to implement accessible inputs
  *
  * @mixinFunction
@@ -113,6 +65,7 @@ export const AnypointInputMixin = (base) => class extends ValidatableMixin(Contr
       this.requestUpdate('validationStates', old);
     }
     this._hasValidationMessage = !!(value && value.length);
+    this._validationStatesChanged(value);
     this.dispatchEvent(new CustomEvent('validationstates-changed', {
       detail: {
         value
@@ -365,8 +318,6 @@ export const AnypointInputMixin = (base) => class extends ValidatableMixin(Contr
        */
       multiple: { type: Boolean },
 
-      _ariaDescribedBy: { type: String },
-
       _ariaLabelledBy: { type: String },
 
       _inputId: { type: String },
@@ -386,8 +337,6 @@ export const AnypointInputMixin = (base) => class extends ValidatableMixin(Contr
     this.autoValidate = false;
     this.autocomplete = 'off';
     this.autocorrect = 'off';
-    initializeDefaultProperties(this);
-    this._ariaDescribedBy = '';
     this._ariaLabelledBy = '';
     this._inputId = '';
     this._previousValidInput = '';
@@ -396,7 +345,6 @@ export const AnypointInputMixin = (base) => class extends ValidatableMixin(Contr
     if (!this.hasAttribute('tabindex')) {
       this.setAttribute('tabindex', '0');
     }
-    this._updateAriaLabelledBy();
     /* istanbul ignore else */
     if (this.attachInternals) {
       this._internals = this.attachInternals();
@@ -438,16 +386,20 @@ export const AnypointInputMixin = (base) => class extends ValidatableMixin(Contr
   formStateRestoreCallback(state) {
     this.value = state;
   }
-  /**
-   * Returns false if the element is required and does not have a selection,
-   * and true otherwise.
-   *
-   * @return {boolean} true if `required` is false, or if `required` is true
-   * and the element has a valid selection.
-   */
-  _getValidity() {
-    return this.disabled || !this.required || (this.required && !!this.value);
+
+  firstUpdated() {
+    this._updateAriaLabelledBy();
   }
+  // /**
+  //  * Returns false if the element is required and does not have a selection,
+  //  * and true otherwise.
+  //  *
+  //  * @return {boolean} true if `required` is false, or if `required` is true
+  //  * and the element has a valid selection.
+  //  */
+  // _getValidity() {
+  //   return this.disabled || !this.required || (this.required && !!this.value);
+  // }
 
   checkValidity() {
     return this._getValidity() && ((this._internals && this._internals.checkValidity()) || true);
@@ -521,7 +473,18 @@ export const AnypointInputMixin = (base) => class extends ValidatableMixin(Contr
   }
 
   _updateAriaLabelledBy() {
-    const label = this.shadowRoot.querySelector('label');
+    const slot = this.shadowRoot.querySelector('slot[name="label"]');
+    const nodes = slot.assignedNodes();
+    if (!nodes.length) {
+      return;
+    }
+    let label;
+    for (let i = 0; i < nodes.length; i++) {
+      if (nodes[i].nodeType === Node.ELEMENT_NODE) {
+        label = nodes[i];
+        break;
+      }
+    }
     if (!label) {
       this._ariaLabelledBy = '';
       return;
@@ -530,7 +493,7 @@ export const AnypointInputMixin = (base) => class extends ValidatableMixin(Contr
     if (label.id) {
       labelledBy = label.id;
     } else {
-      labelledBy = 'paper-input-label-' + nextLabelID++;
+      labelledBy = 'anypoint-input-label-' + nextLabelID++;
       label.id = labelledBy;
     }
     this._ariaLabelledBy = labelledBy;
@@ -538,10 +501,6 @@ export const AnypointInputMixin = (base) => class extends ValidatableMixin(Contr
 
   _ariaLabelledByChanged(ariaLabelledBy) {
     this.inputElement.setAttribute('aria-labelledby', ariaLabelledBy);
-  }
-
-  _ariaDescribedByChanged(ariaDescribedBy) {
-    this.inputElement.setAttribute('aria-describedby', ariaDescribedBy);
   }
 
   _onChange(event) {
@@ -572,10 +531,12 @@ export const AnypointInputMixin = (base) => class extends ValidatableMixin(Contr
         value = this._previousValidInput;
       }
     }
-    this._previousValidInput = value;
-    this._patternAlreadyChecked = false;
+    if (e.target.type !== 'file') {
+      this._previousValidInput = value;
+      this._patternAlreadyChecked = false;
+      this.inputElement.value = value;
+    }
     this.value = value;
-    this.inputElement.value = value;
     if (this.autoValidate) {
       this.validate();
     }
@@ -693,9 +654,9 @@ export const AnypointInputMixin = (base) => class extends ValidatableMixin(Contr
       this.invalid = false;
       return true;
     }
-
+    const input = this.inputElement;
     // Use the nested input's native validity.
-    let valid = this.inputElement.checkValidity();
+    let valid = input.checkValidity();
 
     // Only do extra checking if the browser thought this was valid.
     if (valid) {
@@ -709,6 +670,19 @@ export const AnypointInputMixin = (base) => class extends ValidatableMixin(Contr
 
     this.invalid = !valid;
     return valid;
+  }
+
+  _validationStatesChanged(states) {
+    if (!states || !states.length) {
+      return;
+    }
+    const parts = [];
+    for (let i = 0, len = states.length; i < len; i++) {
+      if (!states[i].valid) {
+        parts[parts.length] = states[i].message;
+      }
+    }
+    this.invalidMessage = parts.join('. ');
   }
   /**
    * Fired when the input changes due to user interaction.

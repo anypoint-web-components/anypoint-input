@@ -1,4 +1,5 @@
 import { html, css, LitElement } from 'lit-element';
+import { ifDefined } from 'lit-html/directives/if-defined.js';
 import { AnypointInputMixin } from './anypoint-input-mixin.js';
 
 const floatTypes = ['date', 'color', 'datetime-local', 'file', 'month', 'time', 'week'];
@@ -28,6 +29,7 @@ export class AnypointInput extends AnypointInputMixin(LitElement) {
 
       position: relative;
       height: 100%;
+      width: 100%;
       background-color: var(--anypoint-input-background-color, #F5F5F5);
 
       border: 1px var(--anypoint-input-border-color, transparent) solid;
@@ -52,6 +54,7 @@ export class AnypointInput extends AnypointInputMixin(LitElement) {
     .input-label {
       position: relative;
       height: 100%;
+      flex: 1;
 
       display: inline-flex;
       flex-direction: row;
@@ -60,13 +63,12 @@ export class AnypointInput extends AnypointInputMixin(LitElement) {
 
     .label {
       position: absolute;
-      /* font-size: 1rem; */
       transition: transform 0.12s ease-in-out, max-width 0.12s ease-in-out;
       will-change: top;
       border-radius: 3px;
       margin: 0;
       padding: 0;
-      left: 8px;
+      left: 6px;
       white-space: nowrap;
       text-overflow: ellipsis;
       overflow: hidden;
@@ -74,7 +76,7 @@ export class AnypointInput extends AnypointInputMixin(LitElement) {
       will-change: transform;
       max-width: calc(100% - 16px);
       text-overflow: clip;
-      color: #616161;
+      color: var(--anypoint-input-label-color, #616161);
       transform-origin: left top;
     }
 
@@ -90,14 +92,20 @@ export class AnypointInput extends AnypointInputMixin(LitElement) {
       border: none;
       outline: none;
       background-color: transparent;
-      /* font-size: 1rem; */
       padding: 0 8px;
       box-sizing: border-box;
+      color: var(--anypoint-input-input-color, inherit);
+    }
+
+    .input-element[type="datetime-local"] {
+      /* For default 200px width this type expands outside the border */
+      width: calc(100% - 40px);
+      margin: 0 8px;
+      padding: 0;
     }
 
     .label.resting {
       top: calc(100% / 2 - 8px);
-      /* font-size: 1rem; */
     }
 
     .label.floating {
@@ -143,7 +151,7 @@ export class AnypointInput extends AnypointInputMixin(LitElement) {
     }
 
     .invalid.info-offset {
-      transform: translateY(-100%);
+      transform: translateY(-12px);
     }
 
     /* Outlined theme */
@@ -187,12 +195,10 @@ export class AnypointInput extends AnypointInputMixin(LitElement) {
       border-radius: 0;
       box-sizing: border-box;
     }
-    /*:host([legacy]:hover) .input-container,
-    :host([legacy]:active) .input-container*/
 
     :host([legacy][focused]) .input-container,
     :host([legacy]:hover) .input-container {
-      border-left-color: var(--anypoint-input--legacy-focus-border-color, #58595a);
+      border-left-color: var(--anypoint-input-legacy-focus-border-color, #58595a);
       border-right-color: var(--anypoint-input-legacy-focus-border-color, #58595a);
       background-color: var(--anypoint-input-legacy-focus-background-color, #f9fafb);
     }
@@ -212,6 +218,7 @@ export class AnypointInput extends AnypointInputMixin(LitElement) {
       top: -18px;
       transform: none;
       font-weight: 500;
+      color: var(--anypoint-input-legacy-label-color, #616161);
     }
 
     :host([legacy]) .label.with-prefix {
@@ -243,7 +250,7 @@ export class AnypointInput extends AnypointInputMixin(LitElement) {
       step,
       name,
       placeholder,
-      readonly,
+      readOnly,
       list,
       size,
       autocapitalize,
@@ -261,7 +268,6 @@ export class AnypointInput extends AnypointInputMixin(LitElement) {
     const isInavlidWithMessage = !!invalidMessage && invalid;
 
     const labelClass = 'label' + (_prefixed ? ' with-prefix' : '') + (labelFloating ? ' floating' : ' resting');
-
     return html`
     <div class="input-container">
       <div class="prefixes">
@@ -275,31 +281,30 @@ export class AnypointInput extends AnypointInputMixin(LitElement) {
         <input
           class="input-element"
           aria-labelledby="${_ariaLabelledBy}"
-          aria-describedby="${_ariaDescribedBy}"
           ?disabled="${disabled}"
-          type="${type}"
-          .pattern="${pattern}"
+          type="${ifDefined(type)}"
+          pattern="${ifDefined(pattern)}"
           ?required="${required}"
-          .autocomplete="${autocomplete}"
+          autocomplete="${ifDefined(autocomplete)}"
           ?autofocus="${autofocus}"
-          .inputMode="${inputMode}"
-          .minLength="${minLength}"
-          .manLength="${maxLength}"
-          .min="${min}"
-          .max="${max}"
-          .step="${step}"
-          name="${name}"
-          .placeholder="${placeholder}"
-          .readOnly="${readonly}"
-          list="${list}"
-          size="${size}"
-          .autocapitalize="${autocapitalize}"
-          .autocorrect="${autocorrect}"
+          inputmode="${ifDefined(inputMode)}"
+          minlength="${ifDefined(minLength ? minLength : undefined)}"
+          maxlength="${ifDefined(maxLength ? maxLength: undefined)}"
+          min="${ifDefined(min)}"
+          max="${ifDefined(max)}"
+          step="${ifDefined(step)}"
+          name="${ifDefined(name)}"
+          placeholder="${ifDefined(placeholder)}"
+          readonly="${ifDefined(readOnly)}"
+          list="${ifDefined(list)}"
+          size="${ifDefined(size)}"
+          autocapitalize="${ifDefined(autocapitalize)}"
+          autocorrect="${ifDefined(autocorrect)}"
           tabindex="-1"
-          .results="${results}"
-          .accept="${accept}"
+          results="${ifDefined(results)}"
+          accept="${ifDefined(accept)}"
           ?multiple="${multiple}"
-          value="${bindValue}"
+          .value="${bindValue}"
           @change="${this._onChange}"
           @input="${this._onInput}"
           @keypress="${this._onKeypress}">
