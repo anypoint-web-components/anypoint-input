@@ -163,19 +163,19 @@ export const AnypointInputMixin = (base) => class extends ValidatableMixin(Contr
     this._autofocusChanged(value);
   }
 
-  get errorMessage() {
-    return this._errorMessage;
+  get invalidMessage() {
+    return this._invalidMessage;
   }
 
-  set errorMessage(value) {
-    const old = this._errorMessage;
+  set invalidMessage(value) {
+    const old = this._invalidMessage;
     if (old === value) {
       return;
     }
-    this._errorMessage = value;
+    this._invalidMessage = value;
     /* istanbul ignore else */
     if (this.requestUpdate) {
-      this.requestUpdate('errorMessage', old);
+      this.requestUpdate('invalidMessage', old);
     }
     this._hasValidationMessage = this.invalid && !!value;
   }
@@ -236,7 +236,12 @@ export const AnypointInputMixin = (base) => class extends ValidatableMixin(Contr
       /**
        * The error message to display when the input is invalid.
        */
-      errorMessage: { type: String },
+      invalidMessage: { type: String },
+      /**
+       * Assistive text value.
+       * Rendered beflow the input.
+       */
+      infoMessage: { type: String },
       /**
        * After calling `validate()` this will be populated by latest result of the test for each
        * validator. Result item will contain following properties:
@@ -249,7 +254,7 @@ export const AnypointInputMixin = (base) => class extends ValidatableMixin(Contr
        */
       validationStates: { type: Array },
       /**
-       * Value computed from `errorMessage`, `invalid` and `validationStates`.
+       * Value computed from `invalidMessage`, `invalid` and `validationStates`.
        * True if the validation message should be displayed.
        */
       _hasValidationMessage: { type: Boolean },
@@ -365,8 +370,14 @@ export const AnypointInputMixin = (base) => class extends ValidatableMixin(Contr
       _ariaLabelledBy: { type: String },
 
       _inputId: { type: String },
-
-      outlined: { type: Boolean, reflect: true }
+      /**
+       * Enables outlined theme.
+       */
+      outlined: { type: Boolean, reflect: true },
+      /**
+       * Enables Anypoint legacy theme.
+       */
+      legacy: { type: Boolean, reflect: true }
     };
   }
 
@@ -447,7 +458,7 @@ export const AnypointInputMixin = (base) => class extends ValidatableMixin(Contr
    */
   _invalidChanged(value) {
     super._invalidChanged(value);
-    this._hasValidationMessage = value && !!this.errorMessage;
+    this._hasValidationMessage = value && !!this.invalidMessage;
   }
   /**
    * Forward focus to inputElement. Overriden from ControlStateMixin.
