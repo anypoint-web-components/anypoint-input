@@ -618,7 +618,7 @@ export const AnypointInputMixin = (base) => class extends ValidatableMixin(Contr
 
   _onKeypress(event) {
     const { type, preventInvalidInput } = this;
-    if (!preventInvalidInput && type !== 'number') {
+    if (!preventInvalidInput && ['number', 'file'].indexOf(type) !== -1) {
       return;
     }
     const regexp = this._patternRegExp;
@@ -626,7 +626,7 @@ export const AnypointInputMixin = (base) => class extends ValidatableMixin(Contr
       return;
     }
     // Handle special keys and backspace
-    if (event.metaKey || event.ctrlKey || event.altKey) {
+    if (event.metaKey || event.ctrlKey) {
       return;
     }
     // Check the pattern either here or in `_onInput`, but not in both.

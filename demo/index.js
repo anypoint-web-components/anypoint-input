@@ -27,13 +27,9 @@ class ComponentDemo extends ArcDemoPage {
     this._textFiledStateHandler = this._textFiledStateHandler.bind(this);
     this._textFiledLeadingHandler = this._textFiledLeadingHandler.bind(this);
     this._textFiledTrailingHandler = this._textFiledTrailingHandler.bind(this);
-    this._textFiledAssistiveHandler = this._textFiledAssistiveHandler.bind(
-      this
-    );
+    this._textFiledAssistiveHandler = this._textFiledAssistiveHandler.bind(this);
     this._textAreaStateHandler = this._textAreaStateHandler.bind(this);
-    this._textAreaAssistiveHandler = this._textAreaAssistiveHandler.bind(
-      this
-    );
+    this._textAreaAssistiveHandler = this._textAreaAssistiveHandler.bind(this);
     this._textFiledTypeHandler = this._textFiledTypeHandler.bind(this);
     this.textFieldStates = ['Normal', 'Outlined', 'Legacy'];
     this.textFieldLegacy = false;
@@ -643,6 +639,16 @@ class ComponentDemo extends ArcDemoPage {
         invalidmessage="Only letters are allowed"
       >
         <label slot="label">Pattern</label>
+      </anypoint-input>
+
+      <anypoint-input
+        title="Letters only via pattern"
+        type="text"
+        allowedpattern="[a-zA-Z]"
+        preventinvalidinput
+        infomessage="Prevents non-letter characters"
+      >
+        <label slot="label">Prevent invalid input</label>
       </anypoint-input>
 
       <h3>Custom validators</h3>
