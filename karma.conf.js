@@ -14,10 +14,6 @@ module.exports = (config) => {
         {
           pattern: config.grep ? config.grep : 'test/**/*.test.js',
           type: 'module'
-        },
-        {
-          pattern: require.resolve('web-animations-js/web-animations-next.min.js'),
-          type: 'js'
         }
       ],
 
