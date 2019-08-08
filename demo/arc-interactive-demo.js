@@ -219,7 +219,7 @@ export class ArcInteractiveDemo extends LitElement {
       <div class="config-title">
         <h3>Configuration</h3>
         <anypoint-icon-button @click="${this._toggleOptions}">
-          <button tabindex="1" title="Close panel" aria-label="Close configuration panel">
+          <button title="Close panel" aria-label="Close configuration panel">
             <iron-icon icon="close"></iron-icon>
           </button>
         </anypoint-icon-button>

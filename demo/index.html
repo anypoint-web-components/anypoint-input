@@ -2,11 +2,15 @@
 <html lang="en-GB">
 <head>
   <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1, user-scalable=yes">
+  <title>anypoint-input demo</title>
+
   <style>
-  /* code {
-    display: block;
-    margin: 8px;
-  } */
+  html {
+    font-size: 15px;
+    line-height: 20px;
+  }
 
   body.styled {
     --accent-color: rgb(33, 150, 243);
@@ -28,6 +32,7 @@
     --anypoint-input-legacy-focus-background-color: #3a3b3c;
     --anypoint-input-legacy-focus-border-color: #178bea;
     --error-color: #FF5722;
+    --anypoint-input-info-message-color: #fff;
   }
 
   body.styled.material {
@@ -71,11 +76,12 @@
 
   .documentation-section {
     max-width: 1400px;
-    padding: 60px 0px;
+    padding: 60px 20px;
     max-width: 1400px;
     width: 100%;
     border-bottom: 1px #e5e5e5 solid;
     margin: 0 auto;
+    box-sizing: border-box;
   }
 
   ul {
@@ -89,6 +95,10 @@
 
   anypoint-radio-button {
     display: block;
+  }
+
+  p {
+    margin: 1.40em 0;
   }
   </style>
 </head>

@@ -116,6 +116,19 @@ export const AnypointInputMixin = (base) => class extends ValidatableMixin(Contr
     this._autofocusChanged(value);
   }
 
+  get autoValidate() {
+    return this._autoValidate;
+  }
+
+  set autoValidate(value) {
+    const old = this._autoValidate;
+    if (old === value) {
+      return;
+    }
+    this._autoValidate = value;
+    this._autoValidateChanged(value);
+  }
+
   get invalidMessage() {
     return this._invalidMessage;
   }
@@ -132,6 +145,7 @@ export const AnypointInputMixin = (base) => class extends ValidatableMixin(Contr
     }
     this._hasValidationMessage = this.invalid && !!value;
   }
+
   get _patternRegExp() {
     let pattern;
     if (this.allowedPattern) {
@@ -149,7 +163,7 @@ export const AnypointInputMixin = (base) => class extends ValidatableMixin(Contr
    * Returns a reference to the input element.
    */
   get inputElement() {
-    return this.shadowRoot.querySelector('input');
+    return this.shadowRoot.querySelector('input,textarea');
   }
 
   static get properties() {
@@ -279,6 +293,10 @@ export const AnypointInputMixin = (base) => class extends ValidatableMixin(Contr
        * Binds this to the `<input>`'s `size` property.
        */
       size: { type: Number },
+      /**
+       * Binds this to the `<input>`'s `spellcheck` property.
+       */
+      spellcheck: { type: String },
       // Nonstandard attributes for binding if needed
       /**
        * Binds this to the `<input>`'s `autocapitalize` property.
@@ -319,8 +337,6 @@ export const AnypointInputMixin = (base) => class extends ValidatableMixin(Contr
       multiple: { type: Boolean },
 
       _ariaLabelledBy: { type: String },
-
-      _inputId: { type: String },
       /**
        * Enables outlined theme.
        */
@@ -338,9 +354,9 @@ export const AnypointInputMixin = (base) => class extends ValidatableMixin(Contr
     this.autocomplete = 'off';
     this.autocorrect = 'off';
     this._ariaLabelledBy = '';
-    this._inputId = '';
     this._previousValidInput = '';
     this._patternAlreadyChecked = false;
+    this._onKeydown = this._onKeydown.bind(this);
 
     if (!this.hasAttribute('tabindex')) {
       this.setAttribute('tabindex', '0');
@@ -355,12 +371,14 @@ export const AnypointInputMixin = (base) => class extends ValidatableMixin(Contr
     if (super.connectedCallback) {
       super.connectedCallback();
     }
+    this.addEventListener('keydown', this._onKeydown);
   }
 
   disconnectedCallback() {
     if (super.disconnectedCallback) {
       super.disconnectedCallback();
     }
+    this.removeEventListener('keydown', this._onKeydown);
   }
   /**
    * When form-associated custom elements are supported in the browser it
@@ -390,16 +408,6 @@ export const AnypointInputMixin = (base) => class extends ValidatableMixin(Contr
   firstUpdated() {
     this._updateAriaLabelledBy();
   }
-  // /**
-  //  * Returns false if the element is required and does not have a selection,
-  //  * and true otherwise.
-  //  *
-  //  * @return {boolean} true if `required` is false, or if `required` is true
-  //  * and the element has a valid selection.
-  //  */
-  // _getValidity() {
-  //   return this.disabled || !this.required || (this.required && !!this.value);
-  // }
 
   checkValidity() {
     return this._getValidity() && ((this._internals && this._internals.checkValidity()) || true);
@@ -411,6 +419,25 @@ export const AnypointInputMixin = (base) => class extends ValidatableMixin(Contr
   _invalidChanged(value) {
     super._invalidChanged(value);
     this._hasValidationMessage = value && !!this.invalidMessage;
+    this._ensureInvalidAlertSate(value);
+  }
+
+  _ensureInvalidAlertSate(invalid) {
+    if (!this.invalidMessage) {
+      return;
+    }
+    const node = this.shadowRoot.querySelector('p.invalid');
+    if (!node) {
+      return;
+    }
+    if (invalid) {
+      node.setAttribute('role', 'alert');
+    } else {
+      node.removeAttribute('role');
+    }
+    setTimeout(() => {
+      node.removeAttribute('role');
+    }, 1000);
   }
   /**
    * Forward focus to inputElement. Overriden from ControlStateMixin.
@@ -418,7 +445,6 @@ export const AnypointInputMixin = (base) => class extends ValidatableMixin(Contr
    */
   _focusBlurHandler(event) {
     super._focusBlurHandler(event);
-
     // Forward the focus to the nested input.
     if (this.focused && !this._shiftTabPressed) {
       this.inputElement.focus();
@@ -427,13 +453,25 @@ export const AnypointInputMixin = (base) => class extends ValidatableMixin(Contr
       this.validate();
     }
   }
+  /**
+   * Handler for the keydown event.
+   * @param {KeyboardEvent} e
+   */
+  _onKeydown(e) {
+    if (e.key === 'Tab' && e.shiftKey) {
+      this._onShiftTabDown(e);
+    }
+  }
 
   /**
    * Handler that is called when a shift+tab keypress is detected by the menu.
    *
-   * @param {CustomEvent} event A key combination event.
+   * @param {KeyboardEvent} e Event handled.
    */
-  _onShiftTabDown() {
+  _onShiftTabDown(e) {
+    if (e.target !== this) {
+      return;
+    }
     const oldTabIndex = this.getAttribute('tabindex');
     this._shiftTabPressed = true;
     this.setAttribute('tabindex', '-1');
@@ -442,12 +480,12 @@ export const AnypointInputMixin = (base) => class extends ValidatableMixin(Contr
       this._shiftTabPressed = false;
     }, 1);
   }
-
   /**
-   * If `autoValidate` is true, then validates the element.
+   * Calles when `autoValidate` changed
+   * @param {Boolean} value
    */
-  _handleAutoValidate() {
-    if (this.autoValidate) {
+  _autoValidateChanged(value) {
+    if (value) {
       this.validate();
     }
   }
@@ -459,13 +497,15 @@ export const AnypointInputMixin = (base) => class extends ValidatableMixin(Contr
     // Not all elements might have selection, and even if they have the
     // right properties, accessing them might throw an exception (like for
     // <input type=number>)
+    const input = this.inputElement;
     try {
-      const start = this.inputElement.selectionStart;
+      const start = input.selectionStart;
       this.value = newValue;
+      input.value = newValue;
       // The cursor automatically jumps to the end after re-setting the value,
       // so restore it to its original position.
-      this.inputElement.selectionStart = start;
-      this.inputElement.selectionEnd = start;
+      input.selectionStart = start;
+      input.selectionEnd = start;
     } catch (e) {
       // Just set the value and give up on the caret.
       this.value = newValue;
@@ -531,22 +571,33 @@ export const AnypointInputMixin = (base) => class extends ValidatableMixin(Contr
         value = this._previousValidInput;
       }
     }
-    if (e.target.type !== 'file') {
-      this._previousValidInput = value;
-      this._patternAlreadyChecked = false;
-      this.inputElement.value = value;
+    this._patternAlreadyChecked = false;
+    this._previousValidInput = value;
+    const isNotFile = e.target.type !== 'file';
+    if (isNotFile && e.target.value !== value) {
+      e.target.value = value;
     }
-    this.value = value;
+    if (isNotFile) {
+      this.value = value;
+    }
     if (this.autoValidate) {
       this.validate();
     }
   }
-
+  /**
+   * Checks validity for oattern, if any
+   * @param {?String} value The value to test for pattern
+   * @return {Boolean}
+   */
   _checkPatternValidity(value) {
+    if (!value) {
+      return true;
+    }
     const regexp = this._patternRegExp;
     if (!regexp) {
       return true;
     }
+    value = String(value);
     for (let i = 0; i < value.length; i++) {
       if (!regexp.test(value[i])) {
         return false;
@@ -566,7 +617,8 @@ export const AnypointInputMixin = (base) => class extends ValidatableMixin(Contr
   }
 
   _onKeypress(event) {
-    if (!this.preventInvalidInput && this.type !== 'number') {
+    const { type, preventInvalidInput } = this;
+    if (!preventInvalidInput && type !== 'number') {
       return;
     }
     const regexp = this._patternRegExp;
@@ -589,7 +641,7 @@ export const AnypointInputMixin = (base) => class extends ValidatableMixin(Contr
   _isPrintable(event) {
     // What a control/printable character is varies wildly based on the browser.
     // - most control characters (arrows, backspace) do not send a `keypress` event
-    //   in Chrome, but the *do* on Firefox
+    //   in Chrome, but they *do* on Firefox
     // - in Firefox, when they do send a `keypress` event, control chars have
     //   a charCode = 0, keyCode = xx (for ex. 40 for down arrow)
     // - printable characters always send a keypress event.
@@ -654,9 +706,7 @@ export const AnypointInputMixin = (base) => class extends ValidatableMixin(Contr
       this.invalid = false;
       return true;
     }
-    const input = this.inputElement;
-    // Use the nested input's native validity.
-    let valid = input.checkValidity();
+    let valid = this._checInputValidity();
 
     // Only do extra checking if the browser thought this was valid.
     if (valid) {
@@ -670,6 +720,55 @@ export const AnypointInputMixin = (base) => class extends ValidatableMixin(Contr
 
     this.invalid = !valid;
     return valid;
+  }
+  /**
+   * Because of the `value` property binding to the input element the value on
+   * input element changes programatically which renders input element's validation
+   * valiod even if it isn't. This function runs the steps as the regular input
+   * validation would, including input validation.
+   * @return {Boolean} True if the element is valid.
+   */
+  _checInputValidity() {
+    const { type, required } = this;
+    const value = this.value;
+    let valid = !required || (!!required && !!value);
+    if (!valid) {
+      return valid;
+    }
+    if (type === 'file') {
+      return true;
+    }
+    valid = this.inputElement.checkValidity();
+    if (!valid) {
+      return valid;
+    }
+    valid = this._checkPatternValidity(value);
+    if (!valid) {
+      return valid;
+    }
+    const strValue = String(value);
+    const { minLength, maxLength } = this;
+    if (minLength && strValue.length < minLength) {
+      return false;
+    }
+    if (maxLength && strValue.length > maxLength) {
+      return false;
+    }
+    if (type === 'number') {
+      const numValue = Number(value);
+      if (numValue !== numValue) {
+        // NaN
+        return false;
+      }
+      const { min, max } = this;
+      if (min && numValue < min) {
+        return false;
+      }
+      if (max && numValue > max) {
+        return false;
+      }
+    }
+    return true;
   }
 
   _validationStatesChanged(states) {

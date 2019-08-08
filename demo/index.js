@@ -9,6 +9,7 @@ import '@anypoint-web-components/anypoint-button/anypoint-button.js';
 import '@polymer/iron-icon/iron-icon.js';
 import '@polymer/iron-icons/iron-icons.js';
 import '../anypoint-input.js';
+import '../anypoint-textarea.js';
 import './arc-interactive-demo.js';
 import './minimum-maximum-length.js';
 import './number-required.js';
@@ -29,6 +30,10 @@ class ComponentDemo extends ArcDemoPage {
     this._textFiledAssistiveHandler = this._textFiledAssistiveHandler.bind(
       this
     );
+    this._textAreaStateHandler = this._textAreaStateHandler.bind(this);
+    this._textAreaAssistiveHandler = this._textAreaAssistiveHandler.bind(
+      this
+    );
     this._textFiledTypeHandler = this._textFiledTypeHandler.bind(this);
     this.textFieldStates = ['Normal', 'Outlined', 'Legacy'];
     this.textFieldLegacy = false;
@@ -46,7 +51,11 @@ class ComponentDemo extends ArcDemoPage {
       'textFiledTrailing',
       'textFieldError',
       'textFieldInfo',
-      'typeSelector'
+      'typeSelector',
+      'textAreaOutlined',
+      'textAreaLegacy',
+      'textAreaInfo',
+      'textAreaError'
     ].forEach((item) => {
       Object.defineProperty(this, item, {
         get() {
@@ -109,6 +118,24 @@ class ComponentDemo extends ArcDemoPage {
     }
   }
 
+  _textAreaStateHandler(e) {
+    const state = e.detail.value;
+    switch (state) {
+      case 0:
+        this.textAreaOutlined = false;
+        this.textAreaLegacy = false;
+        break;
+      case 1:
+        this.textAreaOutlined = true;
+        this.textAreaLegacy = false;
+        break;
+      case 2:
+        this.textAreaOutlined = false;
+        this.textAreaLegacy = true;
+        break;
+    }
+  }
+
   _textFiledLeadingHandler(e) {
     this.textFiledLeading = e.target.checked;
   }
@@ -131,6 +158,23 @@ class ComponentDemo extends ArcDemoPage {
     } else {
       this.textFieldError = false;
       this.textFieldInfo = false;
+    }
+  }
+
+  _textAreaAssistiveHandler(e) {
+    const { name, checked } = e.target;
+    if (!checked) {
+      return;
+    }
+    if (name === 'info') {
+      this.textAreaError = false;
+      this.textAreaInfo = true;
+    } else if (name === 'error') {
+      this.textAreaError = true;
+      this.textAreaInfo = false;
+    } else {
+      this.textAreaError = false;
+      this.textAreaInfo = false;
     }
   }
 
@@ -193,6 +237,7 @@ class ComponentDemo extends ArcDemoPage {
         >
           <section slot="content">
             <anypoint-input
+              name="main"
               title="Text field"
               ?outlined="${textFieldOutlined}"
               ?legacy="${textFieldLegacy}"
@@ -331,9 +376,9 @@ class ComponentDemo extends ArcDemoPage {
           dollars.
         </p>
 
-        <anypoint-input>
+        <anypoint-input name="ex1">
           <label slot="label">Amount to transfer</label>
-          <span slot="prefix">$</span>
+          <span slot="prefix" aria-label="Value in US dollars">$</span>
         </anypoint-input>
 
         <p>
@@ -342,9 +387,9 @@ class ComponentDemo extends ArcDemoPage {
           <code>.00</code> to suggest that the input is an integer.
         </p>
 
-        <anypoint-input>
+        <anypoint-input name="ex2">
           <label slot="label">Amount to transfer</label>
-          <span slot="suffix">.00</span>
+          <span slot="suffix" aria-label="Use integers">.00</span>
         </anypoint-input>
 
         <p>
@@ -354,14 +399,16 @@ class ComponentDemo extends ArcDemoPage {
           has to have clear meaning to the user.
         </p>
 
-        <anypoint-input type="password">
+        <anypoint-input type="password" name="ex3">
           <label slot="label">Password</label>
-          <anypoint-button slot="suffix" onclick="this.parentNode.type='text'"
+          <anypoint-button slot="suffix"
+            aria-label="Actibate the button to show the password"
+            onclick="this.parentNode.type='text'"
             >Show</anypoint-button
           >
         </anypoint-input>
 
-        <anypoint-input type="email" outlined>
+        <anypoint-input type="email" name="ex4">
           <label slot="label">Email</label>
           <div slot="suffix">@mulesoft.com</div>
         </anypoint-input>
@@ -381,7 +428,7 @@ class ComponentDemo extends ArcDemoPage {
           the user about the reason of collecting the input.
         </p>
 
-        <anypoint-input infomessage="Used to confirm your order." type="email">
+        <anypoint-input infomessage="Used to confirm your order." type="email" name="ex5">
           <label slot="label">Email</label>
         </anypoint-input>
 
@@ -401,6 +448,7 @@ class ComponentDemo extends ArcDemoPage {
         <anypoint-input
           invalidmessage="Only letters are allowed"
           type="text"
+          name="ex6"
           invalid
         >
           <label slot="label">Username</label>
@@ -411,6 +459,14 @@ class ComponentDemo extends ArcDemoPage {
           <code>allowedPattern</code>
           in situations like the one above. However, don't be too restrictive
           when using this properties.
+        </p>
+
+        <h3>Positioning</h3>
+        <p>Each input element has 12 pixels top and bottom margin and 8 pixels left and right margin.</p>
+        <p>
+          The spacing allows to put multiple controls inside a form without styling it for
+          visibility. This can be changed via CSS styling, but please, consider inpact of this action
+          to other elements which are positioned in the same way.
         </p>
       </section>
     `;
@@ -443,6 +499,7 @@ class ComponentDemo extends ArcDemoPage {
             ?outlined="${textFieldOutlined}"
             ?legacy="${textFieldLegacy}"
             .type="${typeSelector}"
+            name="ex7"
           >
             <label slot="label">Text field</label>
           </anypoint-input>
@@ -568,10 +625,21 @@ class ComponentDemo extends ArcDemoPage {
       </anypoint-input>
 
       <anypoint-input
+        title="Min and max number"
+        type="number"
+        autovalidate
+        min="10"
+        max="20"
+        invalidmessage="Only number in range 10 - 20"
+      >
+        <label slot="label">Min and max number</label>
+      </anypoint-input>
+
+      <anypoint-input
         title="Letters only via pattern"
         type="text"
         autovalidate
-        pattern="[a-zA-Z]"
+        pattern="[a-zA-Z]*"
         invalidmessage="Only letters are allowed"
       >
         <label slot="label">Pattern</label>
@@ -600,6 +668,81 @@ class ComponentDemo extends ArcDemoPage {
     </section>`;
   }
 
+  _texareaTemplate() {
+    const {
+      textFieldStates,
+      darkThemeActive,
+      textAreaInfo,
+      textAreaOutlined,
+      textAreaLegacy,
+      textAreaError
+    } = this;
+    const infoMessage = textAreaInfo ? 'Assistive text label' : undefined;
+    return html`<section class="documentation-section">
+      <h3>Text area field</h3>
+      <p>
+        Text area field focuses user attention on entering more complex text input.
+      </p>
+
+      <p>
+        It does not accept prefixes and suffixes as the user needs an space to
+        imput the value.
+      </p>
+
+      <arc-interactive-demo
+        .states="${textFieldStates}"
+        @state-chanegd="${this._textAreaStateHandler}"
+        ?dark="${darkThemeActive}"
+      >
+        <section slot="content">
+          <anypoint-textarea
+            name="main"
+            title="Text field"
+            ?outlined="${textAreaOutlined}"
+            ?legacy="${textAreaLegacy}"
+            .infoMessage="${infoMessage}"
+            invalidmessage="This value is invalid"
+            ?invalid="${textAreaError}"
+          >
+            <label slot="label">Label</label>
+          </anypoint-textarea>
+        </section>
+
+        <label slot="options" id="mainAssistiveLabel">Assistive text</label>
+        <anypoint-radio-group
+          slot="options"
+          selectable="anypoint-radio-button"
+          aria-labelledby="mainAssistiveLabel"
+        >
+          <anypoint-radio-button
+            @change="${this._textAreaAssistiveHandler}"
+            checked
+            name="none"
+            >None</anypoint-radio-button
+          >
+          <anypoint-radio-button
+            @change="${this._textAreaAssistiveHandler}"
+            name="info"
+            >Info message</anypoint-radio-button
+          >
+          <anypoint-radio-button
+            @change="${this._textAreaAssistiveHandler}"
+            name="error"
+            >Error text</anypoint-radio-button
+          >
+        </anypoint-radio-group>
+      </arc-interactive-demo>
+      <h3>Positioning</h3>
+      <p>
+        Text area field should be the only element in a row.
+        The user may choose to resize the text area using native resize control.
+        You should not make that decission on behalf of the user.
+        Additional UI widgets placed aside of the text area may obscure the view
+        and make providing input harder to some users.
+      </p>
+      </section>`;
+  }
+
   contentTemplate() {
     return html`
       <h2>Anypoint text field</h2>
@@ -608,6 +751,8 @@ class ComponentDemo extends ArcDemoPage {
       ${this._usageTemplate()}
       ${this._typesTemplate()}
       ${this._customValidatorsTemplate()}
+
+      ${this._texareaTemplate()}
     `;
   }
 }
