@@ -8,9 +8,9 @@ import '@anypoint-web-components/anypoint-styles/colors.js';
 import '@anypoint-web-components/anypoint-button/anypoint-button.js';
 import '@polymer/iron-icon/iron-icon.js';
 import '@polymer/iron-icons/iron-icons.js';
+import '@advanced-rest-client/arc-demo-helper/arc-interactive-demo.js';
 import '../anypoint-input.js';
 import '../anypoint-textarea.js';
-import './arc-interactive-demo.js';
 import './minimum-maximum-length.js';
 import './number-required.js';
 import './uppercase-required.js';
@@ -20,25 +20,7 @@ import './uppercase-required.js';
 class ComponentDemo extends ArcDemoPage {
   constructor() {
     super();
-    this._componentName = 'anypoint-input';
-    this.initObservableProperties();
-    this._readonlyHandler = this._readonlyHandler.bind(this);
-    this._valueHandler = this._valueHandler.bind(this);
-    this._textFiledStateHandler = this._textFiledStateHandler.bind(this);
-    this._textFiledLeadingHandler = this._textFiledLeadingHandler.bind(this);
-    this._textFiledTrailingHandler = this._textFiledTrailingHandler.bind(this);
-    this._textFiledAssistiveHandler = this._textFiledAssistiveHandler.bind(this);
-    this._textAreaStateHandler = this._textAreaStateHandler.bind(this);
-    this._textAreaAssistiveHandler = this._textAreaAssistiveHandler.bind(this);
-    this._textFiledTypeHandler = this._textFiledTypeHandler.bind(this);
-    this.textFieldStates = ['Normal', 'Outlined', 'Legacy'];
-    this.textFieldLegacy = false;
-    this.textFieldOutlined = false;
-    this.typeSelector = 'text';
-  }
-
-  initObservableProperties() {
-    [
+    this.initObservableProperties([
       'readonly',
       'formData',
       'textFieldOutlined',
@@ -52,18 +34,23 @@ class ComponentDemo extends ArcDemoPage {
       'textAreaLegacy',
       'textAreaInfo',
       'textAreaError'
-    ].forEach((item) => {
-      Object.defineProperty(this, item, {
-        get() {
-          return this['_' + item];
-        },
-        set(newValue) {
-          this._setObservableProperty(item, newValue);
-        },
-        enumerable: true,
-        configurable: true
-      });
-    });
+    ]);
+    this._readonlyHandler = this._readonlyHandler.bind(this);
+    this._valueHandler = this._valueHandler.bind(this);
+    this._textFiledStateHandler = this._textFiledStateHandler.bind(this);
+    this._textFiledLeadingHandler = this._textFiledLeadingHandler.bind(this);
+    this._textFiledTrailingHandler = this._textFiledTrailingHandler.bind(this);
+    this._textFiledAssistiveHandler = this._textFiledAssistiveHandler.bind(this);
+    this._textAreaStateHandler = this._textAreaStateHandler.bind(this);
+    this._textAreaAssistiveHandler = this._textAreaAssistiveHandler.bind(this);
+    this._textFiledTypeHandler = this._textFiledTypeHandler.bind(this);
+
+
+    this._componentName = 'anypoint-input';
+    this.textFieldStates = ['Normal', 'Outlined', 'Legacy'];
+    this.textFieldLegacy = false;
+    this.textFieldOutlined = false;
+    this.typeSelector = 'text';
   }
 
   _readonlyHandler(e) {
@@ -184,21 +171,7 @@ class ComponentDemo extends ArcDemoPage {
 
   _headerControlsTemplate() {
     return html`
-      <div class="settings-action-item">
-        <paper-toggle-button @checked-changed="${this._darkThemeHandler}"
-          >Toggle dark theme</paper-toggle-button
-        >
-      </div>
-      <div class="settings-action-item">
-        <paper-toggle-button @checked-changed="${this._mdHandler}"
-          >Toggle material design</paper-toggle-button
-        >
-      </div>
-      <div class="settings-action-item">
-        <paper-toggle-button @checked-changed="${this._narrowHandler}"
-          >Toggle narrow attribute</paper-toggle-button
-        >
-      </div>
+      ${super._headerControlsTemplate()}
       <div class="settings-action-item">
         <paper-toggle-button checked @checked-changed="${this._stylesHandler}"
           >Toggle styles</paper-toggle-button
@@ -305,7 +278,7 @@ class ComponentDemo extends ArcDemoPage {
         </p>
         <p>
           Anypoint web components are set of components that allows to build
-          Anypoint enabled UI in open source projects
+          Anypoint enabled UI in open source projects.
         </p>
         <p>
           Text field allows the user to enter a value into the UI. It can appear
@@ -367,7 +340,7 @@ class ComponentDemo extends ArcDemoPage {
 
         <p>
           When it make sense a prefix or suffix can be used to suggest right
-          input. Fox example in cash amounf field input a prefix could be
+          input. Fox example in cash amount field input a prefix could be
           <code>$</code> sign which suggest the value is interpreted in US
           dollars.
         </p>
@@ -412,7 +385,7 @@ class ComponentDemo extends ArcDemoPage {
         <h3>Assistive text</h3>
 
         <p>
-          Assistive text allows the user to better understand what input is
+          Assistive text allows the user to better understand what kind of input is
           required. It can be an info message or invalid message when invalid
           input has been detected.
         </p>
@@ -438,7 +411,7 @@ class ComponentDemo extends ArcDemoPage {
         <p>
           Error message should help the user recover from the error state. Use
           clear message with simple instructions of how to fix the problem, for
-          example <code>Only letters are allowed.</code>.
+          example <code>Only letters are allowed.</code>
         </p>
 
         <anypoint-input

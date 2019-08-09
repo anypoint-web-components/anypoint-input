@@ -153,7 +153,7 @@ export default css`
 
 :host([outlined]) .label.floating {
   background-color: var(--anypoint-input-label-background-color, white);
-  transform: translateY(-137%) scale(0.75);
+  transform: translateY(-120%) scale(0.75);
   max-width: 120%;
   padding: 0 2px;
 }

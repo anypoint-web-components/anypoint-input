@@ -32,6 +32,36 @@ export class AnypointInput extends AnypointInputMixin(LitElement) {
     return this.querySelector('[slot=prefix]');
   }
 
+  get _labelClass() {
+    const labelFloating = !!this.value || floatTypes.indexOf(this.type) !== -1 || !!this.placeholder || this.focused;
+    let klas = 'label';
+    if (this._prefixed) {
+      klas += ' with-prefix';
+    }
+    klas += labelFloating ? ' floating' : ' resting';
+    return klas;
+  }
+
+  get _infoAddonClass() {
+    let klas = 'info';
+    const isInavlidWithMessage = !!this.invalidMessage && this.invalid;
+    if (isInavlidWithMessage) {
+      klas += ' hidden';
+    }
+    return klas;
+  }
+
+  get _errorAddonClass() {
+    let klas = 'invalid';
+    if (!this.invalid) {
+      klas += ' hidden';
+    }
+    if (this.infoMessage) {
+      klas += ' info-offset';
+    }
+    return klas;
+  }
+
   render() {
     const {
       value,
@@ -60,15 +90,12 @@ export class AnypointInput extends AnypointInputMixin(LitElement) {
       multiple,
       invalidMessage,
       infoMessage,
-      invalid,
       spellcheck,
-      _prefixed
+      _labelClass,
+      _errorAddonClass,
+      _infoAddonClass
     } = this;
-    const labelFloating = !!value || floatTypes.indexOf(type) !== -1 || !!placeholder || this.focused;
     const bindValue = value || '';
-    const isInavlidWithMessage = !!invalidMessage && invalid;
-
-    const labelClass = 'label' + (_prefixed ? ' with-prefix' : '') + (labelFloating ? ' floating' : ' resting');
     return html`
     <div class="input-container">
       <div class="prefixes">
@@ -76,7 +103,7 @@ export class AnypointInput extends AnypointInputMixin(LitElement) {
       </div>
 
       <div class="input-label">
-        <div class="${labelClass}" id="${_ariaLabelledBy}">
+        <div class="${_labelClass}" id="${_ariaLabelledBy}">
           <slot name="label"></slot>
         </div>
         <input
@@ -108,19 +135,16 @@ export class AnypointInput extends AnypointInputMixin(LitElement) {
           spellcheck="${ifDefined(spellcheck)}"
           .value="${bindValue}"
           @change="${this._onChange}"
-          @input="${this._onInput}"
-          @keypress="${this._onKeypress}"/>
+          @input="${this._onInput}"/>
       </div>
       <div class="suffixes">
         <slot name="suffix"></slot>
       </div>
     </div>
     <div class="assistive-info">
-    ${infoMessage ? html`<p class="info${isInavlidWithMessage ? ' hidden' : ''}">${this.infoMessage}</p>` : undefined}
+    ${infoMessage ? html`<p class="${_infoAddonClass}">${this.infoMessage}</p>` : undefined}
     ${invalidMessage ?
-      html`<p
-        class="invalid${invalid ? '' : ' hidden'}${infoMessage ? ' info-offset' : ''}"
-        >${invalidMessage}</p>` :
+      html`<p class="${_errorAddonClass}">${invalidMessage}</p>` :
       undefined}
     </div>
     `;

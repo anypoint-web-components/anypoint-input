@@ -7,18 +7,7 @@
   <title>anypoint-input demo</title>
 
   <style>
-  html {
-    font-size: 15px;
-    line-height: 20px;
-  }
-
-  body.styled {
-    --accent-color: rgb(33, 150, 243);
-    color: #5f6368;
-  }
-
   body.styled.dark {
-    --primary-background-color: #424242;
     --secondary-text-color: #616161;
     --anypoint-input-legacy-label-color: #F5F5F5;
     --arc-interactive-demo-options-color: #F5F5F5;
@@ -31,7 +20,6 @@
     --anypoint-input-label-background-color: rgb(66, 66, 66);
     --anypoint-input-legacy-focus-background-color: #3a3b3c;
     --anypoint-input-legacy-focus-border-color: #178bea;
-    --error-color: #FF5722;
     --anypoint-input-info-message-color: #fff;
   }
 
@@ -43,49 +31,8 @@
     --secondary-text-color: #9E9E9E;
   }
 
-  h2 {
-    font-size: 60px;
-    color: #202124;
-    font-weight: 400;
-    line-height: 1.2;
-  }
-
-  h3 {
-    font-size: 24px;
-    color: #202124;
-    font-weight: 400;
-    line-height: 1.2;
-  }
-
-  h4 {
-    font-size: 20px;
-    font-weight: 400;
-    line-height: 1.2;
-    margin: 0 0 8px;
-  }
-
-  body.styled.dark h2,
-  body.styled.dark h3,
-  body.styled.dark h4 {
-    color: #F5F5F5;
-  }
-
   .centered[role="main"] {
     max-width: 1400px;
-  }
-
-  .documentation-section {
-    max-width: 1400px;
-    padding: 60px 20px;
-    max-width: 1400px;
-    width: 100%;
-    border-bottom: 1px #e5e5e5 solid;
-    margin: 0 auto;
-    box-sizing: border-box;
-  }
-
-  ul {
-    padding-left: 20px;
   }
 
   anypoint-input[infomessage],
@@ -96,24 +43,10 @@
   anypoint-radio-button {
     display: block;
   }
-
-  p {
-    margin: 1.40em 0;
-  }
   </style>
 </head>
 <body>
   <div id="demo"></div>
   <script type="module" src="index.js"></script>
-
-  <script>
-    function validate() {
-      document.getElementById('inputForValidation').validate();
-    }
-
-    function clearInput() {
-      document.getElementById('inputWithButton').value = '';
-    }
-  </script>
 </body>
 </html>

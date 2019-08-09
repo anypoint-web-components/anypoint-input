@@ -2,7 +2,6 @@ import { html, css, LitElement } from 'lit-element';
 import { ifDefined } from 'lit-html/directives/if-defined.js';
 import { AnypointInputMixin } from './anypoint-input-mixin.js';
 import commonStyles from './anypoint-input-styles.js';
-const floatTypes = ['date', 'color', 'datetime-local', 'file', 'month', 'time', 'week'];
 
 export class AnypointTeaxtarea extends AnypointInputMixin(LitElement) {
   static get styles() {
@@ -79,8 +78,31 @@ export class AnypointTeaxtarea extends AnypointInputMixin(LitElement) {
     ];
   }
 
-  get _prefixed() {
-    return this.querySelector('[slot=prefix]');
+  get _labelClass() {
+    const labelFloating = !!this.value || !!this.placeholder || this.focused;
+    let klas = 'label';
+    klas += labelFloating ? ' floating' : ' resting';
+    return klas;
+  }
+
+  get _infoAddonClass() {
+    let klas = 'info';
+    const isInavlidWithMessage = !!this.invalidMessage && this.invalid;
+    if (isInavlidWithMessage) {
+      klas += ' hidden';
+    }
+    return klas;
+  }
+
+  get _errorAddonClass() {
+    let klas = 'invalid';
+    if (!this.invalid) {
+      klas += ' hidden';
+    }
+    if (this.infoMessage) {
+      klas += ' info-offset';
+    }
+    return klas;
   }
 
   static get properties() {
@@ -105,7 +127,6 @@ export class AnypointTeaxtarea extends AnypointInputMixin(LitElement) {
       value,
       _ariaLabelledBy,
       disabled,
-      type,
       cols,
       rows,
       spellcheck,
@@ -123,18 +144,16 @@ export class AnypointTeaxtarea extends AnypointInputMixin(LitElement) {
       autocorrect,
       invalidMessage,
       infoMessage,
-      invalid,
-      _prefixed
+      _labelClass,
+      _errorAddonClass,
+      _infoAddonClass
     } = this;
-    const labelFloating = !!value || floatTypes.indexOf(type) !== -1 || !!placeholder || this.focused;
     const bindValue = value || '';
-    const isInavlidWithMessage = !!invalidMessage && invalid;
 
-    const labelClass = 'label' + (_prefixed ? ' with-prefix' : '') + (labelFloating ? ' floating' : ' resting');
     return html`
     <div class="input-container">
       <div class="textarea input-label">
-        <div class="${labelClass}" id="${_ariaLabelledBy}">
+        <div class="${_labelClass}" id="${_ariaLabelledBy}">
           <slot name="label"></slot>
         </div>
         <textarea
@@ -164,11 +183,9 @@ export class AnypointTeaxtarea extends AnypointInputMixin(LitElement) {
       </div>
     </div>
     <div class="assistive-info">
-    ${infoMessage ? html`<p class="info${isInavlidWithMessage ? ' hidden' : ''}">${this.infoMessage}</p>` : undefined}
+    ${infoMessage ? html`<p class="${_infoAddonClass}">${this.infoMessage}</p>` : undefined}
     ${invalidMessage ?
-      html`<p
-        class="invalid${invalid ? '' : ' hidden'}${infoMessage ? ' info-offset' : ''}"
-        >${invalidMessage}</p>` :
+      html`<p class="${_errorAddonClass}">${invalidMessage}</p>` :
       undefined}
     </div>
     `;
