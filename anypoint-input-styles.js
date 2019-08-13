@@ -89,6 +89,7 @@ export default css`
   padding: 0 8px;
   box-sizing: border-box;
   color: var(--anypoint-input-input-color, inherit);
+  font-size: 1rem;
 }
 
 .label.resting {
