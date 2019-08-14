@@ -66,7 +66,7 @@ export default css`
   border-radius: 3px;
   margin: 0;
   padding: 0;
-  left: 6px;
+  left: 8px;
   white-space: nowrap;
   text-overflow: ellipsis;
   overflow: hidden;
@@ -158,9 +158,10 @@ export default css`
 
 :host([outlined]) .label.floating {
   background-color: var(--anypoint-input-label-background-color, white);
-  transform: translateY(-120%) scale(0.75);
+  transform: translateY(-125%) scale(0.75);
   max-width: 120%;
   padding: 0 2px;
+  left: 6px;
 }
 
 :host([outlined]) .label.floating.with-prefix {
