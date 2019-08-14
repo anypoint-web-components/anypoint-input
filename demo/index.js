@@ -35,11 +35,14 @@ class ComponentDemo extends ArcDemoPage {
       'textAreaLegacy',
       'textAreaInfo',
       'textAreaError',
-      'textAreaNoLabelFloat'
+      'textAreaNoLabelFloat',
+      'typeFieldOutlined',
+      'typeFieldLegacy'
     ]);
     this._readonlyHandler = this._readonlyHandler.bind(this);
     this._valueHandler = this._valueHandler.bind(this);
     this._textFiledStateHandler = this._textFiledStateHandler.bind(this);
+    this._typesFiledStateHandler = this._typesFiledStateHandler.bind(this);
     this._textFiledAssistiveHandler = this._textFiledAssistiveHandler.bind(this);
     this._textAreaStateHandler = this._textAreaStateHandler.bind(this);
     this._textAreaAssistiveHandler = this._textAreaAssistiveHandler.bind(this);
@@ -102,6 +105,24 @@ class ComponentDemo extends ArcDemoPage {
       case 2:
         this.textFieldOutlined = false;
         this.textFieldLegacy = true;
+        break;
+    }
+  }
+
+  _typesFiledStateHandler(e) {
+    const state = e.detail.value;
+    switch (state) {
+      case 0:
+        this.typeFieldOutlined = false;
+        this.typeFieldLegacy = false;
+        break;
+      case 1:
+        this.typeFieldOutlined = true;
+        this.typeFieldLegacy = false;
+        break;
+      case 2:
+        this.typeFieldOutlined = false;
+        this.typeFieldLegacy = true;
         break;
     }
   }
@@ -452,8 +473,8 @@ class ComponentDemo extends ArcDemoPage {
   _typesTemplate() {
     const {
       textFieldStates,
-      textFieldOutlined,
-      textFieldLegacy,
+      typeFieldOutlined,
+      typeFieldLegacy,
       darkThemeActive,
       typeSelector
     } = this;
@@ -467,14 +488,14 @@ class ComponentDemo extends ArcDemoPage {
         <arc-interactive-demo
           opened
           .states="${textFieldStates}"
-          @state-chanegd="${this._textFiledStateHandler}"
+          @state-chanegd="${this._typesFiledStateHandler}"
           ?dark="${darkThemeActive}"
         >
           <anypoint-input
             slot="content"
             title="Text field"
-            ?outlined="${textFieldOutlined}"
-            ?legacy="${textFieldLegacy}"
+            ?outlined="${typeFieldOutlined}"
+            ?legacy="${typeFieldLegacy}"
             .type="${typeSelector}"
             name="ex7"
           >
