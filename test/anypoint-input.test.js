@@ -246,7 +246,7 @@ describe('<anypoint-input>', function() {
       element.invalid = true;
       assert.equal(
         element._infoAddonClass,
-        'info hidden'
+        'info label-hidden'
       );
     });
   });
@@ -260,7 +260,7 @@ describe('<anypoint-input>', function() {
     it('returns default class', () => {
       assert.equal(
         element._errorAddonClass,
-        'invalid hidden'
+        'invalid label-hidden'
       );
     });
 
@@ -268,7 +268,7 @@ describe('<anypoint-input>', function() {
       element.infoMessage = 'test';
       assert.equal(
         element._errorAddonClass,
-        'invalid hidden info-offset'
+        'invalid label-hidden info-offset'
       );
     });
 
@@ -1024,7 +1024,7 @@ describe('<anypoint-input>', function() {
 
     it('info message is visible', () => {
       const node = element.shadowRoot.querySelector('p.info');
-      assert.isFalse(node.classList.contains('hidden'));
+      assert.isFalse(node.classList.contains('label-hidden'));
     });
 
     it('hiddes info message when invalid', async () => {
@@ -1032,7 +1032,7 @@ describe('<anypoint-input>', function() {
       element.invalidMessage = 'test msg';
       await nextFrame();
       const node = element.shadowRoot.querySelector('p.info');
-      assert.isTrue(node.classList.contains('hidden'));
+      assert.isTrue(node.classList.contains('label-hidden'));
     });
   });
 
@@ -1053,12 +1053,12 @@ describe('<anypoint-input>', function() {
       element.invalid = true;
       await nextFrame();
       const node = element.shadowRoot.querySelector('p.invalid');
-      assert.isFalse(node.classList.contains('hidden'));
+      assert.isFalse(node.classList.contains('label-hidden'));
     });
 
     it('hiddes info message when not invalid', async () => {
       const node = element.shadowRoot.querySelector('p.invalid');
-      assert.isTrue(node.classList.contains('hidden'));
+      assert.isTrue(node.classList.contains('label-hidden'));
     });
   });
 
