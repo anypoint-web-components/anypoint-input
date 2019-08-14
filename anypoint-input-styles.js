@@ -16,6 +16,10 @@ export default css`
   margin: 12px 8px;
 }
 
+.hidden {
+  display: none !important;
+}
+
 .input-container {
   display: inline-flex;
   flex-direction: row;
@@ -205,5 +209,10 @@ export default css`
 
 :host([legacy]) .label.with-prefix {
   left: -34px;
+}
+
+/* No label float */
+:host([nolabelfloat]) .input-element {
+  top: 0;
 }
 `;

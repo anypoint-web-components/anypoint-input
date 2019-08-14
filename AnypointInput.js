@@ -24,6 +24,10 @@ export class AnypointInput extends AnypointInputMixin(LitElement) {
       .suffixes ::slotted(*) {
         margin: 0 8px 0 0;
       }
+
+      :host([nolabelfloat]) {
+        height: 40px;
+      }
       `
     ];
   }
@@ -38,7 +42,11 @@ export class AnypointInput extends AnypointInputMixin(LitElement) {
     if (this._prefixed) {
       klas += ' with-prefix';
     }
-    klas += labelFloating ? ' floating' : ' resting';
+    if (labelFloating && this.noLabelFloat) {
+      klas += ' hidden';
+    } else {
+      klas += labelFloating ? ' floating' : ' resting';
+    }
     return klas;
   }
 

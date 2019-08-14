@@ -42,6 +42,12 @@ describe('<anypoint-input>', function() {
     </anypoint-input>`);
   }
 
+  async function noLabelFloatFixture() {
+    return await fixture(`<anypoint-input nolabelfloat>
+      <label slot="label">Label</label>
+    </anypoint-input>`);
+  }
+
   const hasFormAssociatedElements = 'attachInternals' in document.createElement('span');
 
   describe('setters and getters', function() {
@@ -1053,6 +1059,27 @@ describe('<anypoint-input>', function() {
     it('hiddes info message when not invalid', async () => {
       const node = element.shadowRoot.querySelector('p.invalid');
       assert.isTrue(node.classList.contains('hidden'));
+    });
+  });
+
+  describe('noLabelFloat', () => {
+    let element;
+    beforeEach(async () => {
+      element = await noLabelFloatFixture();
+    });
+
+    it('renders label by default', () => {
+      const label = element.shadowRoot.querySelector('.label');
+      const display = getComputedStyle(label).display;
+      assert.notEqual(display, 'none');
+    });
+
+    it('hides label when has value', async () => {
+      element.value = 'test';
+      await nextFrame();
+      const label = element.shadowRoot.querySelector('.label');
+      const display = getComputedStyle(label).display;
+      assert.equal(display, 'none');
     });
   });
 

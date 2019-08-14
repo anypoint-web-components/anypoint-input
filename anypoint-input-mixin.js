@@ -350,7 +350,15 @@ export const AnypointInputMixin = (base) => class extends ValidatableMixin(Contr
       /**
        * Enables Anypoint legacy theme.
        */
-      legacy: { type: Boolean, reflect: true }
+      legacy: { type: Boolean, reflect: true },
+      /**
+       * When set, it reduces height of the button and hides
+       * the label when the value is provided.
+       *
+       * Use it carefully as user should be able to recognize the input
+       * when the value is predefined.
+       */
+      noLabelFloat: { type: Boolean, reflect: true }
     };
   }
 

@@ -74,6 +74,15 @@ export class AnypointTeaxtarea extends AnypointInputMixin(LitElement) {
         :host([legacy]) .textarea .input-element {
           margin: 0;
         }
+
+        :host([nolabelfloat]) {
+          height: auto;
+          min-height: 72px;
+        }
+
+        :host([nolabelfloat]) .textarea .input-element {
+          margin: 8px 0;
+        }
       `
     ];
   }
@@ -81,7 +90,13 @@ export class AnypointTeaxtarea extends AnypointInputMixin(LitElement) {
   get _labelClass() {
     const labelFloating = !!this.value || !!this.placeholder || this.focused;
     let klas = 'label';
-    klas += labelFloating ? ' floating' : ' resting';
+
+    if (labelFloating && this.noLabelFloat) {
+      klas += ' hidden';
+    } else {
+      klas += labelFloating ? ' floating' : ' resting';
+    }
+
     return klas;
   }
 

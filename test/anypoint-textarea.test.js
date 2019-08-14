@@ -10,6 +10,12 @@ describe('<anypoint-textarea>', function() {
     return await fixture(`<anypoint-textarea></anypoint-textarea>`);
   }
 
+  async function noLabelFloatFixture() {
+    return await fixture(`<anypoint-textarea nolabelfloat>
+      <label slot="label">Label</label>
+    </anypoint-textarea>`);
+  }
+
   describe('_labelClass getter', function() {
     it('returns default value', async () => {
       const element = await basicFixture();
@@ -159,6 +165,27 @@ describe('<anypoint-textarea>', function() {
     it('hiddes info message when not invalid', async () => {
       const node = element.shadowRoot.querySelector('p.invalid');
       assert.isTrue(node.classList.contains('hidden'));
+    });
+  });
+
+  describe('noLabelFloat', () => {
+    let element;
+    beforeEach(async () => {
+      element = await noLabelFloatFixture();
+    });
+
+    it('renders label by default', () => {
+      const label = element.shadowRoot.querySelector('.label');
+      const display = getComputedStyle(label).display;
+      assert.notEqual(display, 'none');
+    });
+
+    it('hides label when has value', async () => {
+      element.value = 'test';
+      await nextFrame();
+      const label = element.shadowRoot.querySelector('.label');
+      const display = getComputedStyle(label).display;
+      assert.equal(display, 'none');
     });
   });
 

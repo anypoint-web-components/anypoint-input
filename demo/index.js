@@ -29,28 +29,33 @@ class ComponentDemo extends ArcDemoPage {
       'textFiledTrailing',
       'textFieldError',
       'textFieldInfo',
+      'textFiledNoLabelFloat',
       'typeSelector',
       'textAreaOutlined',
       'textAreaLegacy',
       'textAreaInfo',
-      'textAreaError'
+      'textAreaError',
+      'textAreaNoLabelFloat'
     ]);
     this._readonlyHandler = this._readonlyHandler.bind(this);
     this._valueHandler = this._valueHandler.bind(this);
     this._textFiledStateHandler = this._textFiledStateHandler.bind(this);
-    this._textFiledLeadingHandler = this._textFiledLeadingHandler.bind(this);
-    this._textFiledTrailingHandler = this._textFiledTrailingHandler.bind(this);
     this._textFiledAssistiveHandler = this._textFiledAssistiveHandler.bind(this);
     this._textAreaStateHandler = this._textAreaStateHandler.bind(this);
     this._textAreaAssistiveHandler = this._textAreaAssistiveHandler.bind(this);
     this._textFiledTypeHandler = this._textFiledTypeHandler.bind(this);
-
+    this._toggleMainOption = this._toggleMainOption.bind(this);
 
     this._componentName = 'anypoint-input';
     this.textFieldStates = ['Normal', 'Outlined', 'Legacy'];
     this.textFieldLegacy = false;
     this.textFieldOutlined = false;
     this.typeSelector = 'text';
+  }
+
+  _toggleMainOption(e) {
+    const { name, checked } = e.target;
+    this[name] = checked;
   }
 
   _readonlyHandler(e) {
@@ -119,14 +124,6 @@ class ComponentDemo extends ArcDemoPage {
     }
   }
 
-  _textFiledLeadingHandler(e) {
-    this.textFiledLeading = e.target.checked;
-  }
-
-  _textFiledTrailingHandler(e) {
-    this.textFiledTrailing = e.target.checked;
-  }
-
   _textFiledAssistiveHandler(e) {
     const { name, checked } = e.target;
     if (!checked) {
@@ -188,6 +185,7 @@ class ComponentDemo extends ArcDemoPage {
       darkThemeActive,
       textFiledLeading,
       textFiledTrailing,
+      textFiledNoLabelFloat,
       textFieldInfo,
       textFieldError
     } = this;
@@ -213,6 +211,7 @@ class ComponentDemo extends ArcDemoPage {
               .infoMessage="${infoMessage}"
               invalidmessage="This value is invalid"
               ?invalid="${textFieldError}"
+              ?nolabelfloat="${textFiledNoLabelFloat}"
             >
               <label slot="label">Label</label>
               ${textFiledLeading ? html`
@@ -230,14 +229,23 @@ class ComponentDemo extends ArcDemoPage {
           <anypoint-checkbox
             aria-describedby="mainOptionsLabel"
             slot="options"
-            @change="${this._textFiledLeadingHandler}"
+            name="textFiledLeading"
+            @change="${this._toggleMainOption}"
             >Leading icon</anypoint-checkbox
           >
           <anypoint-checkbox
             aria-describedby="mainOptionsLabel"
             slot="options"
-            @change="${this._textFiledTrailingHandler}"
+            name="textFiledTrailing"
+            @change="${this._toggleMainOption}"
             >Trailing icon</anypoint-checkbox
+          >
+          <anypoint-checkbox
+            aria-describedby="mainOptionsLabel"
+            slot="options"
+            name="textFiledNoLabelFloat"
+            @change="${this._toggleMainOption}"
+            >No label float</anypoint-checkbox
           >
 
           <label slot="options" id="mainAssistiveLabel">Assistive text</label>
@@ -654,7 +662,8 @@ class ComponentDemo extends ArcDemoPage {
       textAreaInfo,
       textAreaOutlined,
       textAreaLegacy,
-      textAreaError
+      textAreaError,
+      textAreaNoLabelFloat
     } = this;
     const infoMessage = textAreaInfo ? 'Assistive text label' : undefined;
     return html`<section class="documentation-section">
@@ -682,10 +691,20 @@ class ComponentDemo extends ArcDemoPage {
             .infoMessage="${infoMessage}"
             invalidmessage="This value is invalid"
             ?invalid="${textAreaError}"
+            ?nolabelfloat="${textAreaNoLabelFloat}"
           >
             <label slot="label">Label</label>
           </anypoint-textarea>
         </section>
+
+        <label slot="options" id="textAreaOptionsLabel">Options</label>
+        <anypoint-checkbox
+          aria-describedby="textAreaOptionsLabel"
+          slot="options"
+          name="textAreaNoLabelFloat"
+          @change="${this._toggleMainOption}"
+          >No label float</anypoint-checkbox
+        >
 
         <label slot="options" id="mainAssistiveLabel">Assistive text</label>
         <anypoint-radio-group
