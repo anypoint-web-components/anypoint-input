@@ -104,7 +104,7 @@ export class AnypointTeaxtarea extends AnypointInputMixin(LitElement) {
     let klas = 'info';
     const isInavlidWithMessage = !!this.invalidMessage && this.invalid;
     if (isInavlidWithMessage) {
-      klas += ' hidden';
+      klas += ' label-hidden';
     }
     return klas;
   }
@@ -112,7 +112,7 @@ export class AnypointTeaxtarea extends AnypointInputMixin(LitElement) {
   get _errorAddonClass() {
     let klas = 'invalid';
     if (!this.invalid) {
-      klas += ' hidden';
+      klas += ' label-hidden';
     }
     if (this.infoMessage) {
       klas += ' info-offset';

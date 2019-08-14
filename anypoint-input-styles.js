@@ -107,6 +107,8 @@ export default css`
 
 .assistive-info {
   overflow: hidden;
+  margin-top: -2px;
+  height: 20px;
 }
 
 .invalid,
@@ -121,7 +123,7 @@ export default css`
   color: var(--anypoint-input-info-message-color, #616161);
 }
 
-.info.hidden {
+.info.label-hidden {
   transform: translateY(-200%);
 }
 
@@ -129,8 +131,8 @@ export default css`
   color: var(--anypoint-input-error-color, var(--error-color));
 }
 
-.invalid.hidden,
-.invalid.info-offset.hidden {
+.invalid.label-hidden,
+.invalid.info-offset.label-hidden {
   transform: translateY(-200%);
 }
 
@@ -197,11 +199,12 @@ export default css`
 
 :host([legacy]) .input-element {
   top: 0;
+  padding: 9.5px 10px;
 }
 
 :host([legacy]) .label {
-  font-size: .875rem;
-  left: 0;
+  font-size: .935rem;
+  left: -2px;
   top: -18px;
   transform: none;
   font-weight: 500;
@@ -210,6 +213,20 @@ export default css`
 
 :host([legacy]) .label.with-prefix {
   left: -34px;
+}
+
+:host([legacy]) .invalid,
+:host([legacy]) .info {
+  margin-left: 0px;
+}
+
+:host([nolabelfloat][legacy]) {
+  margin-top: 0px;
+}
+
+:host([nolabelfloat][legacy]) .label.resting {
+  top: calc(100% / 2 - 8px);
+  left: 10px;
 }
 
 /* No label float */
