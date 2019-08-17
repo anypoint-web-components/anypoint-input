@@ -1,7 +1,7 @@
 {
   "name": "@anypoint-web-components/anypoint-input",
   "description": "Accessible text input styled for Anypoint platform",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "license": "Apache-2.0",
   "main": "index.js",
   "module": "index.js",
