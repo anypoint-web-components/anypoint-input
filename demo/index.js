@@ -37,7 +37,9 @@ class ComponentDemo extends ArcDemoPage {
       'textAreaError',
       'textAreaNoLabelFloat',
       'typeFieldOutlined',
-      'typeFieldLegacy'
+      'typeFieldLegacy',
+      'mainFiledReadOnly',
+      'mainFiledDisabled'
     ]);
     this._readonlyHandler = this._readonlyHandler.bind(this);
     this._valueHandler = this._valueHandler.bind(this);
@@ -208,7 +210,9 @@ class ComponentDemo extends ArcDemoPage {
       textFiledTrailing,
       textFiledNoLabelFloat,
       textFieldInfo,
-      textFieldError
+      textFieldError,
+      mainFiledReadOnly,
+      mainFiledDisabled
     } = this;
     const infoMessage = textFieldInfo ? 'Assistive text label' : undefined;
     return html`
@@ -223,28 +227,29 @@ class ComponentDemo extends ArcDemoPage {
           @state-chanegd="${this._textFiledStateHandler}"
           ?dark="${darkThemeActive}"
         >
-          <section slot="content">
-            <anypoint-input
-              name="main"
-              title="Text field"
-              ?outlined="${textFieldOutlined}"
-              ?legacy="${textFieldLegacy}"
-              .infoMessage="${infoMessage}"
-              invalidmessage="This value is invalid"
-              ?invalid="${textFieldError}"
-              ?nolabelfloat="${textFiledNoLabelFloat}"
-            >
-              <label slot="label">Label</label>
-              ${textFiledLeading ? html`
-                    <iron-icon icon="lock-outline" slot="prefix"></iron-icon>
-                  `
-                : undefined}
-              ${textFiledTrailing ? html`
-                    <iron-icon icon="clear" slot="suffix"></iron-icon>
-                  `
-                : undefined}
-            </anypoint-input>
-          </section>
+          <anypoint-input
+            slot="content"
+            name="main"
+            title="Text field"
+            ?outlined="${textFieldOutlined}"
+            ?legacy="${textFieldLegacy}"
+            .infoMessage="${infoMessage}"
+            invalidmessage="This value is invalid"
+            ?invalid="${textFieldError}"
+            ?nolabelfloat="${textFiledNoLabelFloat}"
+            ?readOnly="${mainFiledReadOnly}"
+            ?disabled="${mainFiledDisabled}"
+          >
+            <label slot="label">Label</label>
+            ${textFiledLeading ? html`
+                  <iron-icon icon="lock-outline" slot="prefix"></iron-icon>
+                `
+              : undefined}
+            ${textFiledTrailing ? html`
+                  <iron-icon icon="clear" slot="suffix"></iron-icon>
+                `
+              : undefined}
+          </anypoint-input>
 
           <label slot="options" id="mainOptionsLabel">Options</label>
           <anypoint-checkbox
@@ -267,6 +272,21 @@ class ComponentDemo extends ArcDemoPage {
             name="textFiledNoLabelFloat"
             @change="${this._toggleMainOption}"
             >No label float</anypoint-checkbox
+          >
+
+          <anypoint-checkbox
+            aria-describedby="mainOptionsLabel"
+            slot="options"
+            name="mainFiledDisabled"
+            @change="${this._toggleMainOption}"
+            >Disabled</anypoint-checkbox
+          >
+          <anypoint-checkbox
+            aria-describedby="mainOptionsLabel"
+            slot="options"
+            name="mainFiledReadOnly"
+            @change="${this._toggleMainOption}"
+            >Read only</anypoint-checkbox
           >
 
           <label slot="options" id="mainAssistiveLabel">Assistive text</label>

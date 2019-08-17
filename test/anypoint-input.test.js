@@ -48,6 +48,12 @@ describe('<anypoint-input>', function() {
     </anypoint-input>`);
   }
 
+  async function readOnlyFixture() {
+    return await fixture(`<anypoint-input readonly>
+      <label slot="label">Label</label>
+    </anypoint-input>`);
+  }
+
   const hasFormAssociatedElements = 'attachInternals' in document.createElement('span');
 
   describe('setters and getters', function() {
@@ -1080,6 +1086,25 @@ describe('<anypoint-input>', function() {
       const label = element.shadowRoot.querySelector('.label');
       const display = getComputedStyle(label).display;
       assert.equal(display, 'none');
+    });
+  });
+
+  describe('read only state', () => {
+    let element;
+    beforeEach(async () => {
+      element = await readOnlyFixture();
+    });
+
+    it('passes readonly to the input element', () => {
+      const input = element.inputElement;
+      assert.isTrue(input.readOnly);
+    });
+
+    it('removes readonly from the input element', async () => {
+      element.readOnly = false;
+      await nextFrame();
+      const input = element.inputElement;
+      assert.isFalse(input.readOnly);
     });
   });
 

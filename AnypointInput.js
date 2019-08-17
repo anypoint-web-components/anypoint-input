@@ -131,7 +131,7 @@ export class AnypointInput extends AnypointInputMixin(LitElement) {
           step="${ifDefined(step)}"
           name="${ifDefined(name)}"
           placeholder="${ifDefined(placeholder)}"
-          readonly="${ifDefined(readOnly)}"
+          ?readonly="${readOnly}"
           list="${ifDefined(list)}"
           size="${ifDefined(size)}"
           autocapitalize="${ifDefined(autocapitalize)}"

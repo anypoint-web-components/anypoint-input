@@ -186,7 +186,7 @@ export class AnypointTeaxtarea extends AnypointInputMixin(LitElement) {
           name="${ifDefined(name)}"
           placeholder="${ifDefined(placeholder)}"
           ?required="${required}"
-          readonly="${ifDefined(readOnly)}"
+          ?readonly="${readOnly}"
           rows="${ifDefined(rows)}"
           spellcheck="${ifDefined(spellcheck)}"
           tabindex="-1"
