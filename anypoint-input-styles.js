@@ -20,6 +20,11 @@ export default css`
   display: none !important;
 }
 
+:host([disabled]) .input-container {
+  opacity: var(--anypoint-input-disabled-opacity, 0.43);
+  border-bottom: 1px dashed var(--anypoint-input-border-color, var(--secondary-text-color));
+}
+
 .input-container {
   display: inline-flex;
   flex-direction: row;
