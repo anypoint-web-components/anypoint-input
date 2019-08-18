@@ -99,6 +99,7 @@ export default css`
   box-sizing: border-box;
   color: var(--anypoint-input-input-color, inherit);
   font-size: 1rem;
+  box-shadow: none;
 }
 
 .label.resting {
