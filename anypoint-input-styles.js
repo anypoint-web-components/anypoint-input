@@ -205,7 +205,7 @@ export default css`
 
 :host([legacy]) .input-element {
   top: 0;
-  padding: 9.5px 10px;
+  padding: 0 10px;
 }
 
 :host([legacy]) .label {
