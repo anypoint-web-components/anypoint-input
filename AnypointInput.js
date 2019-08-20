@@ -70,12 +70,18 @@ export class AnypointInput extends AnypointInputMixin(LitElement) {
     return klas;
   }
 
+  get _inputType() {
+    if (this.type) {
+      return this.type;
+    }
+    return 'text';
+  }
+
   render() {
     const {
       value,
       _ariaLabelledBy,
       disabled,
-      type,
       pattern,
       required,
       autocomplete,
@@ -101,7 +107,8 @@ export class AnypointInput extends AnypointInputMixin(LitElement) {
       spellcheck,
       _labelClass,
       _errorAddonClass,
-      _infoAddonClass
+      _infoAddonClass,
+      _inputType
     } = this;
     const bindValue = value || '';
     return html`
@@ -118,7 +125,7 @@ export class AnypointInput extends AnypointInputMixin(LitElement) {
           class="input-element"
           aria-labelledby="${_ariaLabelledBy}"
           ?disabled="${disabled}"
-          type="${ifDefined(type)}"
+          type="${_inputType}"
           pattern="${ifDefined(pattern)}"
           ?required="${required}"
           autocomplete="${ifDefined(autocomplete)}"
@@ -145,9 +152,7 @@ export class AnypointInput extends AnypointInputMixin(LitElement) {
           @change="${this._onChange}"
           @input="${this._onInput}"/>
       </div>
-      <div class="suffixes">
-        <slot name="suffix"></slot>
-      </div>
+      ${this._suffixTemplate()}
     </div>
     <div class="assistive-info">
     ${infoMessage ? html`<p class="${_infoAddonClass}">${this.infoMessage}</p>` : undefined}
@@ -156,5 +161,11 @@ export class AnypointInput extends AnypointInputMixin(LitElement) {
       undefined}
     </div>
     `;
+  }
+
+  _suffixTemplate() {
+    return html`<div class="suffixes">
+      <slot name="suffix"></slot>
+    </div>`;
   }
 }

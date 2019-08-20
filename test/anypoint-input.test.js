@@ -165,8 +165,8 @@ describe('<anypoint-input>', function() {
     it('returns default value', async () => {
       const element = await basicFixture();
       assert.equal(
-        element._labelClass,
-        'label resting'
+          element._labelClass,
+          'label resting'
       );
     });
 
@@ -174,8 +174,8 @@ describe('<anypoint-input>', function() {
       const element = await basicFixture();
       element.value = 'test';
       assert.equal(
-        element._labelClass,
-        'label floating'
+          element._labelClass,
+          'label floating'
       );
     });
 
@@ -183,8 +183,8 @@ describe('<anypoint-input>', function() {
       const element = await basicFixture();
       element.placeholder = 'test';
       assert.equal(
-        element._labelClass,
-        'label floating'
+          element._labelClass,
+          'label floating'
       );
     });
 
@@ -192,16 +192,16 @@ describe('<anypoint-input>', function() {
       const element = await basicFixture();
       MockInteractions.focus(element);
       assert.equal(
-        element._labelClass,
-        'label floating'
+          element._labelClass,
+          'label floating'
       );
     });
 
     it('returns with-prefix when has prefix widget', async () => {
       const element = await prefixFixture();
       assert.equal(
-        element._labelClass,
-        'label with-prefix resting'
+          element._labelClass,
+          'label with-prefix resting'
       );
     });
 
@@ -210,8 +210,8 @@ describe('<anypoint-input>', function() {
         const element = await basicFixture();
         element.type = type;
         assert.equal(
-          element._labelClass,
-          'label floating'
+            element._labelClass,
+            'label floating'
         );
       });
 
@@ -219,8 +219,8 @@ describe('<anypoint-input>', function() {
         const element = await prefixFixture();
         element.type = type;
         assert.equal(
-          element._labelClass,
-          'label with-prefix floating'
+            element._labelClass,
+            'label with-prefix floating'
         );
       });
     });
@@ -234,16 +234,16 @@ describe('<anypoint-input>', function() {
 
     it('returns default class', () => {
       assert.equal(
-        element._infoAddonClass,
-        'info'
+          element._infoAddonClass,
+          'info'
       );
     });
 
     it('returns default class when not invalid', () => {
       element.invalidMessage = 'test';
       assert.equal(
-        element._infoAddonClass,
-        'info'
+          element._infoAddonClass,
+          'info'
       );
     });
 
@@ -251,8 +251,8 @@ describe('<anypoint-input>', function() {
       element.invalidMessage = 'test';
       element.invalid = true;
       assert.equal(
-        element._infoAddonClass,
-        'info label-hidden'
+          element._infoAddonClass,
+          'info label-hidden'
       );
     });
   });
@@ -265,16 +265,16 @@ describe('<anypoint-input>', function() {
 
     it('returns default class', () => {
       assert.equal(
-        element._errorAddonClass,
-        'invalid label-hidden'
+          element._errorAddonClass,
+          'invalid label-hidden'
       );
     });
 
     it('returns info-offset class when with info message', () => {
       element.infoMessage = 'test';
       assert.equal(
-        element._errorAddonClass,
-        'invalid label-hidden info-offset'
+          element._errorAddonClass,
+          'invalid label-hidden info-offset'
       );
     });
 
@@ -282,9 +282,27 @@ describe('<anypoint-input>', function() {
       element.infoMessage = 'test';
       element.invalid = true;
       assert.equal(
-        element._errorAddonClass,
-        'invalid info-offset'
+          element._errorAddonClass,
+          'invalid info-offset'
       );
+    });
+  });
+
+  describe('_inputType getter', function() {
+    let element;
+    beforeEach(async () => {
+      element = await basicFixture();
+    });
+
+    it('returns default input type', () => {
+      const result = element._inputType;
+      assert.equal(result, 'text');
+    });
+
+    it('returns set input type', () => {
+      element.type = 'password';
+      const result = element._inputType;
+      assert.equal(result, 'password');
     });
   });
 
@@ -405,13 +423,13 @@ describe('<anypoint-input>', function() {
       // returns 0...
       const start = input.selectionStart;
       assert.notOk(
-        start,
-        `input.selectionStart is not set, but has ${start}`
+          start,
+          `input.selectionStart is not set, but has ${start}`
       );
       const end = input.selectionEnd;
       assert.notOk(
-        end,
-        `input.selectionEnd is not set, but has ${start}`
+          end,
+          `input.selectionEnd is not set, but has ${start}`
       );
     });
 

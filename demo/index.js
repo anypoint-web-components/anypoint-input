@@ -11,6 +11,7 @@ import '@polymer/iron-icons/iron-icons.js';
 import '@advanced-rest-client/arc-demo-helper/arc-interactive-demo.js';
 import '../anypoint-input.js';
 import '../anypoint-textarea.js';
+import '../anypoint-masked-input.js';
 import './minimum-maximum-length.js';
 import './number-required.js';
 import './uppercase-required.js';
@@ -39,7 +40,12 @@ class ComponentDemo extends ArcDemoPage {
       'typeFieldOutlined',
       'typeFieldLegacy',
       'mainFiledReadOnly',
-      'mainFiledDisabled'
+      'mainFiledDisabled',
+      'maskedOutlined',
+      'maskedLegacy',
+      'maskedNoLabelFloat',
+      'maskedDisabled',
+      'maskedReadOnly'
     ]);
     this._readonlyHandler = this._readonlyHandler.bind(this);
     this._valueHandler = this._valueHandler.bind(this);
@@ -47,6 +53,7 @@ class ComponentDemo extends ArcDemoPage {
     this._typesFiledStateHandler = this._typesFiledStateHandler.bind(this);
     this._textFiledAssistiveHandler = this._textFiledAssistiveHandler.bind(this);
     this._textAreaStateHandler = this._textAreaStateHandler.bind(this);
+    this._maskedStateHandler = this._maskedStateHandler.bind(this);
     this._textAreaAssistiveHandler = this._textAreaAssistiveHandler.bind(this);
     this._textFiledTypeHandler = this._textFiledTypeHandler.bind(this);
     this._toggleMainOption = this._toggleMainOption.bind(this);
@@ -143,6 +150,24 @@ class ComponentDemo extends ArcDemoPage {
       case 2:
         this.textAreaOutlined = false;
         this.textAreaLegacy = true;
+        break;
+    }
+  }
+
+  _maskedStateHandler(e) {
+    const state = e.detail.value;
+    switch (state) {
+      case 0:
+        this.maskedOutlined = false;
+        this.maskedLegacy = false;
+        break;
+      case 1:
+        this.maskedOutlined = true;
+        this.maskedLegacy = false;
+        break;
+      case 2:
+        this.maskedOutlined = false;
+        this.maskedLegacy = true;
         break;
     }
   }
@@ -747,11 +772,11 @@ class ComponentDemo extends ArcDemoPage {
           >No label float</anypoint-checkbox
         >
 
-        <label slot="options" id="mainAssistiveLabel">Assistive text</label>
+        <label slot="options" id="areaAssistiveLabel">Assistive text</label>
         <anypoint-radio-group
           slot="options"
           selectable="anypoint-radio-button"
-          aria-labelledby="mainAssistiveLabel"
+          aria-labelledby="areaAssistiveLabel"
         >
           <anypoint-radio-button
             @change="${this._textAreaAssistiveHandler}"
@@ -782,6 +807,69 @@ class ComponentDemo extends ArcDemoPage {
       </section>`;
   }
 
+  _maskedInputTemplate() {
+    const {
+      textFieldStates,
+      darkThemeActive,
+      maskedOutlined,
+      maskedLegacy,
+      maskedNoLabelFloat,
+      maskedDisabled,
+      maskedReadOnly
+    } = this;
+
+    return html`<section class="documentation-section">
+      <h3>Masked inputs</h3>
+      <p>
+        You can mask the input and toggle value visibility by using <code>anypoint-masked-input</code>.
+        The input renders an icon to toggle input's visibility.
+      </p>
+
+      <arc-interactive-demo
+        .states="${textFieldStates}"
+        @state-chanegd="${this._maskedStateHandler}"
+        ?dark="${darkThemeActive}"
+      >
+        <section slot="content">
+          <anypoint-masked-input
+            name="main"
+            title="Text field"
+            ?outlined="${maskedOutlined}"
+            ?legacy="${maskedLegacy}"
+            ?nolabelfloat="${maskedNoLabelFloat}"
+            ?disabled="${maskedDisabled}"
+            ?readOnly="${maskedReadOnly}"
+          >
+            <label slot="label">Label</label>
+          </anypoint-masked-input>
+        </section>
+
+        <label slot="options" id="maskedOptionsLabel">Options</label>
+        <anypoint-checkbox
+          aria-describedby="maskedOptionsLabel"
+          slot="options"
+          name="maskedNoLabelFloat"
+          @change="${this._toggleMainOption}"
+          >No label float</anypoint-checkbox
+        >
+        <anypoint-checkbox
+          aria-describedby="maskedOptionsLabel"
+          slot="options"
+          name="maskedDisabled"
+          @change="${this._toggleMainOption}"
+          >Disabled</anypoint-checkbox
+        >
+        <anypoint-checkbox
+          aria-describedby="maskedOptionsLabel"
+          slot="options"
+          name="maskedReadOnly"
+          @change="${this._toggleMainOption}"
+          >Read only</anypoint-checkbox
+        >
+      </arc-interactive-demo>
+    </section>`;
+  }
+
   contentTemplate() {
     return html`
       <h2>Anypoint text field</h2>
@@ -790,8 +878,8 @@ class ComponentDemo extends ArcDemoPage {
       ${this._usageTemplate()}
       ${this._typesTemplate()}
       ${this._customValidatorsTemplate()}
-
       ${this._texareaTemplate()}
+      ${this._maskedInputTemplate()}
     `;
   }
 }
