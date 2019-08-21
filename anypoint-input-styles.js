@@ -89,13 +89,12 @@ export default css`
 
 .input-element {
   position: relative;
-  top: 6px;
   width: 100%;
-  height: 24px;
+  height: 100%;
   border: none;
   outline: none;
   background-color: transparent;
-  padding: 0 8px;
+  padding: 7px 8px 0 8px;
   box-sizing: border-box;
   color: var(--anypoint-input-input-color, inherit);
   font-size: 1rem;
@@ -155,8 +154,7 @@ export default css`
 }
 
 :host([outlined]) .input-element {
-  margin-top: 0;
-  top: 0;
+  padding-top: 0px;
 }
 
 :host([outlined]) .label.resting {
@@ -204,7 +202,6 @@ export default css`
 }
 
 :host([legacy]) .input-element {
-  top: 0;
   padding: 0 10px;
 }
 
@@ -237,6 +234,6 @@ export default css`
 
 /* No label float */
 :host([nolabelfloat]) .input-element {
-  top: 0;
+  padding-top: 0px;
 }
 `;
