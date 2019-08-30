@@ -1170,8 +1170,8 @@ describe('<anypoint-input>', function() {
       </anypoint-input>`);
     }
 
-    async function a11yLegacyFixture() {
-      return await fixture(`<anypoint-input value="test value" legacy>
+    async function a11yCompatibilityFixture() {
+      return await fixture(`<anypoint-input value="test value" compatibility>
       <label slot="label">test label</label>
       </anypoint-input>`);
     }
@@ -1216,8 +1216,8 @@ describe('<anypoint-input>', function() {
       await assert.isAccessible(element);
     });
 
-    it('is accessible when legacy', async () => {
-      const element = await a11yLegacyFixture();
+    it('is accessible when compatibility mode', async () => {
+      const element = await a11yCompatibilityFixture();
       await assert.isAccessible(element);
     });
   });

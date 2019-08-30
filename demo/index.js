@@ -25,7 +25,7 @@ class ComponentDemo extends ArcDemoPage {
       'readonly',
       'formData',
       'textFieldOutlined',
-      'textFieldLegacy',
+      'textFieldCompatibility',
       'textFiledLeading',
       'textFiledTrailing',
       'textFieldError',
@@ -33,16 +33,16 @@ class ComponentDemo extends ArcDemoPage {
       'textFiledNoLabelFloat',
       'typeSelector',
       'textAreaOutlined',
-      'textAreaLegacy',
+      'textAreaCompatibility',
       'textAreaInfo',
       'textAreaError',
       'textAreaNoLabelFloat',
       'typeFieldOutlined',
-      'typeFieldLegacy',
+      'typeFieldCompatibility',
       'mainFiledReadOnly',
       'mainFiledDisabled',
       'maskedOutlined',
-      'maskedLegacy',
+      'maskedCompatibility',
       'maskedNoLabelFloat',
       'maskedDisabled',
       'maskedReadOnly'
@@ -59,8 +59,8 @@ class ComponentDemo extends ArcDemoPage {
     this._toggleMainOption = this._toggleMainOption.bind(this);
 
     this._componentName = 'anypoint-input';
-    this.textFieldStates = ['Normal', 'Outlined', 'Legacy'];
-    this.textFieldLegacy = false;
+    this.textFieldStates = ['Normal', 'Outlined', 'Anypoint'];
+    this.textFieldCompatibility = false;
     this.textFieldOutlined = false;
     this.typeSelector = 'text';
   }
@@ -105,15 +105,15 @@ class ComponentDemo extends ArcDemoPage {
     switch (state) {
       case 0:
         this.textFieldOutlined = false;
-        this.textFieldLegacy = false;
+        this.textFieldCompatibility = false;
         break;
       case 1:
         this.textFieldOutlined = true;
-        this.textFieldLegacy = false;
+        this.textFieldCompatibility = false;
         break;
       case 2:
         this.textFieldOutlined = false;
-        this.textFieldLegacy = true;
+        this.textFieldCompatibility = true;
         break;
     }
   }
@@ -123,15 +123,15 @@ class ComponentDemo extends ArcDemoPage {
     switch (state) {
       case 0:
         this.typeFieldOutlined = false;
-        this.typeFieldLegacy = false;
+        this.typeFieldCompatibility = false;
         break;
       case 1:
         this.typeFieldOutlined = true;
-        this.typeFieldLegacy = false;
+        this.typeFieldCompatibility = false;
         break;
       case 2:
         this.typeFieldOutlined = false;
-        this.typeFieldLegacy = true;
+        this.typeFieldCompatibility = true;
         break;
     }
   }
@@ -141,15 +141,15 @@ class ComponentDemo extends ArcDemoPage {
     switch (state) {
       case 0:
         this.textAreaOutlined = false;
-        this.textAreaLegacy = false;
+        this.textAreaCompatibility = false;
         break;
       case 1:
         this.textAreaOutlined = true;
-        this.textAreaLegacy = false;
+        this.textAreaCompatibility = false;
         break;
       case 2:
         this.textAreaOutlined = false;
-        this.textAreaLegacy = true;
+        this.textAreaCompatibility = true;
         break;
     }
   }
@@ -159,15 +159,15 @@ class ComponentDemo extends ArcDemoPage {
     switch (state) {
       case 0:
         this.maskedOutlined = false;
-        this.maskedLegacy = false;
+        this.maskedCompatibility = false;
         break;
       case 1:
         this.maskedOutlined = true;
-        this.maskedLegacy = false;
+        this.maskedCompatibility = false;
         break;
       case 2:
         this.maskedOutlined = false;
-        this.maskedLegacy = true;
+        this.maskedCompatibility = true;
         break;
     }
   }
@@ -229,7 +229,7 @@ class ComponentDemo extends ArcDemoPage {
     const {
       textFieldStates,
       textFieldOutlined,
-      textFieldLegacy,
+      textFieldCompatibility,
       darkThemeActive,
       textFiledLeading,
       textFiledTrailing,
@@ -257,7 +257,7 @@ class ComponentDemo extends ArcDemoPage {
             name="main"
             title="Text field"
             ?outlined="${textFieldOutlined}"
-            ?legacy="${textFieldLegacy}"
+            ?compatibility="${textFieldCompatibility}"
             .infoMessage="${infoMessage}"
             invalidmessage="This value is invalid"
             ?invalid="${textFieldError}"
@@ -371,7 +371,7 @@ class ComponentDemo extends ArcDemoPage {
           <li><b>Filled</b> (normal) - For low emphasis inputs</li>
           <li><b>Outlined</b> - For high emphasis inputs</li>
           <li>
-            <b>Legacy</b> - To provide compatibility with legacy Anypoint design
+            <b>Compatibility</b> - To provide compatibility with Anypoint design
           </li>
         </ul>
 
@@ -398,9 +398,9 @@ class ComponentDemo extends ArcDemoPage {
         </p>
 
         <p>
-          The legacy text filed style is for Anyponit native applications for
+          The compatibility text filed style is for Anyponit native applications for
           easy integration. Every component including this element should expose
-          the <code>legacy</code> property and propagate it to the text filed.
+          the <code>compatibility</code> property and propagate it to the text filed.
           An application importing the component can simply set this value to
           adjust styling to the general UI.
         </p>
@@ -519,7 +519,7 @@ class ComponentDemo extends ArcDemoPage {
     const {
       textFieldStates,
       typeFieldOutlined,
-      typeFieldLegacy,
+      typeFieldCompatibility,
       darkThemeActive,
       typeSelector
     } = this;
@@ -540,7 +540,7 @@ class ComponentDemo extends ArcDemoPage {
             slot="content"
             title="Text field"
             ?outlined="${typeFieldOutlined}"
-            ?legacy="${typeFieldLegacy}"
+            ?compatibility="${typeFieldCompatibility}"
             .type="${typeSelector}"
             name="ex7"
           >
@@ -727,7 +727,7 @@ class ComponentDemo extends ArcDemoPage {
       darkThemeActive,
       textAreaInfo,
       textAreaOutlined,
-      textAreaLegacy,
+      textAreaCompatibility,
       textAreaError,
       textAreaNoLabelFloat
     } = this;
@@ -753,7 +753,7 @@ class ComponentDemo extends ArcDemoPage {
             name="main"
             title="Text field"
             ?outlined="${textAreaOutlined}"
-            ?legacy="${textAreaLegacy}"
+            ?compatibility="${textAreaCompatibility}"
             .infoMessage="${infoMessage}"
             invalidmessage="This value is invalid"
             ?invalid="${textAreaError}"
@@ -812,7 +812,7 @@ class ComponentDemo extends ArcDemoPage {
       textFieldStates,
       darkThemeActive,
       maskedOutlined,
-      maskedLegacy,
+      maskedCompatibility,
       maskedNoLabelFloat,
       maskedDisabled,
       maskedReadOnly
@@ -835,7 +835,7 @@ class ComponentDemo extends ArcDemoPage {
             name="main"
             title="Text field"
             ?outlined="${maskedOutlined}"
-            ?legacy="${maskedLegacy}"
+            ?compatibility="${maskedCompatibility}"
             ?nolabelfloat="${maskedNoLabelFloat}"
             ?disabled="${maskedDisabled}"
             ?readOnly="${maskedReadOnly}"

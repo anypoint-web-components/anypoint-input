@@ -62,16 +62,16 @@ export class AnypointTeaxtarea extends AnypointInputMixin(LitElement) {
           top: 0;
         }
 
-        :host([legacy]) {
+        :host([compatibility]) {
           height: auto;
         }
 
-        :host([legacy]) .textarea .label {
+        :host([compatibility]) .textarea .label {
           top: -18px;
           transform: none;
         }
 
-        :host([legacy]) .textarea .input-element {
+        :host([compatibility]) .textarea .input-element {
           margin: 0;
         }
 

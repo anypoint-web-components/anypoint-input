@@ -348,9 +348,13 @@ export const AnypointInputMixin = (base) => class extends ValidatableMixin(Contr
        */
       outlined: { type: Boolean, reflect: true },
       /**
-       * Enables Anypoint legacy theme.
+       * Enables compatibility with Anypoint components.
        */
-      legacy: { type: Boolean, reflect: true },
+      compatibility: { type: Boolean, reflect: true },
+      /**
+       * @deprecated Use `compatibility` instead
+       */
+      legacy: { type: Boolean },
       /**
        * When set, it reduces height of the button and hides
        * the label when the value is provided.
@@ -360,6 +364,14 @@ export const AnypointInputMixin = (base) => class extends ValidatableMixin(Contr
        */
       noLabelFloat: { type: Boolean, reflect: true }
     };
+  }
+
+  get legacy() {
+    return this._compatibility;
+  }
+
+  set legacy(value) {
+    this.compatibility = value;
   }
 
   constructor() {

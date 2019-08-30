@@ -174,14 +174,14 @@ export default css`
   left: -22px;
 }
 
-/* Anypoint legacy theme */
+/* Anypoint compatibility theme */
 
-:host([legacy]) {
+:host([compatibility]) {
   height: 40px;
   margin-top: 20px;
 }
 
-:host([legacy]) .input-container {
+:host([compatibility]) .input-container {
   border: none;
   border-left: 2px var(--anypoint-input-border-color, #8e8e8e) solid;
   border-right: 2px var(--anypoint-input-border-color, #8e8e8e) solid;
@@ -189,45 +189,45 @@ export default css`
   box-sizing: border-box;
 }
 
-:host([legacy][focused]) .input-container,
-:host([legacy]:hover) .input-container {
-  border-left-color: var(--anypoint-input-legacy-focus-border-color, #58595a);
-  border-right-color: var(--anypoint-input-legacy-focus-border-color, #58595a);
-  background-color: var(--anypoint-input-legacy-focus-background-color, #f9fafb);
+:host([compatibility][focused]) .input-container,
+:host([compatibility]:hover) .input-container {
+  border-left-color: var(--anypoint-input-compatibility-focus-border-color, #58595a);
+  border-right-color: var(--anypoint-input-compatibility-focus-border-color, #58595a);
+  background-color: var(--anypoint-input-compatibility-focus-background-color, #f9fafb);
 }
 
-:host([legacy][invalid]) .input-container {
+:host([compatibility][invalid]) .input-container {
   border-left-color: var(--anypoint-input-error-color, var(--error-color));
   border-right-color: var(--anypoint-input-error-color, var(--error-color));
 }
 
-:host([legacy]) .input-element {
+:host([compatibility]) .input-element {
   padding: 0 10px;
 }
 
-:host([legacy]) .label {
+:host([compatibility]) .label {
   font-size: .935rem;
   left: -2px;
   top: -18px;
   transform: none;
   font-weight: 500;
-  color: var(--anypoint-input-legacy-label-color, #616161);
+  color: var(--anypoint-input-compatibility-label-color, #616161);
 }
 
-:host([legacy]) .label.with-prefix {
+:host([compatibility]) .label.with-prefix {
   left: -34px;
 }
 
-:host([legacy]) .invalid,
-:host([legacy]) .info {
+:host([compatibility]) .invalid,
+:host([compatibility]) .info {
   margin-left: 0px;
 }
 
-:host([nolabelfloat][legacy]) {
+:host([nolabelfloat][compatibility]) {
   margin-top: 0px;
 }
 
-:host([nolabelfloat][legacy]) .label.resting {
+:host([nolabelfloat][compatibility]) .label.resting {
   top: calc(100% / 2 - 8px);
   left: 10px;
 }

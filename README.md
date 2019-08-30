@@ -16,7 +16,7 @@ Text field allows the user to enter a value into the UI. It can appear in a `for
 The element has three built-in themes:
 -   Material Design - Filled
 -   Material Design - Outlined
--   Anypoint Design - Legacy
+-   Anypoint Design - Compatibility
 
 By default the input renders `filled` input.
 
@@ -24,11 +24,11 @@ By default the input renders `filled` input.
 
 Outlined style is rendered when `outlined` property is set.
 
-![Filled text input](demo/text-input-outlined.png)
+![Outlined text input](demo/text-input-outlined.png)
 
-Anypoint ready styles are rendered when `legacy` property is set.
+Anypoint ready styles are rendered when `compatibility` property is set.
 
-![Filled text input](demo/text-input-legacy.png)
+![Anypoint text input](demo/text-input-compatibility.png)
 
 OSS application should not use Anypoint based styling as it's protected by MuleSoft copyrights. This property is reserved for OSS applications embedded in the Anypoint platform.
 
