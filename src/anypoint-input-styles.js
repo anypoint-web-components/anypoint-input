@@ -112,7 +112,6 @@ export default css`
 
 .assistive-info {
   overflow: hidden;
-  margin-top: -2px;
   height: 20px;
 }
 
