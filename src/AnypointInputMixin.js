@@ -367,7 +367,7 @@ export const AnypointInputMixin = (base) => class extends ValidatableMixin(Contr
   }
 
   get legacy() {
-    return this._compatibility;
+    return this.compatibility;
   }
 
   set legacy(value) {
