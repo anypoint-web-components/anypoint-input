@@ -1,1 +1,1 @@
-export { AnypointInput } from './AnypointInput.js';
+export { AnypointInput } from './src/AnypointInput.js';

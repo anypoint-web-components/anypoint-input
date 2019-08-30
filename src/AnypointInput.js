@@ -1,6 +1,6 @@
 import { html, css, LitElement } from 'lit-element';
 import { ifDefined } from 'lit-html/directives/if-defined.js';
-import { AnypointInputMixin } from './anypoint-input-mixin.js';
+import { AnypointInputMixin } from './AnypointInputMixin.js';
 import commonStyles from './anypoint-input-styles.js';
 
 const floatTypes = ['date', 'color', 'datetime-local', 'file', 'month', 'time', 'week'];
