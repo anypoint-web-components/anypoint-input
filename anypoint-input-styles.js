@@ -13,7 +13,7 @@ export default css`
   font-size: 1rem;
   position: relative;
   /* Anypoint UI controls margin in forms */
-  margin: 12px 8px;
+  margin: 16px 8px;
 }
 
 .hidden {
