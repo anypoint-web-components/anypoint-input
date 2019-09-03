@@ -78,6 +78,57 @@ export class AnypointInput extends AnypointInputMixin(LitElement) {
   }
 
   render() {
+    return html`
+    <div class="input-container">
+      ${this._prefixTemplate()}
+      <div class="input-label">
+        ${this._labelTemplate()}
+        ${this._inputTemplate()}
+      </div>
+      ${this._suffixTemplate()}
+    </div>
+    ${this._assistiveTemplate()}
+    `;
+  }
+
+  _suffixTemplate() {
+    return html`<div class="suffixes">
+      <slot name="suffix"></slot>
+    </div>`;
+  }
+
+  _prefixTemplate() {
+    return html`<div class="prefixes">
+      <slot name="prefix"></slot>
+    </div>`;
+  }
+
+  _assistiveTemplate() {
+    const {
+      invalidMessage,
+      infoMessage,
+      _errorAddonClass,
+      _infoAddonClass,
+    } = this;
+    return html`<div class="assistive-info">
+    ${infoMessage ? html`<p class="${_infoAddonClass}">${this.infoMessage}</p>` : undefined}
+    ${invalidMessage ?
+      html`<p class="${_errorAddonClass}">${invalidMessage}</p>` :
+      undefined}
+    </div>`;
+  }
+
+  _labelTemplate() {
+    const {
+      _labelClass,
+      _ariaLabelledBy
+    } = this;
+    return html`<div class="${_labelClass}" id="${_ariaLabelledBy}">
+      <slot name="label"></slot>
+    </div>`;
+  }
+
+  _inputTemplate() {
     const {
       value,
       _ariaLabelledBy,
@@ -102,70 +153,39 @@ export class AnypointInput extends AnypointInputMixin(LitElement) {
       results,
       accept,
       multiple,
-      invalidMessage,
-      infoMessage,
       spellcheck,
-      _labelClass,
-      _errorAddonClass,
-      _infoAddonClass,
       _inputType
     } = this;
     const bindValue = value || '';
-    return html`
-    <div class="input-container">
-      <div class="prefixes">
-        <slot name="prefix"></slot>
-      </div>
-
-      <div class="input-label">
-        <div class="${_labelClass}" id="${_ariaLabelledBy}">
-          <slot name="label"></slot>
-        </div>
-        <input
-          class="input-element"
-          aria-labelledby="${_ariaLabelledBy}"
-          ?disabled="${disabled}"
-          type="${_inputType}"
-          pattern="${ifDefined(pattern)}"
-          ?required="${required}"
-          autocomplete="${ifDefined(autocomplete)}"
-          ?autofocus="${autofocus}"
-          inputmode="${ifDefined(inputMode)}"
-          minlength="${ifDefined(minLength ? minLength : undefined)}"
-          maxlength="${ifDefined(maxLength ? maxLength: undefined)}"
-          min="${ifDefined(min)}"
-          max="${ifDefined(max)}"
-          step="${ifDefined(step)}"
-          name="${ifDefined(name)}"
-          placeholder="${ifDefined(placeholder)}"
-          ?readonly="${readOnly}"
-          list="${ifDefined(list)}"
-          size="${ifDefined(size)}"
-          autocapitalize="${ifDefined(autocapitalize)}"
-          autocorrect="${ifDefined(autocorrect)}"
-          tabindex="-1"
-          results="${ifDefined(results)}"
-          accept="${ifDefined(accept)}"
-          ?multiple="${multiple}"
-          spellcheck="${ifDefined(spellcheck)}"
-          .value="${bindValue}"
-          @change="${this._onChange}"
-          @input="${this._onInput}"/>
-      </div>
-      ${this._suffixTemplate()}
-    </div>
-    <div class="assistive-info">
-    ${infoMessage ? html`<p class="${_infoAddonClass}">${this.infoMessage}</p>` : undefined}
-    ${invalidMessage ?
-      html`<p class="${_errorAddonClass}">${invalidMessage}</p>` :
-      undefined}
-    </div>
-    `;
-  }
-
-  _suffixTemplate() {
-    return html`<div class="suffixes">
-      <slot name="suffix"></slot>
-    </div>`;
+    return html`<input
+      class="input-element"
+      aria-labelledby="${_ariaLabelledBy}"
+      ?disabled="${disabled}"
+      type="${_inputType}"
+      pattern="${ifDefined(pattern)}"
+      ?required="${required}"
+      autocomplete="${ifDefined(autocomplete)}"
+      ?autofocus="${autofocus}"
+      inputmode="${ifDefined(inputMode)}"
+      minlength="${ifDefined(minLength ? minLength : undefined)}"
+      maxlength="${ifDefined(maxLength ? maxLength: undefined)}"
+      min="${ifDefined(min)}"
+      max="${ifDefined(max)}"
+      step="${ifDefined(step)}"
+      name="${ifDefined(name)}"
+      placeholder="${ifDefined(placeholder)}"
+      ?readonly="${readOnly}"
+      list="${ifDefined(list)}"
+      size="${ifDefined(size)}"
+      autocapitalize="${ifDefined(autocapitalize)}"
+      autocorrect="${ifDefined(autocorrect)}"
+      tabindex="-1"
+      results="${ifDefined(results)}"
+      accept="${ifDefined(accept)}"
+      ?multiple="${multiple}"
+      spellcheck="${ifDefined(spellcheck)}"
+      .value="${bindValue}"
+      @change="${this._onChange}"
+      @input="${this._onInput}"/>`;
   }
 }
