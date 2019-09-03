@@ -77,6 +77,10 @@ export class AnypointInput extends AnypointInputMixin(LitElement) {
     return 'text';
   }
 
+  get bindValue() {
+    return this.value || '';
+  }
+
   render() {
     return html`
     <div class="input-container">
@@ -130,7 +134,6 @@ export class AnypointInput extends AnypointInputMixin(LitElement) {
 
   _inputTemplate() {
     const {
-      value,
       _ariaLabelledBy,
       disabled,
       pattern,
@@ -154,9 +157,9 @@ export class AnypointInput extends AnypointInputMixin(LitElement) {
       accept,
       multiple,
       spellcheck,
+      bindValue,
       _inputType
     } = this;
-    const bindValue = value || '';
     return html`<input
       class="input-element"
       aria-labelledby="${_ariaLabelledBy}"
