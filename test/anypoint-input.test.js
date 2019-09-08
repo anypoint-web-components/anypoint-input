@@ -54,6 +54,12 @@ describe('<anypoint-input>', function() {
     </anypoint-input>`);
   }
 
+  async function searchFixture() {
+    return await fixture(`<anypoint-input type="search">
+      <label slot="label">Label</label>
+    </anypoint-input>`);
+  }
+
   const hasFormAssociatedElements = 'attachInternals' in document.createElement('span');
 
   describe('setters and getters', function() {
@@ -1138,6 +1144,17 @@ describe('<anypoint-input>', function() {
       const element = await basicFixture();
       element.compatibility = true;
       assert.isTrue(element.legacy, 'legacy is set');
+    });
+  });
+
+  describe('Event retargeting', () => {
+    it('retargets search event', async () => {
+      const element = await searchFixture();
+      const spy = sinon.spy();
+      element.addEventListener('search', spy);
+      const input = element.inputElement;
+      input.dispatchEvent(new CustomEvent('search'));
+      assert.isTrue(spy.called);
     });
   });
 

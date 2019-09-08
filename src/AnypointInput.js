@@ -80,6 +80,14 @@ export class AnypointInput extends AnypointInputMixin(LitElement) {
   get bindValue() {
     return this.value || '';
   }
+  /**
+   * Retargets an event that does not bubble
+   *
+   * @param {Event} e The event to retarget
+   */
+  _retargetEvent(e) {
+    this.dispatchEvent(new CustomEvent(e.type));
+  }
 
   render() {
     return html`
@@ -189,6 +197,7 @@ export class AnypointInput extends AnypointInputMixin(LitElement) {
       spellcheck="${ifDefined(spellcheck)}"
       .value="${bindValue}"
       @change="${this._onChange}"
-      @input="${this._onInput}"/>`;
+      @input="${this._onInput}"
+      @search="${this._retargetEvent}"/>`;
   }
 }
