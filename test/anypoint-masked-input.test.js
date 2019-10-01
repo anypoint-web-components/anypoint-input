@@ -28,14 +28,14 @@ describe('<anypoint-masked-input>', function() {
   }
 
   describe('_visibilityToggleIcon', () => {
-    it('returns icon when masked', async () => {
+    it('returns an icon when masked', async () => {
       const element = await maskedFixture();
-      assert.equal(element._visibilityToggleIcon, 'arc:visibility');
+      assert.typeOf(element._visibilityToggleIcon, 'object');
     });
 
-    it('returns icon when not masked', async () => {
+    it('returns an icon when not masked', async () => {
       const element = await visibleFixture();
-      assert.equal(element._visibilityToggleIcon, 'arc:visibility-off');
+      assert.typeOf(element._visibilityToggleIcon, 'object');
     });
   });
 
