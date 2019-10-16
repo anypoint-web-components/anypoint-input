@@ -177,7 +177,7 @@ export default css`
 
 :host([compatibility]) {
   height: 40px;
-  margin: 32px 5px;
+  margin-top: 20px;
 }
 
 :host([compatibility]) .input-container {
