@@ -6,7 +6,7 @@ import '@anypoint-web-components/anypoint-button/anypoint-icon-button.js';
 export class AnypointMaskedInput extends AnypointInput {
   get styles() {
     return [
-      AnypointInput.styles,
+      super.styles,
       css`
       .icon {
         display: inline-block;
