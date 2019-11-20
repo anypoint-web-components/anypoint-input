@@ -4,7 +4,7 @@ import { visibilityOff, visibility } from '@advanced-rest-client/arc-icons/ArcIc
 import '@anypoint-web-components/anypoint-button/anypoint-icon-button.js';
 
 export class AnypointMaskedInput extends AnypointInput {
-  static get styles() {
+  get styles() {
     return [
       AnypointInput.styles,
       css`
@@ -64,7 +64,7 @@ export class AnypointMaskedInput extends AnypointInput {
       _visibilityToggleTitle,
       _visibilityToggleLabel
     } = this;
-    return html`
+    return html`<style>${this.styles}</style>
     <div class="suffixes">
       <anypoint-icon-button
         @click="${this.toggleVisibility}"
