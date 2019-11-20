@@ -4,7 +4,7 @@ import { AnypointInputMixin } from './AnypointInputMixin.js';
 import commonStyles from './anypoint-input-styles.js';
 
 export class AnypointTeaxtarea extends AnypointInputMixin(LitElement) {
-  static get styles() {
+  get styles() {
     return [
       commonStyles,
       css`
@@ -165,7 +165,7 @@ export class AnypointTeaxtarea extends AnypointInputMixin(LitElement) {
     } = this;
     const bindValue = value || '';
 
-    return html`
+    return html`<style>${this.styles}</style>
     <div class="input-container">
       <div class="textarea input-label">
         <div class="${_labelClass}" id="${_ariaLabelledBy}">

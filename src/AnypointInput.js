@@ -6,7 +6,7 @@ import commonStyles from './anypoint-input-styles.js';
 const floatTypes = ['date', 'color', 'datetime-local', 'file', 'month', 'time', 'week'];
 
 export class AnypointInput extends AnypointInputMixin(LitElement) {
-  static get styles() {
+  get styles() {
     return [
       commonStyles,
       css`
@@ -90,7 +90,7 @@ export class AnypointInput extends AnypointInputMixin(LitElement) {
   }
 
   render() {
-    return html`
+    return html`<style>${this.styles}</style>
     <div class="input-container">
       ${this._prefixTemplate()}
       <div class="input-label">
