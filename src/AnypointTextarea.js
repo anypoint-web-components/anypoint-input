@@ -198,10 +198,9 @@ export class AnypointTeaxtarea extends AnypointInputMixin(LitElement) {
       </div>
     </div>
     <div class="assistive-info">
-    ${infoMessage ? html`<p class="${_infoAddonClass}">${this.infoMessage}</p>` : undefined}
+    ${infoMessage ? html`<p class="${_infoAddonClass}">${this.infoMessage}</p>` : ''}
     ${invalidMessage ?
-      html`<p class="${_errorAddonClass}">${invalidMessage}</p>` :
-      undefined}
+      html`<p class="${_errorAddonClass}">${invalidMessage}</p>` : ''}
     </div>
     `;
   }

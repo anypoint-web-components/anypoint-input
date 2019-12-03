@@ -123,10 +123,9 @@ export class AnypointInput extends AnypointInputMixin(LitElement) {
       _infoAddonClass,
     } = this;
     return html`<div class="assistive-info">
-    ${infoMessage ? html`<p class="${_infoAddonClass}">${this.infoMessage}</p>` : undefined}
+    ${infoMessage ? html`<p class="${_infoAddonClass}">${this.infoMessage}</p>` : ''}
     ${invalidMessage ?
-      html`<p class="${_errorAddonClass}">${invalidMessage}</p>` :
-      undefined}
+      html`<p class="${_errorAddonClass}">${invalidMessage}</p>` : ''}
     </div>`;
   }
 
