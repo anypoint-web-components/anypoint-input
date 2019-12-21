@@ -141,7 +141,7 @@ export default css`
 }
 
 .invalid.info-offset {
-  transform: translateY(-12px);
+  transform: translateY(-1.2rem);
 }
 
 /* Outlined theme */
