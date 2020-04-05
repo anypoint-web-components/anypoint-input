@@ -48,7 +48,6 @@
     "@anypoint-web-components/validator-mixin": "^1.0.0",
     "@commitlint/cli": "^8.3.5",
     "@commitlint/config-conventional": "^8.3.4",
-    "@open-wc/building-rollup": "^0.22.12",
     "@open-wc/testing": "^2.5.9",
     "@open-wc/testing-karma": "^3.3.11",
     "@polymer/gen-typescript-declarations": "^1.6.2",
@@ -60,8 +59,6 @@
     "husky": "^4.2.3",
     "karma": "^4.4.1",
     "lint-staged": "^10.1.2",
-    "rimraf": "^3.0.2",
-    "rollup-plugin-cpy": "^2.0.1",
     "sinon": "^9.0.1"
   },
   "scripts": {
@@ -75,8 +72,7 @@
     "lint": "npm run lint:eslint && npm run lint:prettier",
     "format": "npm run format:eslint && npm run format:prettier",
     "test:watch": "karma start --auto-watch=true --single-run=false",
-    "test:sl": "karma start karma.sl.config.js --coverage",
-    "build": "rimraf dist && rollup -c rollup.config.js"
+    "test:sl": "karma start karma.sl.config.js --coverage"
   },
   "lint-staged": {
     "*.js": [
