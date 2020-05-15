@@ -434,3 +434,30 @@
 * removing web animations api from karma config [ec50be0](https://github.com/anypoint-web-components/anypoint-input/commit/ec50be0c9a7ad33e38e7748b8c0294d58bacc552) by Pawel
 
 
+<a name="0.2.15"></a>
+## [0.2.15](https://github.com/anypoint-web-components/anypoint-input/compare/0.2.13...0.2.15) (2020-05-15)
+
+### Build
+
+* bumping version [eec52dd](https://github.com/anypoint-web-components/anypoint-input/commit/eec52ddb9c9555fb405ee18fc937fa28686b999d) by Pawel
+* bumping version [eeff497](https://github.com/anypoint-web-components/anypoint-input/commit/eeff497db35dbd2333a366fa2f0f20255b479e28) by Pawel
+
+
+### Update
+
+* upgrading to open-wc standards [402b5b6](https://github.com/anypoint-web-components/anypoint-input/commit/402b5b64a2d250f21f55e34627b9afff2053bcbf) by Pawel
+* [ci skip] automated merge master->stage. syncing main branches [b5de636](https://github.com/anypoint-web-components/anypoint-input/commit/b5de6369bea6215717ef3ddf793c8e08c8de891b) by Ci agent
+* removing build config [d0e8858](https://github.com/anypoint-web-components/anypoint-input/commit/d0e885864507e161473cd44d097711ac586847dd) by Pawel
+* updating dependnecies [526621f](https://github.com/anypoint-web-components/anypoint-input/commit/526621faa38fffde50c767654345533fddc0aaec) by Pawel
+
+
+### Documentation
+
+* updating travis badge [551a87a](https://github.com/anypoint-web-components/anypoint-input/commit/551a87af7982fe6f72a980715c7d25283632ea31) by Pawel
+
+
+### Testing
+
+* fixing a test [273a6ec](https://github.com/anypoint-web-components/anypoint-input/commit/273a6ec79fa9072158067abff53fa89584c59db6) by Pawel
+
+
