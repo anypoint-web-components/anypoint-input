@@ -1,9 +1,8 @@
 [![Published on NPM](https://img.shields.io/npm/v/@anypoint-web-components/anypoint-input.svg)](https://www.npmjs.com/package/@anypoint-web-components/anypoint-input)
 
-[![Build Status](https://travis-ci.org/anypoint-web-components/anypoint-input.svg?branch=stage)](https://travis-ci.org/anypoint-web-components/anypoint-input)
+[![Build Status](https://travis-ci.com/anypoint-web-components/anypoint-input.svg)](https://travis-ci.com/anypoint-web-components/anypoint-input)
 
 # anypoint-input and anypoint-textarea
-
 
 This component is based on Material Design text field and adjusted for Anypoint platform components.
 
