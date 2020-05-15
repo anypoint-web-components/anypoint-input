@@ -1,44 +1,62 @@
 import { html, css } from 'lit-element';
+import {
+  visibilityOff,
+  visibility,
+} from '@advanced-rest-client/arc-icons/ArcIcons.js';
 import { AnypointInput } from './AnypointInput.js';
-import { visibilityOff, visibility } from '@advanced-rest-client/arc-icons/ArcIcons.js';
 import '@anypoint-web-components/anypoint-button/anypoint-icon-button.js';
+
+/* eslint-disable class-methods-use-this */
+
+/** @typedef {import('lit-element').CSSResult} CSSResult */
+/** @typedef {import('lit-element').SVGTemplateResult} SVGTemplateResult */
 
 export class AnypointMaskedInput extends AnypointInput {
   get styles() {
     return [
-      super.styles,
+      /** @type CSSResult */ (super.styles),
       css`
-      .icon {
-        display: inline-block;
-        width: 24px;
-        height: 24px;
-        fill: currentColor;
-      }`
+        .icon {
+          display: inline-block;
+          width: 24px;
+          height: 24px;
+          fill: currentColor;
+        }
+      `,
     ];
   }
 
+  /**
+   * @return {SVGTemplateResult} An icon to render
+   */
   get _visibilityToggleIcon() {
     return this.visible ? visibilityOff : visibility;
   }
 
+  /**
+   * @return {string} Title for the toggle icon
+   */
   get _visibilityToggleTitle() {
-    return this.visible ?
-      'Hide input value' :
-      'Show input value';
+    return this.visible ? 'Hide input value' : 'Show input value';
   }
 
+  /**
+   * @return {string} Label for the toggle icon
+   */
   get _visibilityToggleLabel() {
-    return this.visible ?
-      'Activate to hide input value' :
-      'Activate to show input value';
+    return this.visible
+      ? 'Activate to hide input value'
+      : 'Activate to show input value';
   }
 
+  /**
+   * @return {string} Input type to pass to the control
+   */
   get _inputType() {
     if (this.visible) {
       return this.type || 'text';
-    } else {
-      return 'password';
     }
+    return 'password';
   }
 
   static get properties() {
@@ -47,9 +65,10 @@ export class AnypointMaskedInput extends AnypointInput {
        * When set the input renders the value visible and restores
        * original input type.
        */
-      visible: { type: Boolean }
+      visible: { type: Boolean },
     };
   }
+
   /**
    * Toggles `visible` property value.
    */
@@ -62,19 +81,21 @@ export class AnypointMaskedInput extends AnypointInput {
       disabled,
       _visibilityToggleIcon,
       _visibilityToggleTitle,
-      _visibilityToggleLabel
+      _visibilityToggleLabel,
     } = this;
-    return html`<style>${this.styles}</style>
-    <div class="suffixes">
-      <anypoint-icon-button
-        @click="${this.toggleVisibility}"
-        title="${_visibilityToggleTitle}"
-        aria-label="${_visibilityToggleLabel}"
-        ?disabled="${disabled}"
-      >
-        <span class="icon">${_visibilityToggleIcon}</span>
-      </anypoint-icon-button>
-      <slot name="suffix"></slot>
-    </div>`;
+    return html`<style>
+        ${this.styles}
+      </style>
+      <div class="suffixes">
+        <anypoint-icon-button
+          @click="${this.toggleVisibility}"
+          title="${_visibilityToggleTitle}"
+          aria-label="${_visibilityToggleLabel}"
+          ?disabled="${disabled}"
+        >
+          <span class="icon">${_visibilityToggleIcon}</span>
+        </anypoint-icon-button>
+        <slot name="suffix"></slot>
+      </div>`;
   }
 }

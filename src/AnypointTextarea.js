@@ -3,6 +3,8 @@ import { ifDefined } from 'lit-html/directives/if-defined.js';
 import { AnypointInputMixin } from './AnypointInputMixin.js';
 import commonStyles from './anypoint-input-styles.js';
 
+/* eslint-disable class-methods-use-this */
+
 export class AnypointTeaxtarea extends AnypointInputMixin(LitElement) {
   get styles() {
     return [
@@ -83,7 +85,7 @@ export class AnypointTeaxtarea extends AnypointInputMixin(LitElement) {
         :host([nolabelfloat]) .textarea .input-element {
           margin: 8px 0;
         }
-      `
+      `,
     ];
   }
 
@@ -133,8 +135,15 @@ export class AnypointTeaxtarea extends AnypointInputMixin(LitElement) {
       /**
        * Binds this to the `<textarea>`'s `wrap` property.
        */
-      wrap: { type: String }
+      wrap: { type: String },
     };
+  }
+
+  constructor() {
+    super();
+    this.cols = undefined;
+    this.rows = undefined;
+    this.wrap = undefined;
   }
 
   render() {
@@ -161,47 +170,51 @@ export class AnypointTeaxtarea extends AnypointInputMixin(LitElement) {
       infoMessage,
       _labelClass,
       _errorAddonClass,
-      _infoAddonClass
+      _infoAddonClass,
     } = this;
     const bindValue = value || '';
 
-    return html`<style>${this.styles}</style>
-    <div class="input-container">
-      <div class="textarea input-label">
-        <div class="${_labelClass}" id="${_ariaLabelledBy}">
-          <slot name="label"></slot>
+    return html`<style>
+        ${this.styles}
+      </style>
+      <div class="input-container">
+        <div class="textarea input-label">
+          <div class="${_labelClass}" id="${_ariaLabelledBy}">
+            <slot name="label"></slot>
+          </div>
+          <textarea
+            class="input-element"
+            aria-labelledby="${_ariaLabelledBy}"
+            autocomplete="${ifDefined(autocomplete)}"
+            autocapitalize="${ifDefined(autocapitalize)}"
+            autocorrect="${ifDefined(autocorrect)}"
+            ?autofocus="${autofocus}"
+            cols="${ifDefined(cols)}"
+            ?disabled="${disabled}"
+            inputmode="${ifDefined(inputMode)}"
+            maxlength="${ifDefined(maxLength)}"
+            minlength="${ifDefined(minLength)}"
+            name="${ifDefined(name)}"
+            placeholder="${ifDefined(placeholder)}"
+            ?required="${required}"
+            ?readonly="${readOnly}"
+            rows="${ifDefined(rows)}"
+            spellcheck="${ifDefined(spellcheck)}"
+            tabindex="-1"
+            wrap="${ifDefined(wrap)}"
+            .value="${bindValue}"
+            @change="${this._onChange}"
+            @input="${this._onInput}"
+          ></textarea>
         </div>
-        <textarea
-          class="input-element"
-          aria-labelledby="${_ariaLabelledBy}"
-          autocomplete="${ifDefined(autocomplete)}"
-          autocapitalize="${ifDefined(autocapitalize)}"
-          autocorrect="${ifDefined(autocorrect)}"
-          ?autofocus="${autofocus}"
-          cols="${ifDefined(cols)}"
-          ?disabled="${disabled}"
-          inputmode="${ifDefined(inputMode)}"
-          maxlength="${ifDefined(maxLength ? maxLength: undefined)}"
-          minlength="${ifDefined(minLength ? minLength : undefined)}"
-          name="${ifDefined(name)}"
-          placeholder="${ifDefined(placeholder)}"
-          ?required="${required}"
-          ?readonly="${readOnly}"
-          rows="${ifDefined(rows)}"
-          spellcheck="${ifDefined(spellcheck)}"
-          tabindex="-1"
-          wrap="${ifDefined(wrap)}"
-          .value="${bindValue}"
-          @change="${this._onChange}"
-          @input="${this._onInput}"
-          @keypress="${this._onKeypress}"></textarea>
       </div>
-    </div>
-    <div class="assistive-info">
-    ${infoMessage ? html`<p class="${_infoAddonClass}">${this.infoMessage}</p>` : ''}
-    ${invalidMessage ?
-      html`<p class="${_errorAddonClass}">${invalidMessage}</p>` : ''}
-    </div>
-    `;
+      <div class="assistive-info">
+        ${infoMessage
+          ? html`<p class="${_infoAddonClass}">${this.infoMessage}</p>`
+          : ''}
+        ${invalidMessage
+          ? html`<p class="${_errorAddonClass}">${invalidMessage}</p>`
+          : ''}
+      </div> `;
   }
 }

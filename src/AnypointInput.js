@@ -3,32 +3,42 @@ import { ifDefined } from 'lit-html/directives/if-defined.js';
 import { AnypointInputMixin } from './AnypointInputMixin.js';
 import commonStyles from './anypoint-input-styles.js';
 
-const floatTypes = ['date', 'color', 'datetime-local', 'file', 'month', 'time', 'week'];
+/* eslint-disable class-methods-use-this */
+
+const floatTypes = [
+  'date',
+  'color',
+  'datetime-local',
+  'file',
+  'month',
+  'time',
+  'week',
+];
 
 export class AnypointInput extends AnypointInputMixin(LitElement) {
   get styles() {
     return [
       commonStyles,
       css`
-      .input-element[type="datetime-local"] {
-        /* For default 200px width this type expands outside the border */
-        width: calc(100% - 40px);
-        margin: 0 8px;
-        padding: 0;
-      }
+        .input-element[type='datetime-local'] {
+          /* For default 200px width this type expands outside the border */
+          width: calc(100% - 40px);
+          margin: 0 8px;
+          padding: 0;
+        }
 
-      .prefixes ::slotted(*) {
-        margin: 0 0 0 8px;
-      }
+        .prefixes ::slotted(*) {
+          margin: 0 0 0 8px;
+        }
 
-      .suffixes ::slotted(*) {
-        margin: 0 8px 0 0;
-      }
+        .suffixes ::slotted(*) {
+          margin: 0 8px 0 0;
+        }
 
-      :host([nolabelfloat]) {
-        height: 40px;
-      }
-      `
+        :host([nolabelfloat]) {
+          height: 40px;
+        }
+      `,
     ];
   }
 
@@ -37,7 +47,11 @@ export class AnypointInput extends AnypointInputMixin(LitElement) {
   }
 
   get _labelClass() {
-    const labelFloating = !!this.value || floatTypes.indexOf(this.type) !== -1 || !!this.placeholder || this.focused;
+    const labelFloating =
+      !!this.value ||
+      floatTypes.indexOf(this.type) !== -1 ||
+      !!this.placeholder ||
+      this.focused;
     let klas = 'label';
     if (this._prefixed) {
       klas += ' with-prefix';
@@ -80,6 +94,7 @@ export class AnypointInput extends AnypointInputMixin(LitElement) {
   get bindValue() {
     return this.value || '';
   }
+
   /**
    * Retargets an event that does not bubble
    *
@@ -90,17 +105,17 @@ export class AnypointInput extends AnypointInputMixin(LitElement) {
   }
 
   render() {
-    return html`<style>${this.styles}</style>
-    <div class="input-container">
-      ${this._prefixTemplate()}
-      <div class="input-label">
-        ${this._labelTemplate()}
-        ${this._inputTemplate()}
+    return html`<style>
+        ${this.styles}
+      </style>
+      <div class="input-container">
+        ${this._prefixTemplate()}
+        <div class="input-label">
+          ${this._labelTemplate()} ${this._inputTemplate()}
+        </div>
+        ${this._suffixTemplate()}
       </div>
-      ${this._suffixTemplate()}
-    </div>
-    ${this._assistiveTemplate()}
-    `;
+      ${this._assistiveTemplate()} `;
   }
 
   _suffixTemplate() {
@@ -123,17 +138,17 @@ export class AnypointInput extends AnypointInputMixin(LitElement) {
       _infoAddonClass,
     } = this;
     return html`<div class="assistive-info">
-    ${infoMessage ? html`<p class="${_infoAddonClass}">${this.infoMessage}</p>` : ''}
-    ${invalidMessage ?
-      html`<p class="${_errorAddonClass}">${invalidMessage}</p>` : ''}
+      ${infoMessage
+        ? html`<p class="${_infoAddonClass}">${this.infoMessage}</p>`
+        : ''}
+      ${invalidMessage
+        ? html`<p class="${_errorAddonClass}">${invalidMessage}</p>`
+        : ''}
     </div>`;
   }
 
   _labelTemplate() {
-    const {
-      _labelClass,
-      _ariaLabelledBy
-    } = this;
+    const { _labelClass, _ariaLabelledBy } = this;
     return html`<div class="${_labelClass}" id="${_ariaLabelledBy}">
       <slot name="label"></slot>
     </div>`;
@@ -165,7 +180,7 @@ export class AnypointInput extends AnypointInputMixin(LitElement) {
       multiple,
       spellcheck,
       bindValue,
-      _inputType
+      _inputType,
     } = this;
     return html`<input
       class="input-element"
@@ -177,8 +192,8 @@ export class AnypointInput extends AnypointInputMixin(LitElement) {
       autocomplete="${ifDefined(autocomplete)}"
       ?autofocus="${autofocus}"
       inputmode="${ifDefined(inputMode)}"
-      minlength="${ifDefined(minLength ? minLength : undefined)}"
-      maxlength="${ifDefined(maxLength ? maxLength: undefined)}"
+      minlength="${ifDefined(minLength)}"
+      maxlength="${ifDefined(maxLength)}"
       min="${ifDefined(min)}"
       max="${ifDefined(max)}"
       step="${ifDefined(step)}"
@@ -197,6 +212,7 @@ export class AnypointInput extends AnypointInputMixin(LitElement) {
       .value="${bindValue}"
       @change="${this._onChange}"
       @input="${this._onInput}"
-      @search="${this._retargetEvent}"/>`;
+      @search="${this._retargetEvent}"
+    />`;
   }
 }
