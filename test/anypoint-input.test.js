@@ -150,7 +150,7 @@ describe('<anypoint-input>', () => {
   describe('_prefixed getter', () => {
     it('retuns null when no prefix', async () => {
       const element = await basicFixture();
-      assert.isUndefined(element._prefixed);
+      assert.equal(element._prefixed, null);
     });
 
     it('retuns element when prefix', async () => {
