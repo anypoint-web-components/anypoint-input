@@ -461,3 +461,31 @@
 * fixing a test [273a6ec](https://github.com/anypoint-web-components/anypoint-input/commit/273a6ec79fa9072158067abff53fa89584c59db6) by Pawel
 
 
+<a name="0.2.17"></a>
+## [0.2.17](https://github.com/anypoint-web-components/anypoint-input/compare/0.2.14...0.2.17) (2020-06-25)
+
+### Build
+
+* bumping version [03b9f9d](https://github.com/anypoint-web-components/anypoint-input/commit/03b9f9dd9804749bdcded6156aca314f400f3455) by Pawel
+* bumping version [8562b7a](https://github.com/anypoint-web-components/anypoint-input/commit/8562b7a24abf6fa1814b4aa594d1efedf7476dac) by Paweł Psztyć
+* bumping version [eec52dd](https://github.com/anypoint-web-components/anypoint-input/commit/eec52ddb9c9555fb405ee18fc937fa28686b999d) by Pawel
+
+
+### Update
+
+* adding inputElement tio types declaration [356bdb3](https://github.com/anypoint-web-components/anypoint-input/commit/356bdb3bbfd0844beda6665023466e1453ae4234) by Pawel
+* [ci skip] automated merge master->stage. syncing main branches [351f408](https://github.com/anypoint-web-components/anypoint-input/commit/351f408793283e5fc64a231b3773337fef0f0718) by Ci agent
+* upgrading to open-wc standards [402b5b6](https://github.com/anypoint-web-components/anypoint-input/commit/402b5b64a2d250f21f55e34627b9afff2053bcbf) by Pawel
+* [ci skip] automated merge master->stage. syncing main branches [b5de636](https://github.com/anypoint-web-components/anypoint-input/commit/b5de6369bea6215717ef3ddf793c8e08c8de891b) by Ci agent
+
+
+### Documentation
+
+* updating travis badge [551a87a](https://github.com/anypoint-web-components/anypoint-input/commit/551a87af7982fe6f72a980715c7d25283632ea31) by Pawel
+
+
+### Testing
+
+* fixing a test [273a6ec](https://github.com/anypoint-web-components/anypoint-input/commit/273a6ec79fa9072158067abff53fa89584c59db6) by Pawel
+
+
