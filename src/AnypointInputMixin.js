@@ -199,7 +199,7 @@ const mxFunction = base => {
     }
 
     /**
-     * @return {HTMLInputElement} Returns a reference to the input element.
+     * @return {HTMLInputElement|HTMLTextAreaElement} Returns a reference to the input element.
      */
     get inputElement() {
       return this.shadowRoot.querySelector('input,textarea');

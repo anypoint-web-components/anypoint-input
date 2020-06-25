@@ -229,6 +229,11 @@ interface AnypointInputMixin extends ValidatableMixin, ControlStateMixin {
    */
   noLabelFloat: boolean;
 
+  /**
+   * A reference to the input element.
+   */
+  readonly inputElement: HTMLInputElement|HTMLTextAreaElement;
+
   checkValidity(): boolean;
 
   _invalidChanged(value: boolean): void;
