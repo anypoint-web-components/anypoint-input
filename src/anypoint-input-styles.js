@@ -151,6 +151,11 @@ export default css`
     transform: translateY(-1.2rem);
   }
 
+  .prefixes {
+    display: flex;
+    align-items: center;
+  }
+
   /* Outlined theme */
   :host([outlined]) .input-container {
     border: 1px var(--anypoint-input-border-color, #8e8e8e) solid;
