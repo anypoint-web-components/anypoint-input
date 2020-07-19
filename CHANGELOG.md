@@ -489,3 +489,21 @@
 * fixing a test [273a6ec](https://github.com/anypoint-web-components/anypoint-input/commit/273a6ec79fa9072158067abff53fa89584c59db6) by Pawel
 
 
+<a name="0.2.18"></a>
+## [0.2.18](https://github.com/anypoint-web-components/anypoint-input/compare/0.2.15...0.2.18) (2020-07-19)
+
+### Build
+
+* bumping version [4b95daf](https://github.com/anypoint-web-components/anypoint-input/commit/4b95daf782e729cb4323a9184877024589c401bd) by Pawel
+* bumping version [03b9f9d](https://github.com/anypoint-web-components/anypoint-input/commit/03b9f9dd9804749bdcded6156aca314f400f3455) by Pawel
+* bumping version [8562b7a](https://github.com/anypoint-web-components/anypoint-input/commit/8562b7a24abf6fa1814b4aa594d1efedf7476dac) by Paweł Psztyć
+
+
+### Update
+
+* upgrading dependencies [1896759](https://github.com/anypoint-web-components/anypoint-input/commit/189675981faa8b4b71dd68b81a879af5adc7b302) by Pawel
+* [ci skip] automated merge master->stage. syncing main branches [0c4d98e](https://github.com/anypoint-web-components/anypoint-input/commit/0c4d98e403bf8fc70ae24b3c9751a472b0e9b323) by Ci agent
+* adding inputElement tio types declaration [356bdb3](https://github.com/anypoint-web-components/anypoint-input/commit/356bdb3bbfd0844beda6665023466e1453ae4234) by Pawel
+* [ci skip] automated merge master->stage. syncing main branches [351f408](https://github.com/anypoint-web-components/anypoint-input/commit/351f408793283e5fc64a231b3773337fef0f0718) by Ci agent
+
+
