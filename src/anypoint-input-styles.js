@@ -189,7 +189,7 @@ export default css`
 
   :host([compatibility]) {
     height: 40px;
-    margin-top: 20px;
+    margin-top: 25px;
   }
 
   :host([compatibility]) .input-container {
@@ -198,6 +198,10 @@ export default css`
     border-right: 2px var(--anypoint-input-border-color, #8e8e8e) solid;
     border-radius: 0;
     box-sizing: border-box;
+  }
+
+  :host([compatibility]) .label.compatibility {
+    top: -22px;
   }
 
   :host([compatibility][focused]) .input-container,
