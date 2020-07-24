@@ -61,6 +61,9 @@ export class AnypointInput extends AnypointInputMixin(LitElement) {
     } else {
       klas += labelFloating ? ' floating' : ' resting';
     }
+    if (this.compatibility) {
+      klas += ' compatibility';
+    }
     return klas;
   }
 
