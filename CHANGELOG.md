@@ -529,3 +529,25 @@
 * label too close to input [ef81428](https://github.com/anypoint-web-components/anypoint-input/commit/ef814286372442cf4fca48786a9e890455602658) by Carolina Wright
 
 
+<a name="0.2.20"></a>
+## [0.2.20](https://github.com/anypoint-web-components/anypoint-input/compare/0.2.18...0.2.20) (2020-07-27)
+
+### Build
+
+* bumping version [5a8afac](https://github.com/anypoint-web-components/anypoint-input/commit/5a8aface15d2ac198a97e2f2ab8a921d08ac86fd) by Pawel
+* bump version [b652a57](https://github.com/anypoint-web-components/anypoint-input/commit/b652a5748974e52887c7501b7b2c945c22b96a06) by Carolina Wright
+
+
+### Update
+
+* upgrading dependencies [030ac4d](https://github.com/anypoint-web-components/anypoint-input/commit/030ac4db34865ceff201181ba94480f8b2ded856) by Pawel
+* [ci skip] automated merge master->stage. syncing main branches [97a0d39](https://github.com/anypoint-web-components/anypoint-input/commit/97a0d39b4e1455a041efed3e40857d6d3f70f00f) by Ci agent
+* ignore .idea folder [ef5d5f5](https://github.com/anypoint-web-components/anypoint-input/commit/ef5d5f560d0685264bf15d47a251a258983bc37d) by Carolina Wright
+* [ci skip] automated merge master->stage. syncing main branches [e9c64c5](https://github.com/anypoint-web-components/anypoint-input/commit/e9c64c5624c9785a5928d58209bada56e5bb8a93) by Ci agent
+
+
+### Bug Fixes
+
+* label too close to input [ef81428](https://github.com/anypoint-web-components/anypoint-input/commit/ef814286372442cf4fca48786a9e890455602658) by Carolina Wright
+
+
