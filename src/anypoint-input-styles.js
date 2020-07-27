@@ -151,7 +151,8 @@ export default css`
     transform: translateY(-1.2rem);
   }
 
-  .prefixes {
+  .prefixes,
+  .suffixes {
     display: flex;
     align-items: center;
   }
