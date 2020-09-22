@@ -48,9 +48,7 @@ function isPrintable(event) {
  * @mixes ControlStateMixin
  */
 const mxFunction = base => {
-  class AnypointInputMixinImpl extends ValidatableMixin(
-    ControlStateMixin(base)
-  ) {
+  class AnypointInputMixinImpl extends ValidatableMixin(ControlStateMixin(base)) {
     /**
      * For form-associated custom elements. Marks this custom element
      * as form enabled element.
@@ -61,7 +59,7 @@ const mxFunction = base => {
 
     /**
      * When form-associated custom elements are supported in the browser it
-     * returns `<form>` element associated with this constol.
+     * returns `<form>` element associated with this control.
      */
     get form() {
       return (this._internals && this._internals.form) || null;
@@ -212,40 +210,49 @@ const mxFunction = base => {
          * implement your own paper-input-like element, bind this to
          * the `<input>`'s `bindValue`
          * property, or the value property of your input that is `notify:true`.
+         * @attribute
          */
         value: { notify: true },
         /**
          * Set to true to prevent the user from entering invalid input.
+         * @attribute
          */
         preventInvalidInput: { type: Boolean },
         /**
          * Set this to specify the pattern allowed by `preventInvalidInput`.
+         * @attribute
          */
         allowedPattern: { type: String },
         /**
          * The type of the input. The supported types are `text`, `number` and `password`.
+         * @attribute
          */
         type: { type: String },
         /**
          * The datalist of the input (if any). This should match the id of an existing `<datalist>`.
+         * @attribute
          */
         list: { type: String },
         /**
          * A pattern to validate the `input` with.
+         * @attribute
          */
         pattern: { type: String },
 
         /**
          * Sets the input as required.
+         * @attribute
          */
         required: { type: Boolean },
         /**
          * The error message to display when the input is invalid.
+         * @attribute
          */
         invalidMessage: { type: String },
         /**
          * Assistive text value.
-         * Rendered beflow the input.
+         * Rendered below the input.
+         * @attribute
          */
         infoMessage: { type: String },
         /**
@@ -255,10 +262,12 @@ const mxFunction = base => {
         _hasValidationMessage: { type: Boolean },
         /**
          * Set to true to auto-validate the input value.
+         * @attribute
          */
         autoValidate: { type: Boolean },
         /**
          * Name of the validator to use. See `AnypointInputMixin`.
+         * @attribute
          */
         validator: { type: String },
 
@@ -266,83 +275,97 @@ const mxFunction = base => {
         /**
          * Bind the `<input>`'s `autocomplete` property.
          * @default off
+         * @attribute
          */
         autocomplete: { type: String },
         /**
          * Binds this to the `<input>`'s `autofocus` property.
+         * @attribute
          */
         autofocus: { type: Boolean },
         /**
          * Binds this to the `<input>`'s `inputMode` property.
+         * @attribute
          */
         inputMode: { type: String },
         /**
          * The minimum length of the input value.
          * Binds this to the `<input>`'s `minLength` property.
+         * @attribute
          */
         minLength: { type: Number },
         /**
          * The maximum length of the input value.
          * Binds this to the `<input>`'s `maxLength` property.
+         * @attribute
          */
         maxLength: { type: Number },
         /**
          * The minimum (numeric or date-time) input value.
          * Binds this to the `<input>`'s `min` property.
+         * @attribute
          */
         min: { type: String },
         /**
          * The maximum (numeric or date-time) input value.
          * Can be a String (e.g. `"2000-01-01"`) or a Number (e.g. `2`).
          * Binds this to the `<input>`'s `max` property.
+         * @attribute
          */
         max: { type: String },
         /**
          * Limits the numeric or date-time increments.
          *
          * Binds this to the `<input>`'s `step` property.
+         * @attribute
          */
         step: { type: String },
         /**
          * Binds this to the `<input>`'s `name` property.
+         * @attribute
          */
         name: { type: String },
         /**
          * A placeholder string in addition to the label. If this is set, the label will always float.
          * Please, use with careful.
+         * @attribute
          */
         placeholder: { type: String },
         /**
          * Binds this to the `<input>`'s `readonly` property.
+         * @attribute
          * @default false
          */
         readOnly: { type: Boolean },
         /**
          * Binds this to the `<input>`'s `size` property.
+         * @attribute
          */
         size: { type: Number },
         /**
          * Binds this to the `<input>`'s `spellcheck` property.
+         * @attribute
          */
         spellcheck: { type: String },
         // Nonstandard attributes for binding if needed
-        /**
-         * Binds this to the `<input>`'s `autocapitalize` property.
-         *
-         * Possible values are:
-         *
-         * - `off` or `none`: No autocapitalization is applied (all letters default to lowercase)
-         * - `on` or `sentences`: The first letter of each sentence defaults to a capital letter;
-         *  all other letters default to lowercase
-         * - `words`: The first letter of each word defaults to a capital letter; all other letters default to lowercase
-         * - `characters`: All letters should default to uppercase
-         *
-         * @default none
-         */
-        autocapitalize: { type: String },
+        // /**
+        //  * Binds this to the `<input>`'s `autocapitalize` property.
+        //  *
+        //  * Possible values are:
+        //  *
+        //  * - `off` or `none`: No autocapitalization is applied (all letters default to lowercase)
+        //  * - `on` or `sentences`: The first letter of each sentence defaults to a capital letter;
+        //  *  all other letters default to lowercase
+        //  * - `words`: The first letter of each word defaults to a capital letter; all other letters default to lowercase
+        //  * - `characters`: All letters should default to uppercase
+        //  *
+        //  * @default none
+        //  */
+        // autocapitalize: { type: String },
         /**
          * Binds this to the `<input>`'s `autocorrect` property.
          * @default off
+         * @attribute
          */
         autocorrect: { type: String },
         /**
@@ -351,26 +374,31 @@ const mxFunction = base => {
          *
          * The maximum number of items that should be displayed in the
          * drop-down list of previous search queries. Safari only.
+         * @attribute
          */
         results: { type: Number },
         /**
          * Binds this to the `<input>`'s `accept` property,
          * used with type=file.
+         * @attribute
          */
         accept: { type: String },
         /**
          * Binds this to the`<input>`'s `multiple` property,
          * used with type=file.
+         * @attribute
          */
         multiple: { type: Boolean },
 
         _ariaLabelledBy: { type: String },
         /**
          * Enables outlined theme.
+         * @attribute
          */
         outlined: { type: Boolean, reflect: true },
         /**
          * Enables compatibility with Anypoint components.
+         * @attribute
          */
         compatibility: { type: Boolean, reflect: true },
         /**
@@ -383,6 +411,7 @@ const mxFunction = base => {
          *
          * Use it carefully as user should be able to recognize the input
          * when the value is predefined.
+         * @attribute
          */
         noLabelFloat: { type: Boolean, reflect: true },
       };
@@ -411,7 +440,7 @@ const mxFunction = base => {
       this._patternAlreadyChecked = false;
       this.preventInvalidInput = false;
       this._onKeydown = this._onKeydown.bind(this);
-      this._validationtatesHandler = this._validationtatesHandler.bind(this);
+      this._validationStatesHandler = this._validationStatesHandler.bind(this);
 
       if (!this.hasAttribute('tabindex')) {
         this.setAttribute('tabindex', '0');
@@ -434,7 +463,7 @@ const mxFunction = base => {
       this.addEventListener('keydown', this._onKeydown);
       this.addEventListener(
         'validationstates-changed',
-        this._validationtatesHandler
+        this._validationStatesHandler
       );
     }
 
@@ -448,7 +477,7 @@ const mxFunction = base => {
       this.removeEventListener('keydown', this._onKeydown);
       this.removeEventListener(
         'validationstates-changed',
-        this._validationtatesHandler
+        this._validationStatesHandler
       );
     }
 
@@ -520,7 +549,7 @@ const mxFunction = base => {
     }
 
     /**
-     * Forwards focus to inputElement. Overriden from ControlStateMixin.
+     * Forwards focus to inputElement. Overridden from ControlStateMixin.
      * @param {FocusEvent} event
      */
     _focusBlurHandler(event) {
@@ -596,7 +625,7 @@ const mxFunction = base => {
     }
 
     /**
-     * Calles when `autoValidate` changed
+     * Calls when `autoValidate` changed
      * @param {Boolean} value
      */
     _autoValidateChanged(value) {
@@ -708,7 +737,7 @@ const mxFunction = base => {
     }
 
     /**
-     * Checks validity for oattern, if any
+     * Checks validity for pattern, if any
      * @param {String=} value The value to test for pattern
      * @return {Boolean}
      */
@@ -799,8 +828,8 @@ const mxFunction = base => {
 
     /**
      * Because of the `value` property binding to the input element the value on
-     * input element changes programatically which renders input element's validation
-     * valiod even if it isn't. This function runs the steps as the regular input
+     * input element changes programmatically which renders input element's validation
+     * valid even if it isn't. This function runs the steps as the regular input
      * validation would, including input validation.
      * @return {Boolean} True if the element is valid.
      */
@@ -842,7 +871,7 @@ const mxFunction = base => {
      *
      * @param {CustomEvent} e
      */
-    _validationtatesHandler(e) {
+    _validationStatesHandler(e) {
       const { value } = e.detail;
       const hasStates = !!(value && value.length);
       this._hasValidationMessage = hasStates;

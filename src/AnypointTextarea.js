@@ -5,7 +5,7 @@ import commonStyles from './anypoint-input-styles.js';
 
 /* eslint-disable class-methods-use-this */
 
-export class AnypointTeaxtarea extends AnypointInputMixin(LitElement) {
+export class AnypointTextarea extends AnypointInputMixin(LitElement) {
   get styles() {
     return [
       commonStyles,
@@ -104,8 +104,8 @@ export class AnypointTeaxtarea extends AnypointInputMixin(LitElement) {
 
   get _infoAddonClass() {
     let klas = 'info';
-    const isInavlidWithMessage = !!this.invalidMessage && this.invalid;
-    if (isInavlidWithMessage) {
+    const isInvalidWithMessage = !!this.invalidMessage && this.invalid;
+    if (isInvalidWithMessage) {
       klas += ' label-hidden';
     }
     return klas;

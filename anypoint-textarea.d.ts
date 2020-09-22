@@ -1,7 +1,7 @@
-import {AnypointTeaxtarea} from './src/AnypointTextarea';
+import {AnypointTextarea} from './src/AnypointTextarea';
 
 declare global {
   interface HTMLElementTagNameMap {
-    "anypoint-textarea": AnypointTeaxtarea;
+    "anypoint-textarea": AnypointTextarea;
   }
 }

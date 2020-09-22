@@ -1,61 +1,93 @@
-import { fixture, assert, nextFrame, aTimeout } from '@open-wc/testing';
+import { fixture, assert, nextFrame, aTimeout, html } from '@open-wc/testing';
 import * as sinon from 'sinon';
 import * as MockInteractions from '@polymer/iron-test-helpers/mock-interactions.js';
 import '../anypoint-input.js';
 
+/** @typedef {import('../index').AnypointInput} AnypointInput */
+
 describe('<anypoint-input>', () => {
+  /**
+   * @return {Promise<AnypointInput>}
+   */
   async function basicFixture() {
-    return fixture(`<anypoint-input></anypoint-input>`);
+    return fixture(html`<anypoint-input></anypoint-input>`);
   }
 
+  /**
+   * @return {Promise<AnypointInput>}
+   */
   async function invalidMessageFixture() {
-    return fixture(`<anypoint-input invalidmessage="test"></anypoint-input>`);
+    return fixture(html`<anypoint-input invalidmessage="test"></anypoint-input>`);
   }
 
+  /**
+   * @return {Promise<AnypointInput>}
+   */
   async function autoValidateFixture() {
-    return fixture(`<anypoint-input
+    return fixture(html`<anypoint-input
       autovalidate
       required
       invalidmessage="test"></anypoint-input>`);
   }
 
+  /**
+   * @return {Promise<AnypointInput>}
+   */
   async function labeledFixture() {
-    return fixture(`<anypoint-input>
+    return fixture(html`<anypoint-input>
       <label slot="label">Hello!</label>
       </anypoint-input>`);
   }
 
+  /**
+   * @return {Promise<AnypointInput>}
+   */
   async function labeledIdFixture() {
-    return fixture(`<anypoint-input>
+    return fixture(html`<anypoint-input>
       <label slot="label" id="testLabel">Hello!</label>
       </anypoint-input>`);
   }
 
+  /**
+   * @return {Promise<AnypointInput>}
+   */
   async function patternFixture() {
-    return fixture(`<anypoint-input pattern="[a-z]*">
+    return fixture(html`<anypoint-input pattern="[a-z]*">
       </anypoint-input>`);
   }
 
+  /**
+   * @return {Promise<AnypointInput>}
+   */
   async function prefixFixture() {
-    return fixture(`<anypoint-input>
+    return fixture(html`<anypoint-input>
       <span slot="prefix">$</span>
     </anypoint-input>`);
   }
 
+  /**
+   * @return {Promise<AnypointInput>}
+   */
   async function noLabelFloatFixture() {
-    return fixture(`<anypoint-input nolabelfloat>
+    return fixture(html`<anypoint-input nolabelfloat>
       <label slot="label">Label</label>
     </anypoint-input>`);
   }
 
+  /**
+   * @return {Promise<AnypointInput>}
+   */
   async function readOnlyFixture() {
-    return fixture(`<anypoint-input readonly>
+    return fixture(html`<anypoint-input readonly>
       <label slot="label">Label</label>
     </anypoint-input>`);
   }
 
+  /**
+   * @return {Promise<AnypointInput>}
+   */
   async function searchFixture() {
-    return fixture(`<anypoint-input type="search">
+    return fixture(html`<anypoint-input type="search">
       <label slot="label">Label</label>
     </anypoint-input>`);
   }
@@ -148,12 +180,12 @@ describe('<anypoint-input>', () => {
   });
 
   describe('_prefixed getter', () => {
-    it('retuns null when no prefix', async () => {
+    it('returns null when no prefix', async () => {
       const element = await basicFixture();
       assert.equal(element._prefixed, null);
     });
 
-    it('retuns element when prefix', async () => {
+    it('returns element when prefix', async () => {
       const element = await prefixFixture();
       assert.ok(element._prefixed);
     });
@@ -199,12 +231,14 @@ describe('<anypoint-input>', () => {
     ].forEach(type => {
       it(`returns floating value when type = ${type}`, async () => {
         const element = await basicFixture();
+        // @ts-ignore
         element.type = type;
         assert.equal(element._labelClass, 'label floating');
       });
 
       it(`returns with-prefix value when type = ${type}`, async () => {
         const element = await prefixFixture();
+        // @ts-ignore
         element.type = type;
         assert.equal(element._labelClass, 'label with-prefix floating');
       });
@@ -570,6 +604,7 @@ describe('<anypoint-input>', () => {
       const element = await labeledFixture();
       const label = element.shadowRoot
         .querySelector('slot[name="label"]')
+        // @ts-ignore
         .assignedNodes()[0];
       assert.match(label.id, /anypoint-input-label-\d+/);
     });
@@ -578,6 +613,7 @@ describe('<anypoint-input>', () => {
       const element = await labeledIdFixture();
       const label = element.shadowRoot
         .querySelector('slot[name="label"]')
+        // @ts-ignore
         .assignedNodes()[0];
       assert.equal(label.id, 'testLabel');
     });
@@ -605,7 +641,7 @@ describe('<anypoint-input>', () => {
       element = await basicFixture();
     });
 
-    it('retargets change event', () => {
+    it('re-targets change event', () => {
       const input = element.inputElement;
       const spy = sinon.spy();
       element.addEventListener('change', spy);
@@ -827,7 +863,7 @@ describe('<anypoint-input>', () => {
     });
   });
 
-  describe('_validationtatesHandler()', () => {
+  describe('_validationStatesHandler()', () => {
     let element;
     let states;
     beforeEach(async () => {
@@ -920,10 +956,10 @@ describe('<anypoint-input>', () => {
   (hasFormAssociatedElements ? describe : describe.skip)(
     'form-associated custom elements',
     () => {
-      async function formFixtrue() {
+      async function formFixture() {
         return fixture(`
       <form>
-        <fieldset name="form-fiels">
+        <fieldset name="form-fields">
           <anypoint-input name="formItem" value="test-value">
             <label slot="label">Text input</label>
           </anypoint-listbox>
@@ -937,7 +973,7 @@ describe('<anypoint-input>', () => {
         let element;
         let form;
         beforeEach(async () => {
-          form = await formFixtrue();
+          form = await formFixture();
           element = form.querySelector('anypoint-input');
         });
 
@@ -959,7 +995,7 @@ describe('<anypoint-input>', () => {
         let element;
         let form;
         beforeEach(async () => {
-          form = await formFixtrue();
+          form = await formFixture();
           element = form.querySelector('anypoint-input');
         });
 
@@ -970,11 +1006,11 @@ describe('<anypoint-input>', () => {
         });
       });
 
-      describe('Resseting the form', () => {
+      describe('Resetting the form', () => {
         let element;
         let form;
         beforeEach(async () => {
-          form = await formFixtrue();
+          form = await formFixture();
           element = form.querySelector('anypoint-input');
         });
 
@@ -989,7 +1025,7 @@ describe('<anypoint-input>', () => {
         let form;
         let fieldset;
         beforeEach(async () => {
-          form = await formFixtrue();
+          form = await formFixture();
           element = form.querySelector('anypoint-input');
           fieldset = form.querySelector('fieldset');
         });
@@ -1004,11 +1040,11 @@ describe('<anypoint-input>', () => {
         let element;
         let form;
         beforeEach(async () => {
-          form = await formFixtrue();
+          form = await formFixture();
           element = form.querySelector('anypoint-input');
         });
 
-        it('calls internall checkValidity()', () => {
+        it('calls internal checkValidity()', () => {
           const spy = sinon.spy(element._internals, 'checkValidity');
           element.checkValidity();
           assert.isTrue(spy.called);
@@ -1035,7 +1071,7 @@ describe('<anypoint-input>', () => {
       assert.isFalse(node.classList.contains('label-hidden'));
     });
 
-    it('hiddes info message when invalid', async () => {
+    it('hides info message when invalid', async () => {
       element.invalid = true;
       element.invalidMessage = 'test msg';
       await nextFrame();
@@ -1064,7 +1100,7 @@ describe('<anypoint-input>', () => {
       assert.isFalse(node.classList.contains('label-hidden'));
     });
 
-    it('hiddes info message when not invalid', async () => {
+    it('hides info message when not invalid', async () => {
       const node = element.shadowRoot.querySelector('p.invalid');
       assert.isTrue(node.classList.contains('label-hidden'));
     });
@@ -1113,7 +1149,9 @@ describe('<anypoint-input>', () => {
   describe('compatibility mode', () => {
     it('sets compatibility on item when setting legacy', async () => {
       const element = await basicFixture();
+      // @ts-ignore
       element.legacy = true;
+      // @ts-ignore
       assert.isTrue(element.legacy, 'legacy is set');
       assert.isTrue(element.compatibility, 'compatibility is set');
     });
@@ -1121,12 +1159,13 @@ describe('<anypoint-input>', () => {
     it('returns compatibility value from item when getting legacy', async () => {
       const element = await basicFixture();
       element.compatibility = true;
+      // @ts-ignore
       assert.isTrue(element.legacy, 'legacy is set');
     });
   });
 
-  describe('Event retargeting', () => {
-    it('retargets search event', async () => {
+  describe('Event re-targeting', () => {
+    it('re-targets search event', async () => {
       const element = await searchFixture();
       const spy = sinon.spy();
       element.addEventListener('search', spy);
@@ -1164,7 +1203,7 @@ describe('<anypoint-input>', () => {
     async function formFixtrue() {
       return fixture(`
       <form>
-        <fieldset name="form-fiels">
+        <fieldset name="form-fields">
           <anypoint-input name="formItem" value="test-value">
             <label slot="label">Text input</label>
           </anypoint-listbox>

@@ -1,3 +1,3 @@
-import { AnypointTeaxtarea } from './src/AnypointTextarea.js';
+import { AnypointTextarea } from './src/AnypointTextarea.js';
 
-window.customElements.define('anypoint-textarea', AnypointTeaxtarea);
+window.customElements.define('anypoint-textarea', AnypointTextarea);

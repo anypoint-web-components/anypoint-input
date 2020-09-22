@@ -69,8 +69,8 @@ export class AnypointInput extends AnypointInputMixin(LitElement) {
 
   get _infoAddonClass() {
     let klas = 'info';
-    const isInavlidWithMessage = !!this.invalidMessage && this.invalid;
-    if (isInavlidWithMessage) {
+    const isInvalidWithMessage = !!this.invalidMessage && this.invalid;
+    if (isInvalidWithMessage) {
       klas += ' label-hidden';
     }
     return klas;
@@ -99,7 +99,7 @@ export class AnypointInput extends AnypointInputMixin(LitElement) {
   }
 
   /**
-   * Retargets an event that does not bubble
+   * Re-targets an event that does not bubble
    *
    * @param {Event} e The event to retarget
    */
@@ -108,17 +108,17 @@ export class AnypointInput extends AnypointInputMixin(LitElement) {
   }
 
   render() {
-    return html`<style>
-        ${this.styles}
-      </style>
-      <div class="input-container">
-        ${this._prefixTemplate()}
-        <div class="input-label">
-          ${this._labelTemplate()} ${this._inputTemplate()}
-        </div>
-        ${this._suffixTemplate()}
+    return html`
+    <style>${this.styles}</style>
+    <div class="input-container">
+      ${this._prefixTemplate()}
+      <div class="input-label">
+        ${this._labelTemplate()} ${this._inputTemplate()}
       </div>
-      ${this._assistiveTemplate()} `;
+      ${this._suffixTemplate()}
+    </div>
+    ${this._assistiveTemplate()}
+    `;
   }
 
   _suffixTemplate() {
