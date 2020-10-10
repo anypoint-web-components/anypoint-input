@@ -29,6 +29,12 @@ interface AnypointInputMixinConstructor {
  *
  * Changing the `invalid` property, either manually or by calling `validate()` will update the
  * `aria-invalid` attribute.
+ * 
+ * @fires change When the input value change
+ * @fires input On user input
+ * @fires iron-announce When requesting a11y announcement
+ * @fires value-changed When the `value` property has changed
+ * @fires hasvalidationmessage-changed When the `hasValidationMessage` property has changed
  */
 interface AnypointInputMixin extends ValidatableMixin, ControlStateMixin {
   /**
@@ -188,20 +194,20 @@ interface AnypointInputMixin extends ValidatableMixin, ControlStateMixin {
   //  */
   // spellcheck: string;
 
-  // /**
-  //  * Binds this to the `<input>`'s `autocapitalize` property.
-  //  *
-  //  * Possible values are:
-  //  *
-  //  * - `off` or `none`: No autocapitalization is applied (all letters default to lowercase)
-  //  * - `on` or `sentences`: The first letter of each sentence defaults to a capital letter;
-  //  *  all other letters default to lowercase
-  //  * - `words`: The first letter of each word defaults to a capital letter; all other letters default to lowercase
-  //  * - `characters`: All letters should default to uppercase
-  //  *
-  //  * @default none
-  //  */
-  // autocapitalize: "off" | "none" | "on" | "sentences" | "words" | "characters";
+  /**
+   * Binds this to the `<input>`'s `autocapitalize` property.
+   *
+   * Possible values are:
+   *
+   * - `off` or `none`: No autocapitalization is applied (all letters default to lowercase)
+   * - `on` or `sentences`: The first letter of each sentence defaults to a capital letter;
+   *  all other letters default to lowercase
+   * - `words`: The first letter of each word defaults to a capital letter; all other letters default to lowercase
+   * - `characters`: All letters should default to uppercase
+   *
+   * @default none
+   */
+  autocapitalize: "off" | "none" | "on" | "sentences" | "words" | "characters";
 
   /**
    * Binds this to the `<input>`'s `autocorrect` property.

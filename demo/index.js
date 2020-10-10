@@ -1,3 +1,5 @@
+/* eslint-disable no-continue */
+/* eslint-disable no-plusplus */
 import { html } from 'lit-html';
 import { ArcDemoPage } from '@advanced-rest-client/arc-demo-helper/ArcDemoPage.js';
 import '@advanced-rest-client/arc-demo-helper/arc-demo-helper.js';
@@ -8,6 +10,7 @@ import '@anypoint-web-components/anypoint-styles/colors.js';
 import '@anypoint-web-components/anypoint-button/anypoint-button.js';
 import '@polymer/iron-icon/iron-icon.js';
 import '@polymer/iron-icons/iron-icons.js';
+import '@polymer/paper-toggle-button/paper-toggle-button.js';
 import '@advanced-rest-client/arc-demo-helper/arc-interactive-demo.js';
 import '../anypoint-input.js';
 import '../anypoint-textarea.js';
@@ -63,6 +66,16 @@ class ComponentDemo extends ArcDemoPage {
     this.textFieldCompatibility = false;
     this.textFieldOutlined = false;
     this.typeSelector = 'text';
+    this.darkThemeActive = false;
+    this.textFiledLeading = false;
+    this.textFiledTrailing = false;
+    this.textFiledNoLabelFloat = false;
+    this.mainFiledReadOnly = false;
+    this.mainFiledDisabled = false;
+    this.textAreaNoLabelFloat = false;
+    this.maskedNoLabelFloat = false;
+    this.maskedDisabled = false;
+    this.maskedReadOnly = false;
   }
 
   _toggleMainOption(e) {
@@ -102,74 +115,26 @@ class ComponentDemo extends ArcDemoPage {
 
   _textFiledStateHandler(e) {
     const state = e.detail.value;
-    switch (state) {
-      case 0:
-        this.textFieldOutlined = false;
-        this.textFieldCompatibility = false;
-        break;
-      case 1:
-        this.textFieldOutlined = true;
-        this.textFieldCompatibility = false;
-        break;
-      case 2:
-        this.textFieldOutlined = false;
-        this.textFieldCompatibility = true;
-        break;
-    }
+    this.textFieldOutlined = state === 1;
+    this.textFieldCompatibility = state === 2;
   }
 
   _typesFiledStateHandler(e) {
     const state = e.detail.value;
-    switch (state) {
-      case 0:
-        this.typeFieldOutlined = false;
-        this.typeFieldCompatibility = false;
-        break;
-      case 1:
-        this.typeFieldOutlined = true;
-        this.typeFieldCompatibility = false;
-        break;
-      case 2:
-        this.typeFieldOutlined = false;
-        this.typeFieldCompatibility = true;
-        break;
-    }
+    this.typeFieldOutlined = state === 1;
+    this.typeFieldCompatibility = state === 2;
   }
 
   _textAreaStateHandler(e) {
     const state = e.detail.value;
-    switch (state) {
-      case 0:
-        this.textAreaOutlined = false;
-        this.textAreaCompatibility = false;
-        break;
-      case 1:
-        this.textAreaOutlined = true;
-        this.textAreaCompatibility = false;
-        break;
-      case 2:
-        this.textAreaOutlined = false;
-        this.textAreaCompatibility = true;
-        break;
-    }
+    this.textAreaOutlined = state === 1;
+    this.textAreaCompatibility = state === 2;
   }
 
   _maskedStateHandler(e) {
     const state = e.detail.value;
-    switch (state) {
-      case 0:
-        this.maskedOutlined = false;
-        this.maskedCompatibility = false;
-        break;
-      case 1:
-        this.maskedOutlined = true;
-        this.maskedCompatibility = false;
-        break;
-      case 2:
-        this.maskedOutlined = false;
-        this.maskedCompatibility = true;
-        break;
-    }
+    this.maskedOutlined = state === 1;
+    this.maskedCompatibility = state === 2;
   }
 
   _textFiledAssistiveHandler(e) {
@@ -366,7 +331,7 @@ class ComponentDemo extends ArcDemoPage {
     return html`
       <section class="documentation-section">
         <h2>Usage</h2>
-        <p>Anypoint text field comes with 3 predefied styles:</p>
+        <p>Anypoint text field comes with 3 predefined styles:</p>
         <ul>
           <li><b>Filled</b> (normal) - For low emphasis inputs</li>
           <li><b>Outlined</b> - For high emphasis inputs</li>
@@ -380,7 +345,7 @@ class ComponentDemo extends ArcDemoPage {
           <a href="https://material.io/design/components/text-fields.html"
             >text fields</a
           >
-          documentation in Material Defign documentation for principles and
+          documentation in Material Design documentation for principles and
           anatomy of text fields.
         </p>
 
@@ -391,14 +356,14 @@ class ComponentDemo extends ArcDemoPage {
         </p>
         <p>
           Choose the right type that works well with application visual style,
-          makes the imputs distinctive from other components like buttons and
-          surrounding content, and best acommodates the goals of the UI. Note,
+          makes the inputs distinctive from other components like buttons and
+          surrounding content, and best accommodates the goals of the UI. Note,
           that outlined buttons have higher emphasis than filled buttons.
           However, do not mix the two types in a single UI region.
         </p>
 
         <p>
-          The compatibility text filed style is for Anyponit native applications for
+          The compatibility text filed style is for Anypoint native applications for
           easy integration. Every component including this element should expose
           the <code>compatibility</code> property and propagate it to the text filed.
           An application importing the component can simply set this value to
@@ -426,7 +391,7 @@ class ComponentDemo extends ArcDemoPage {
 
         <p>
           Similarly suffix can provide additional information about the format
-          of input. For the same cach amount input suffix could render
+          of input. For the same cash amount input suffix could render
           <code>.00</code> to suggest that the input is an integer.
         </p>
 
@@ -445,7 +410,7 @@ class ComponentDemo extends ArcDemoPage {
         <anypoint-input type="password" name="ex3">
           <label slot="label">Password</label>
           <anypoint-button slot="suffix"
-            aria-label="Actibate the button to show the password"
+            aria-label="Activate the button to show the password"
             onclick="this.parentNode.type='text'"
             >Show</anypoint-button
           >
@@ -471,7 +436,7 @@ class ComponentDemo extends ArcDemoPage {
           the user about the reason of collecting the input.
         </p>
 
-        <anypoint-input infomessage="Used to confirm your order." type="email" name="ex5">
+        <anypoint-input infoMessage="Used to confirm your order." type="email" name="ex5">
           <label slot="label">Email</label>
         </anypoint-input>
 
@@ -489,7 +454,7 @@ class ComponentDemo extends ArcDemoPage {
         </p>
 
         <anypoint-input
-          invalidmessage="Only letters are allowed"
+          invalidMessage="Only letters are allowed"
           type="text"
           name="ex6"
           invalid
@@ -508,7 +473,7 @@ class ComponentDemo extends ArcDemoPage {
         <p>Each input element has 12 pixels top and bottom margin and 8 pixels left and right margin.</p>
         <p>
           The spacing allows to put multiple controls inside a form without styling it for
-          visibility. This can be changed via CSS styling, but please, consider inpact of this action
+          visibility. This can be changed via CSS styling, but please, consider impact of this action
           to other elements which are positioned in the same way.
         </p>
       </section>
@@ -521,7 +486,7 @@ class ComponentDemo extends ArcDemoPage {
       typeFieldOutlined,
       typeFieldCompatibility,
       darkThemeActive,
-      typeSelector
+      typeSelector,
     } = this;
     return html`
       <section class="documentation-section">
@@ -636,13 +601,13 @@ class ComponentDemo extends ArcDemoPage {
 
       <h3>Built-in validators</h3>
       <p>
-        Preffered way of dealing with validation is to use native input's validation
+        Preferred way of dealing with validation is to use native input's validation
         properties like <code>required</code>, <code>minLength</code>, <code>maxLength</code>, and so on.
-        The element preffers native validation over custom logic as it is more performant.
+        The element prefers native validation over custom logic as it has a better performance.
       </p>
 
       <p>
-        Use this attributes with cobination with <code>autovalidate</code> attribute which
+        Use this attributes with combination with <code>autovalidate</code> attribute which
         validates the state on user input
       </p>
 
@@ -691,9 +656,9 @@ class ComponentDemo extends ArcDemoPage {
       <anypoint-input
         title="Letters only via pattern"
         type="text"
-        allowedpattern="[a-zA-Z]"
-        preventinvalidinput
-        infomessage="Prevents non-letter characters"
+        allowedPattern="[a-zA-Z]"
+        preventInvalidInput
+        infoMessage="Prevents non-letter characters"
       >
         <label slot="label">Prevent invalid input</label>
       </anypoint-input>
@@ -702,7 +667,7 @@ class ComponentDemo extends ArcDemoPage {
       <p>
         Anypoint web components offers <code>ValidatorMixin</code> that allows to define
         a custom element that validates an input field. This allows to reuse validation
-        logic accross different parts of the application.
+        logic across different parts of the application.
       </p>
 
       <minimum-maximum-length></minimum-maximum-length>
@@ -714,14 +679,14 @@ class ComponentDemo extends ArcDemoPage {
         type="text"
         autovalidate
         validator="minimum-maximum-length number-required uppercase-required"
-        infomessage="Try to create a password"
+        infoMessage="Try to create a password"
       >
         <label slot="label">Custom validation</label>
       </anypoint-input>
     </section>`;
   }
 
-  _texareaTemplate() {
+  _textareaTemplate() {
     const {
       textFieldStates,
       darkThemeActive,
@@ -729,7 +694,7 @@ class ComponentDemo extends ArcDemoPage {
       textAreaOutlined,
       textAreaCompatibility,
       textAreaError,
-      textAreaNoLabelFloat
+      textAreaNoLabelFloat,
     } = this;
     const infoMessage = textAreaInfo ? 'Assistive text label' : undefined;
     return html`<section class="documentation-section">
@@ -740,7 +705,7 @@ class ComponentDemo extends ArcDemoPage {
 
       <p>
         It does not accept prefixes and suffixes as the user needs an space to
-        imput the value.
+        input the value.
       </p>
 
       <arc-interactive-demo
@@ -800,7 +765,7 @@ class ComponentDemo extends ArcDemoPage {
       <p>
         Text area field should be the only element in a row.
         The user may choose to resize the text area using native resize control.
-        You should not make that decission on behalf of the user.
+        You should not make that decision on behalf of the user.
         Additional UI widgets placed aside of the text area may obscure the view
         and make providing input harder to some users.
       </p>
@@ -815,7 +780,7 @@ class ComponentDemo extends ArcDemoPage {
       maskedCompatibility,
       maskedNoLabelFloat,
       maskedDisabled,
-      maskedReadOnly
+      maskedReadOnly,
     } = this;
 
     return html`<section class="documentation-section">
@@ -878,11 +843,10 @@ class ComponentDemo extends ArcDemoPage {
       ${this._usageTemplate()}
       ${this._typesTemplate()}
       ${this._customValidatorsTemplate()}
-      ${this._texareaTemplate()}
+      ${this._textareaTemplate()}
       ${this._maskedInputTemplate()}
     `;
   }
 }
 const instance = new ComponentDemo();
 instance.render();
-window.demo = instance;
