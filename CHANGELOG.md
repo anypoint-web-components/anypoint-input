@@ -551,3 +551,17 @@
 * label too close to input [ef81428](https://github.com/anypoint-web-components/anypoint-input/commit/ef814286372442cf4fca48786a9e890455602658) by Carolina Wright
 
 
+<a name="0.2.22"></a>
+## [0.2.22](https://github.com/anypoint-web-components/anypoint-input/compare/0.2.20...0.2.22) (2020-10-10)
+
+### Update
+
+* updating types declaration [11d39ed](https://github.com/anypoint-web-components/anypoint-input/commit/11d39eda53f2d8405feb42d78f067554f50db5a8) by Pawel
+* [ci skip] automated merge master->stage. syncing main branches [0fa18ec](https://github.com/anypoint-web-components/anypoint-input/commit/0fa18ec968308321f50bcfd16f64a2c3342f5db4) by Ci agent
+
+
+### Features
+
+* adding better ts support [59f7f9e](https://github.com/anypoint-web-components/anypoint-input/commit/59f7f9ec3a18f46aa393db3182279897c9e08e78) by Pawel
+
+
