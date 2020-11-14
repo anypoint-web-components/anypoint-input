@@ -565,3 +565,23 @@
 * adding better ts support [59f7f9e](https://github.com/anypoint-web-components/anypoint-input/commit/59f7f9ec3a18f46aa393db3182279897c9e08e78) by Pawel
 
 
+<a name="0.2.23"></a>
+## [0.2.23](https://github.com/anypoint-web-components/anypoint-input/compare/0.2.21...0.2.23) (2020-11-14)
+
+### Build
+
+* bumping version [93bdf60](https://github.com/anypoint-web-components/anypoint-input/commit/93bdf604fb0cbf0558c7a2e3d5a62ad63788f282) by Pawel
+
+
+### Continuous integration
+
+* updating tests and CI configuration [8661f32](https://github.com/anypoint-web-components/anypoint-input/commit/8661f32171e296bb7735735a8e5dc87715557eac) by Pawel
+
+
+### Update
+
+* updating types [2095e32](https://github.com/anypoint-web-components/anypoint-input/commit/2095e3222bc2fec76c0299b0463c912971dd8b75) by Pawel
+* [ci skip] automated merge master->stage. syncing main branches [c59d614](https://github.com/anypoint-web-components/anypoint-input/commit/c59d614714bb8a89df1fd75b414fd3351a4ff40a) by Ci agent
+* updating types declaration [11d39ed](https://github.com/anypoint-web-components/anypoint-input/commit/11d39eda53f2d8405feb42d78f067554f50db5a8) by Pawel
+
+
