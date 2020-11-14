@@ -1,14 +1,25 @@
-import {TemplateResult, LitElement} from 'lit-element';
+import {TemplateResult, LitElement, CSSResult} from 'lit-element';
 import {AnypointInputMixin} from './AnypointInputMixin';
 
-export declare class AnypointTextarea {
-  readonly _labelClass: string;
-  readonly _infoAddonClass: string;
-  readonly _errorAddonClass: string;
-  readonly cols: number|undefined;
-  readonly rows: number|undefined;
-  readonly wrap: boolean|undefined;
+export declare class AnypointTextarea extends AnypointInputMixin(LitElement) {
+  get styles(): CSSResult|CSSResult[];
+  get _labelClass(): string;
+  get _infoAddonClass(): string;
+  get _errorAddonClass(): string;
+  /**
+   * Binds this to the `<textarea>`'s `cols` property.
+   */
+  cols: number|undefined;
+  /**
+   * Binds this to the `<textarea>`'s `rows` property.
+   */
+  rows: number|undefined;
+  /**
+   * Binds this to the `<textarea>`'s `wrap` property.
+   */
+  wrap: boolean|undefined;
   render(): TemplateResult;
 }
-export declare interface AnypointTextarea extends AnypointInputMixin, LitElement {
-}
+// export declare interface AnypointTextarea extends AnypointInputMixin, LitElement {
+//   autocapitalize: "off" | "none" | "on" | "sentences" | "words" | "characters";
+// }

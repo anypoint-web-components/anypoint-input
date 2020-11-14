@@ -8,7 +8,7 @@ let nextLabelID = 0;
 
 /**
  * @param {KeyboardEvent} event
- * @return {Boolean}
+ * @return {boolean}
  */
 function isPrintable(event) {
   // What a control/printable character is varies wildly based on the browser.

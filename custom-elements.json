@@ -151,12 +151,36 @@
           "name": "noLabelFloat",
           "description": "When set, it reduces height of the button and hides\nthe label when the value is provided.\n\nUse it carefully as user should be able to recognize the input\nwhen the value is predefined.",
           "type": "boolean"
+        },
+        {
+          "name": "disabled",
+          "description": "If true the button is a toggle and is currently in the active state.",
+          "type": "boolean"
+        },
+        {
+          "name": "focused",
+          "description": "If true the element currently has focus.",
+          "type": "boolean"
+        },
+        {
+          "name": "validator",
+          "description": "Name of the validator or validators to use.\nIf the element should be validated by more than one validator then separate names with\nspace. See docs for `ValidatorMixin` for description of how to define a\nvalidator.",
+          "type": "string"
+        },
+        {
+          "name": "invalid",
+          "description": "True if the last call to `validate` is invalid.",
+          "type": "boolean"
         }
       ],
       "properties": [
         {
           "name": "styles",
           "type": "CSSResult | CSSResult[]"
+        },
+        {
+          "name": "bindValue",
+          "type": "string"
         },
         {
           "name": "value",
@@ -292,6 +316,12 @@
           "type": "number"
         },
         {
+          "name": "autocapitalize",
+          "description": "Binds this to the `<input>`'s `autocapitalize` property.\n\nPossible values are:\n\n- `off` or `none`: No autocapitalization is applied (all letters default to lowercase)\n- `on` or `sentences`: The first letter of each sentence defaults to a capital letter;\n  all other letters default to lowercase\n- `words`: The first letter of each word defaults to a capital letter; all other letters default to lowercase\n- `characters`: All letters should default to uppercase",
+          "type": "\"on\" | \"off\" | \"none\" | \"sentences\" | \"words\" | \"characters\"",
+          "default": "\"none\""
+        },
+        {
           "name": "autocorrect",
           "attribute": "autocorrect",
           "description": "Binds this to the `<input>`'s `autocorrect` property.",
@@ -341,18 +371,21 @@
         },
         {
           "name": "disabled",
+          "attribute": "disabled",
           "description": "If true the button is a toggle and is currently in the active state.",
           "type": "boolean"
         },
         {
           "name": "focused",
+          "attribute": "focused",
           "description": "If true the element currently has focus.",
           "type": "boolean"
         },
         {
           "name": "validator",
-          "description": "ame of the validator or validators to use.\nIf the element should be validated by more than one validator then separate names with\nspace. See docs for `ValidatorMixin` for description of how to define a\nvalidator.",
-          "type": "boolean"
+          "attribute": "validator",
+          "description": "Name of the validator or validators to use.\nIf the element should be validated by more than one validator then separate names with\nspace. See docs for `ValidatorMixin` for description of how to define a\nvalidator.",
+          "type": "string"
         },
         {
           "name": "validationStates",
@@ -361,8 +394,43 @@
         },
         {
           "name": "invalid",
+          "attribute": "invalid",
           "description": "True if the last call to `validate` is invalid.",
           "type": "boolean"
+        }
+      ],
+      "events": [
+        {
+          "name": "search",
+          "description": "When the type is `search` and the search term change."
+        },
+        {
+          "name": "change",
+          "description": "When the input value change"
+        },
+        {
+          "name": "input",
+          "description": "On user input"
+        },
+        {
+          "name": "iron-announce",
+          "description": "When requesting a11y announcement"
+        },
+        {
+          "name": "value-changed",
+          "description": "When the `value` property has changed"
+        },
+        {
+          "name": "hasvalidationmessage-changed",
+          "description": "When the `hasValidationMessage` property has changed"
+        },
+        {
+          "name": "focusedchange",
+          "description": "When the `focused` property has changed"
+        },
+        {
+          "name": "disabledchange",
+          "description": "When the `disabled` property has changed"
         }
       ]
     },
@@ -371,6 +439,11 @@
       "path": "./anypoint-masked-input.js",
       "attributes": [
         {
+          "name": "visible",
+          "description": "When set the input renders the value visible and restores\noriginal input type.",
+          "type": "boolean"
+        },
+        {
           "name": "value",
           "description": "The value for this input. If you're using PaperInputBehavior to\nimplement your own paper-input-like element, bind this to\nthe `<input>`'s `bindValue`\nproperty, or the value property of your input that is `notify:true`."
         },
@@ -516,12 +589,42 @@
           "name": "noLabelFloat",
           "description": "When set, it reduces height of the button and hides\nthe label when the value is provided.\n\nUse it carefully as user should be able to recognize the input\nwhen the value is predefined.",
           "type": "boolean"
+        },
+        {
+          "name": "disabled",
+          "description": "If true the button is a toggle and is currently in the active state.",
+          "type": "boolean"
+        },
+        {
+          "name": "focused",
+          "description": "If true the element currently has focus.",
+          "type": "boolean"
+        },
+        {
+          "name": "validator",
+          "description": "Name of the validator or validators to use.\nIf the element should be validated by more than one validator then separate names with\nspace. See docs for `ValidatorMixin` for description of how to define a\nvalidator.",
+          "type": "string"
+        },
+        {
+          "name": "invalid",
+          "description": "True if the last call to `validate` is invalid.",
+          "type": "boolean"
         }
       ],
       "properties": [
         {
+          "name": "visible",
+          "attribute": "visible",
+          "description": "When set the input renders the value visible and restores\noriginal input type.",
+          "type": "boolean"
+        },
+        {
           "name": "styles",
           "type": "CSSResult | CSSResult[]"
+        },
+        {
+          "name": "bindValue",
+          "type": "string"
         },
         {
           "name": "value",
@@ -657,6 +760,12 @@
           "type": "number"
         },
         {
+          "name": "autocapitalize",
+          "description": "Binds this to the `<input>`'s `autocapitalize` property.\n\nPossible values are:\n\n- `off` or `none`: No autocapitalization is applied (all letters default to lowercase)\n- `on` or `sentences`: The first letter of each sentence defaults to a capital letter;\n  all other letters default to lowercase\n- `words`: The first letter of each word defaults to a capital letter; all other letters default to lowercase\n- `characters`: All letters should default to uppercase",
+          "type": "\"on\" | \"off\" | \"none\" | \"sentences\" | \"words\" | \"characters\"",
+          "default": "\"none\""
+        },
+        {
           "name": "autocorrect",
           "attribute": "autocorrect",
           "description": "Binds this to the `<input>`'s `autocorrect` property.",
@@ -706,18 +815,21 @@
         },
         {
           "name": "disabled",
+          "attribute": "disabled",
           "description": "If true the button is a toggle and is currently in the active state.",
           "type": "boolean"
         },
         {
           "name": "focused",
+          "attribute": "focused",
           "description": "If true the element currently has focus.",
           "type": "boolean"
         },
         {
           "name": "validator",
-          "description": "ame of the validator or validators to use.\nIf the element should be validated by more than one validator then separate names with\nspace. See docs for `ValidatorMixin` for description of how to define a\nvalidator.",
-          "type": "boolean"
+          "attribute": "validator",
+          "description": "Name of the validator or validators to use.\nIf the element should be validated by more than one validator then separate names with\nspace. See docs for `ValidatorMixin` for description of how to define a\nvalidator.",
+          "type": "string"
         },
         {
           "name": "validationStates",
@@ -726,8 +838,43 @@
         },
         {
           "name": "invalid",
+          "attribute": "invalid",
           "description": "True if the last call to `validate` is invalid.",
           "type": "boolean"
+        }
+      ],
+      "events": [
+        {
+          "name": "search",
+          "description": "When the type is `search` and the search term change."
+        },
+        {
+          "name": "change",
+          "description": "When the input value change"
+        },
+        {
+          "name": "input",
+          "description": "On user input"
+        },
+        {
+          "name": "iron-announce",
+          "description": "When requesting a11y announcement"
+        },
+        {
+          "name": "value-changed",
+          "description": "When the `value` property has changed"
+        },
+        {
+          "name": "hasvalidationmessage-changed",
+          "description": "When the `hasValidationMessage` property has changed"
+        },
+        {
+          "name": "focusedchange",
+          "description": "When the `focused` property has changed"
+        },
+        {
+          "name": "disabledchange",
+          "description": "When the `disabled` property has changed"
         }
       ]
     },
@@ -881,19 +1028,46 @@
           "name": "noLabelFloat",
           "description": "When set, it reduces height of the button and hides\nthe label when the value is provided.\n\nUse it carefully as user should be able to recognize the input\nwhen the value is predefined.",
           "type": "boolean"
+        },
+        {
+          "name": "disabled",
+          "description": "If true the button is a toggle and is currently in the active state.",
+          "type": "boolean"
+        },
+        {
+          "name": "focused",
+          "description": "If true the element currently has focus.",
+          "type": "boolean"
+        },
+        {
+          "name": "validator",
+          "description": "Name of the validator or validators to use.\nIf the element should be validated by more than one validator then separate names with\nspace. See docs for `ValidatorMixin` for description of how to define a\nvalidator.",
+          "type": "string"
+        },
+        {
+          "name": "invalid",
+          "description": "True if the last call to `validate` is invalid.",
+          "type": "boolean"
         }
       ],
       "properties": [
         {
+          "name": "styles",
+          "type": "CSSResult | CSSResult[]"
+        },
+        {
           "name": "cols",
+          "description": "Binds this to the `<textarea>`'s `cols` property.",
           "type": "number | undefined"
         },
         {
           "name": "rows",
+          "description": "Binds this to the `<textarea>`'s `rows` property.",
           "type": "number | undefined"
         },
         {
           "name": "wrap",
+          "description": "Binds this to the `<textarea>`'s `wrap` property.",
           "type": "boolean | undefined"
         },
         {
@@ -1030,6 +1204,12 @@
           "type": "number"
         },
         {
+          "name": "autocapitalize",
+          "description": "Binds this to the `<input>`'s `autocapitalize` property.\n\nPossible values are:\n\n- `off` or `none`: No autocapitalization is applied (all letters default to lowercase)\n- `on` or `sentences`: The first letter of each sentence defaults to a capital letter;\n  all other letters default to lowercase\n- `words`: The first letter of each word defaults to a capital letter; all other letters default to lowercase\n- `characters`: All letters should default to uppercase",
+          "type": "\"on\" | \"off\" | \"none\" | \"sentences\" | \"words\" | \"characters\"",
+          "default": "\"none\""
+        },
+        {
           "name": "autocorrect",
           "attribute": "autocorrect",
           "description": "Binds this to the `<input>`'s `autocorrect` property.",
@@ -1079,18 +1259,21 @@
         },
         {
           "name": "disabled",
+          "attribute": "disabled",
           "description": "If true the button is a toggle and is currently in the active state.",
           "type": "boolean"
         },
         {
           "name": "focused",
+          "attribute": "focused",
           "description": "If true the element currently has focus.",
           "type": "boolean"
         },
         {
           "name": "validator",
-          "description": "ame of the validator or validators to use.\nIf the element should be validated by more than one validator then separate names with\nspace. See docs for `ValidatorMixin` for description of how to define a\nvalidator.",
-          "type": "boolean"
+          "attribute": "validator",
+          "description": "Name of the validator or validators to use.\nIf the element should be validated by more than one validator then separate names with\nspace. See docs for `ValidatorMixin` for description of how to define a\nvalidator.",
+          "type": "string"
         },
         {
           "name": "validationStates",
@@ -1099,8 +1282,39 @@
         },
         {
           "name": "invalid",
+          "attribute": "invalid",
           "description": "True if the last call to `validate` is invalid.",
           "type": "boolean"
+        }
+      ],
+      "events": [
+        {
+          "name": "change",
+          "description": "When the input value change"
+        },
+        {
+          "name": "input",
+          "description": "On user input"
+        },
+        {
+          "name": "iron-announce",
+          "description": "When requesting a11y announcement"
+        },
+        {
+          "name": "value-changed",
+          "description": "When the `value` property has changed"
+        },
+        {
+          "name": "hasvalidationmessage-changed",
+          "description": "When the `hasValidationMessage` property has changed"
+        },
+        {
+          "name": "focusedchange",
+          "description": "When the `focused` property has changed"
+        },
+        {
+          "name": "disabledchange",
+          "description": "When the `disabled` property has changed"
         }
       ]
     }
