@@ -835,7 +835,8 @@ const mxFunction = base => {
      */
     _checkInputValidity() {
       const { type, required, value } = this;
-      let valid = !required || (!!required && !!value);
+      const emptyValue = value === undefined || value === null || value === '';
+      let valid = !required || (!!required && !emptyValue);
       if (!valid) {
         return valid;
       }

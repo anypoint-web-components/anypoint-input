@@ -861,6 +861,14 @@ describe('<anypoint-input>', () => {
       const result = element._checkInputValidity();
       assert.isTrue(result);
     });
+
+    it('returns true for 0 number', async () => {
+      element.type = 'number';
+      element.value = 0;
+      await nextFrame();
+      const result = element._checkInputValidity();
+      assert.isTrue(result);
+    });
   });
 
   describe('_validationStatesHandler()', () => {
@@ -1270,6 +1278,27 @@ describe('<anypoint-input>', () => {
     it('is accessible when compatibility mode', async () => {
       const element = await a11yCompatibilityFixture();
       await assert.isAccessible(element);
+    });
+  });
+
+  describe('APIC-574', () => {
+    let element;
+    beforeEach(async () => {
+      element = await basicFixture();
+    });
+
+    it('should render 0 value for integer input', async () => {
+      element.value = 0;
+      element.autoValidate = true;
+      element.dataType = 'input';
+      element.required = true;
+      element.name = 'page';
+      element.compatibility = true;
+      element.readOnly = false;
+      await nextFrame();
+
+      const input = element.shadowRoot.querySelector('.input-element');
+      assert.equal(input.value, 0);
     });
   });
 });
