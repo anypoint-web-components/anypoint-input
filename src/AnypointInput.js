@@ -95,7 +95,8 @@ export class AnypointInput extends AnypointInputMixin(LitElement) {
   }
 
   get bindValue() {
-    return this.value || '';
+    const {value} = this;
+    return value === undefined || value === null ? '' : value;
   }
 
   /**
