@@ -585,3 +585,29 @@
 * updating types declaration [11d39ed](https://github.com/anypoint-web-components/anypoint-input/commit/11d39eda53f2d8405feb42d78f067554f50db5a8) by Pawel
 
 
+<a name="0.2.24"></a>
+## [0.2.24](https://github.com/anypoint-web-components/anypoint-input/compare/0.2.22...0.2.24) (2021-01-26)
+
+### Build
+
+* bump version [bae24ff](https://github.com/anypoint-web-components/anypoint-input/commit/bae24ff4c744fed06cf2d46f2f5032ce55c2e85c) by Carolina Wright
+* bumping version [93bdf60](https://github.com/anypoint-web-components/anypoint-input/commit/93bdf604fb0cbf0558c7a2e3d5a62ad63788f282) by Pawel
+
+
+### Continuous integration
+
+* updating tests and CI configuration [8661f32](https://github.com/anypoint-web-components/anypoint-input/commit/8661f32171e296bb7735735a8e5dc87715557eac) by Pawel
+
+
+### Update
+
+* [ci skip] automated merge master->stage. syncing main branches [52691c8](https://github.com/anypoint-web-components/anypoint-input/commit/52691c88abf3e2b4fa32171eafe6b76426d10674) by Ci agent
+* updating types [2095e32](https://github.com/anypoint-web-components/anypoint-input/commit/2095e3222bc2fec76c0299b0463c912971dd8b75) by Pawel
+* [ci skip] automated merge master->stage. syncing main branches [c59d614](https://github.com/anypoint-web-components/anypoint-input/commit/c59d614714bb8a89df1fd75b414fd3351a4ff40a) by Ci agent
+
+
+### Bug Fixes
+
+* missing integer value when is 0 [552b448](https://github.com/anypoint-web-components/anypoint-input/commit/552b44899fdd8053bb8ed21e57d66c1ba36c2eb8) by Carolina Wright
+
+
