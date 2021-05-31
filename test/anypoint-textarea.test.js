@@ -1,4 +1,4 @@
-import { fixture, assert, nextFrame } from '@open-wc/testing';
+import { fixture, assert, nextFrame, html } from '@open-wc/testing';
 import * as MockInteractions from '@polymer/iron-test-helpers/mock-interactions.js';
 import '../anypoint-textarea.js';
 
@@ -12,14 +12,14 @@ describe('<anypoint-textarea>', () => {
    * @return {Promise<AnypointTextarea>}
    */
   async function basicFixture() {
-    return fixture(`<anypoint-textarea></anypoint-textarea>`);
+    return fixture(html`<anypoint-textarea></anypoint-textarea>`);
   }
 
   /**
    * @return {Promise<AnypointTextarea>}
    */
   async function noLabelFloatFixture() {
-    return fixture(`<anypoint-textarea nolabelfloat>
+    return fixture(html`<anypoint-textarea nolabelfloat>
       <label slot="label">Label</label>
     </anypoint-textarea>`);
   }

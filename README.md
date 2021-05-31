@@ -8,7 +8,7 @@ Text field allows the user to enter a value into the UI. It can appear in a `for
 
 [![Published on NPM](https://img.shields.io/npm/v/@anypoint-web-components/anypoint-input.svg)](https://www.npmjs.com/package/@anypoint-web-components/anypoint-input)
 
-[![tests](https://github.com/anypoint-web-components/anypoint-input/actions/workflows/tests.yml/badge.svg)](https://github.com/anypoint-web-components/anypoint-input/actions/workflows/tests.yml)
+[![tests](https://github.com/anypoint-web-components/anypoint-input/actions/workflows/deployment.yml/badge.svg)](https://github.com/anypoint-web-components/anypoint-input/actions/workflows/deployment.yml)
 
 ## Styling options
 
@@ -70,7 +70,7 @@ When it make sense a prefix or suffix can be used to suggest right input. Fox ex
 </anypoint-input>
 ```
 
-Similarly suffix can provide additional information about the format of input. For the same cach amount input suffix could render `.00` to suggest that the input is an integer.
+Similarly suffix can provide additional information about the format of input. For the same cash amount input suffix could render `.00` to suggest that the input is an integer.
 
 ```html
 <anypoint-input name="ex2">

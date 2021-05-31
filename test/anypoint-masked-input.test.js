@@ -1,4 +1,4 @@
-import { fixture, assert } from '@open-wc/testing';
+import { fixture, assert, html } from '@open-wc/testing';
 import * as MockInteractions from '@polymer/iron-test-helpers/mock-interactions.js';
 import '../anypoint-masked-input.js';
 
@@ -9,7 +9,7 @@ describe('<anypoint-masked-input>', () => {
    * @return {Promise<AnypointMaskedInput>}
    */
   async function maskedFixture() {
-    return fixture(`<anypoint-masked-input>
+    return fixture(html`<anypoint-masked-input>
       <label slot="label">Label</label>
       </anypoint-masked-input>`);
   }
@@ -18,7 +18,7 @@ describe('<anypoint-masked-input>', () => {
    * @return {Promise<AnypointMaskedInput>}
    */
   async function visibleFixture() {
-    return fixture(`<anypoint-masked-input visible>
+    return fixture(html`<anypoint-masked-input visible>
       <label slot="label">Label</label>
     </anypoint-masked-input>`);
   }
@@ -27,7 +27,7 @@ describe('<anypoint-masked-input>', () => {
    * @return {Promise<AnypointMaskedInput>}
    */
   async function typeFixture() {
-    return fixture(`<anypoint-masked-input type="tel">
+    return fixture(html`<anypoint-masked-input type="tel">
     <label slot="label">Label</label>
     </anypoint-masked-input>`);
   }
@@ -36,7 +36,7 @@ describe('<anypoint-masked-input>', () => {
    * @return {Promise<AnypointMaskedInput>}
    */
   async function typeVisibleFixture() {
-    return fixture(`<anypoint-masked-input visible type="tel">
+    return fixture(html`<anypoint-masked-input visible type="tel">
     <label slot="label">Label</label>
     </anypoint-masked-input>`);
   }

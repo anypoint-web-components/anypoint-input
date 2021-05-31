@@ -1,5 +1,5 @@
 import { fixture, assert, nextFrame, aTimeout, html } from '@open-wc/testing';
-import * as sinon from 'sinon';
+import sinon from 'sinon';
 import * as MockInteractions from '@polymer/iron-test-helpers/mock-interactions.js';
 import '../anypoint-input.js';
 

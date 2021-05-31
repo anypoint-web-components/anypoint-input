@@ -4,7 +4,7 @@ import {AnypointInputMixin} from './AnypointInputMixin';
 /**
  * @fires search When the type is `search` and the search term change.
  */
-export declare class AnypointInput {
+export declare class AnypointInput extends AnypointInputMixin(LitElement)  {
   get styles(): CSSResult|CSSResult[];
   get _prefixed(): HTMLSlotElement|null;
   get _labelClass(): string;
@@ -26,6 +26,6 @@ export declare class AnypointInput {
   _inputTemplate(): TemplateResult;
 }
 
-export declare interface AnypointInput extends AnypointInputMixin, LitElement {
-  autocapitalize: "off" | "none" | "on" | "sentences" | "words" | "characters";
-}
+// export declare interface AnypointInput extends AnypointInputMixin, LitElement {
+//   autocapitalize: "off" | "none" | "on" | "sentences" | "words" | "characters";
+// }
