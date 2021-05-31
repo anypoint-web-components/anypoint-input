@@ -1,7 +1,3 @@
-[![Published on NPM](https://img.shields.io/npm/v/@anypoint-web-components/anypoint-input.svg)](https://www.npmjs.com/package/@anypoint-web-components/anypoint-input)
-
-[![Build Status](https://travis-ci.com/anypoint-web-components/anypoint-input.svg)](https://travis-ci.com/anypoint-web-components/anypoint-input)
-
 # anypoint-input and anypoint-textarea
 
 This component is based on Material Design text field and adjusted for Anypoint platform components.
@@ -10,12 +6,17 @@ Anypoint web components are set of components that allows to build Anypoint enab
 
 Text field allows the user to enter a value into the UI. It can appear in a `form` or a dialog.
 
+[![Published on NPM](https://img.shields.io/npm/v/@anypoint-web-components/anypoint-input.svg)](https://www.npmjs.com/package/@anypoint-web-components/anypoint-input)
+
+[![tests](https://github.com/anypoint-web-components/anypoint-input/actions/workflows/deployment.yml/badge.svg)](https://github.com/anypoint-web-components/anypoint-input/actions/workflows/deployment.yml)
+
 ## Styling options
 
 The element has three built-in themes:
--   Material Design - Filled
--   Material Design - Outlined
--   Anypoint Design - Compatibility
+
+- Material Design - Filled
+- Material Design - Outlined
+- Anypoint Design - Compatibility
 
 By default the input renders `filled` input.
 
@@ -35,7 +36,7 @@ OSS application should not use Anypoint based styling as it's protected by MuleS
 
 ### Installation
 
-```
+```sh
 npm install --save @anypoint-web-components/anypoint-input
 ```
 
@@ -69,7 +70,7 @@ When it make sense a prefix or suffix can be used to suggest right input. Fox ex
 </anypoint-input>
 ```
 
-Similarly suffix can provide additional information about the format of input. For the same cach amount input suffix could render `.00` to suggest that the input is an integer.
+Similarly suffix can provide additional information about the format of input. For the same cash amount input suffix could render `.00` to suggest that the input is an integer.
 
 ```html
 <anypoint-input name="ex2">
@@ -83,7 +84,7 @@ Suffixes can also be active widget. It can be an icon button that toggles visibi
 ```html
 <anypoint-input type="password" name="ex3">
   <label slot="label">Password</label>
-  <anypoint-button slot="suffix" aria-label="Actibate the button to show the password" onclick="this.parentNode.type='text'">Show</anypoint-button>
+  <anypoint-button slot="suffix" aria-label="Activate the button to show the password" onclick="this.parentNode.type='text'">Show</anypoint-button>
 </anypoint-input>
 ```
 
@@ -99,7 +100,7 @@ Suffixes can also be active widget. It can be an icon button that toggles visibi
 The element supports all input's properties that helps with validation, like `required`, `min`, `max`, `pattern`, and so on. It also supports `autoValidate` property that validates the input when value changes.
 
 ```html
-<anypoint-input required autovalidate pattern="[a-z]*" invalidmessage="Only letters allowed">
+<anypoint-input required autovalidate pattern="[a-z]*" invalidMessage="Only letters allowed">
   <label slot="label">Enter text</label>
 </anypoint-input>
 ```
@@ -110,7 +111,7 @@ The element also has `preventInvalidInput` and `allowedPattern` properties that,
 Remember to use this properties carefully as this is very invasive behavior.
 
 ```html
-<anypoint-input allowedpattern="[a-z]*" preventinvalidinput>
+<anypoint-input allowedPattern="[a-z]*" preventInvalidInput>
   <label slot="label">Enter text</label>
 </anypoint-input>
 ```
@@ -125,7 +126,7 @@ input has been detected.
 Info message provides the user with additional description for the field. It should be used when the label can be confusing or to ensure the user about the reason of collecting the input.
 
 ```html
-<anypoint-input infomessage="Used to confirm your order." type="email" name="ex5">
+<anypoint-input infoMessage="Used to confirm your order." type="email" name="ex5">
   <label slot="label">Email</label>
 </anypoint-input>
 ```
