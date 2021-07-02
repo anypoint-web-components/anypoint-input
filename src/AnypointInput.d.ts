@@ -25,7 +25,3 @@ export declare class AnypointInput extends AnypointInputMixin(LitElement)  {
   _labelTemplate(): TemplateResult;
   _inputTemplate(): TemplateResult;
 }
-
-// export declare interface AnypointInput extends AnypointInputMixin, LitElement {
-//   autocapitalize: "off" | "none" | "on" | "sentences" | "words" | "characters";
-// }

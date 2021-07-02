@@ -1,5 +1,6 @@
 import { ControlStateMixin } from '@anypoint-web-components/anypoint-control-mixins';
 import { ValidatableMixin } from '@anypoint-web-components/validatable-mixin';
+import { SupportedAutocapitalize, SupportedAutocomplete, SupportedInputTypes } from './types';
 
 declare function AnypointInputMixin<T extends new (...args: any[]) => {}>(base: T): T & AnypointInputMixinConstructor;
 interface AnypointInputMixinConstructor {
@@ -62,7 +63,7 @@ interface AnypointInputMixin extends ValidatableMixin, ControlStateMixin {
    * The type of the input. The supported types are `text`, `number` and `password`.
    * @attribute
    */
-  type: "hidden" | "text" | "search" | "tel" | "url" | "email" | "password" | "datetime" | "date" | "month" | "week" | "time" | "datetime-local" | "number" | "range" | "color" | "checkbox" | "radio" | "file" | "submit" | "image" | "reset" | "button";
+  type: SupportedInputTypes;
 
   /**
    * The datalist of the input (if any). This should match the id of an existing `<datalist>`.
@@ -112,7 +113,7 @@ interface AnypointInputMixin extends ValidatableMixin, ControlStateMixin {
    * @default off
    * @attribute
    */
-  autocomplete: "on" | "off" | "additional-name" | "street-address" | "address-level1" | "address-level2" | "address-level3" | "address-level4" | "address-line1" | "address-line2" | "address-line3" | "bday" | "bday-year" | "bday-day" | "bday-month" | "billing" | "cc-additional-name" | "honorific-prefix" | "given-name" | "additional-name" | "family-name" | "honorific-suffix" | "nickname" | "username" | "new-password" | "current-password" | "organization-title" | "organization" | "country" | "country-name" | "postal-code" | "cc-name" | "cc-given-name" | "cc-additional-name" | "cc-family-name" | "cc-number" | "cc-exp" | "cc-exp-month" | "cc-exp-year" | "cc-csc" | "cc-type" | "transaction-currency" | "transaction-amount" | "language" | "sex" | "tel" | "tel-country-code" | "tel-national" | "tel-area-code" | "tel-local" | "tel-extension" | "impp" | "url" | "photo";
+  autocomplete: SupportedAutocomplete;
 
   /**
    * Binds this to the `<input>`'s `autofocus` property.
@@ -207,7 +208,7 @@ interface AnypointInputMixin extends ValidatableMixin, ControlStateMixin {
    *
    * @default none
    */
-  autocapitalize: "off" | "none" | "on" | "sentences" | "words" | "characters";
+  autocapitalize: SupportedAutocapitalize;
 
   /**
    * Binds this to the `<input>`'s `autocorrect` property.

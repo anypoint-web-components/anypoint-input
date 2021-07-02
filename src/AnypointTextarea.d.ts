@@ -20,6 +20,3 @@ export declare class AnypointTextarea extends AnypointInputMixin(LitElement) {
   wrap: boolean|undefined;
   render(): TemplateResult;
 }
-// export declare interface AnypointTextarea extends AnypointInputMixin, LitElement {
-//   autocapitalize: "off" | "none" | "on" | "sentences" | "words" | "characters";
-// }
