@@ -557,6 +557,9 @@ const mxFunction = base => {
       // Forward the focus to the nested input.
       if (this.focused && !this._shiftTabPressed) {
         const { type, inputElement } = this;
+        if (!inputElement) {
+          return;
+        }
         inputElement.focus();
         const { value } = inputElement;
         if (value && (type === 'text' || type === undefined)) {
