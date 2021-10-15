@@ -1,4 +1,8 @@
-# anypoint-input and anypoint-textarea
+# Deprecated
+
+This component has been moved to `anypoint-web-components/awc`.
+
+-----
 
 This component is based on Material Design text field and adjusted for Anypoint platform components.
 
