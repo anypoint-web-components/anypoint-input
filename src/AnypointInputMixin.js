@@ -83,7 +83,7 @@ const mxFunction = base => {
         this.requestUpdate('value', old);
       }
       /* istanbul ignore else */
-      if (this._internals) {
+      if (this._internals && this._internals.setFormValue) {
         this._internals.setFormValue(value);
       }
       this.dispatchEvent(
@@ -515,7 +515,7 @@ const mxFunction = base => {
     checkValidity() {
       return (
         this._getValidity(this.value) &&
-        ((this._internals && this._internals.checkValidity()) || true)
+        ((this._internals && this._internals.checkValidity && this._internals.checkValidity()) || true)
       );
     }
 
