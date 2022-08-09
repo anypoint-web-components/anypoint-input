@@ -143,10 +143,10 @@ export class AnypointInput extends AnypointInputMixin(LitElement) {
     } = this;
     return html`<div class="assistive-info">
       ${infoMessage
-        ? html`<p class="${_infoAddonClass}">${this.infoMessage}</p>`
+        ? html`<p class="${_infoAddonClass}" id=${this._ariaDetailsMessage()}>${this.infoMessage}</p>`
         : ''}
       ${invalidMessage
-        ? html`<p class="${_errorAddonClass}">${invalidMessage}</p>`
+        ? html`<p class="${_errorAddonClass}" id=${this._ariaErrorMessage()}>${invalidMessage}</p>`
         : ''}
     </div>`;
   }
@@ -156,6 +156,16 @@ export class AnypointInput extends AnypointInputMixin(LitElement) {
     return html`<div class="${_labelClass}" id="${_ariaLabelledBy}">
       <slot name="label"></slot>
     </div>`;
+  }
+
+  _ariaErrorMessage() {
+    const { _ariaLabelledBy, invalidMessage } = this;
+    return _ariaLabelledBy && invalidMessage ? `${_ariaLabelledBy}-error` : '';
+  }
+
+  _ariaDetailsMessage() {
+    const { _ariaLabelledBy, infoMessage } = this;
+    return _ariaLabelledBy && infoMessage ? `${_ariaLabelledBy}-info` : '';
   }
 
   _inputTemplate() {
@@ -189,6 +199,8 @@ export class AnypointInput extends AnypointInputMixin(LitElement) {
     return html`<input
       class="input-element"
       aria-labelledby="${_ariaLabelledBy}"
+      aria-errormessage="${this._ariaErrorMessage()}"
+      aria-details="${this._ariaDetailsMessage()}"
       ?disabled="${disabled}"
       type="${_inputType}"
       pattern="${ifDefined(pattern)}"

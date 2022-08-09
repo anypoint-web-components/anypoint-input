@@ -635,6 +635,33 @@ describe('<anypoint-input>', () => {
     });
   });
 
+  describe('assistive info', () => {
+    it('sets id the label when missing', async () => {
+      const element = await labeledFixture();
+      const label = element.shadowRoot
+        .querySelector('slot[name="label"]')
+        // @ts-ignore
+        .assignedNodes()[0];
+      assert.match(label.id, /anypoint-input-label-\d+/);
+    });
+
+    it('sets aria-errormessage when invalidMessage', async () => {
+      const element = await labeledFixture();
+      element.invalidMessage = 'test';
+      await nextFrame();
+
+      assert.equal(element.shadowRoot.querySelector('.input-element').getAttribute('aria-errormessage').endsWith('-error'), true);
+    });
+
+    it('sets aria-details when infoMessage', async () => {
+      const element = await labeledFixture();
+      element.infoMessage = 'test';
+      await nextFrame();
+
+      assert.equal(element.shadowRoot.querySelector('.input-element').getAttribute('aria-details').endsWith('-info'), true);
+    });
+  });
+
   describe('_onChange()', () => {
     let element;
     beforeEach(async () => {
