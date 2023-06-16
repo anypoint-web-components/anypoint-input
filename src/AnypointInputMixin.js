@@ -49,22 +49,6 @@ function isPrintable(event) {
  */
 const mxFunction = base => {
   class AnypointInputMixinImpl extends ValidatableMixin(ControlStateMixin(base)) {
-    /**
-     * For form-associated custom elements. Marks this custom element
-     * as form enabled element.
-     */
-    static get formAssociated() {
-      return true;
-    }
-
-    /**
-     * When form-associated custom elements are supported in the browser it
-     * returns `<form>` element associated with this control.
-     */
-    get form() {
-      return (this._internals && this._internals.form) || null;
-    }
-
     get value() {
       return this._value;
     }
@@ -81,10 +65,6 @@ const mxFunction = base => {
       if (this.requestUpdate) {
         // @ts-ignore
         this.requestUpdate('value', old);
-      }
-      /* istanbul ignore else */
-      if (this._internals && this._internals.setFormValue) {
-        this._internals.setFormValue(value);
       }
       this.dispatchEvent(
         new CustomEvent('value-changed', {
@@ -445,12 +425,6 @@ const mxFunction = base => {
       if (!this.hasAttribute('tabindex')) {
         this.setAttribute('tabindex', '0');
       }
-      /* istanbul ignore else */
-      // @ts-ignore
-      if (this.attachInternals) {
-        // @ts-ignore
-        this._internals = this.attachInternals();
-      }
     }
 
     connectedCallback() {
@@ -513,10 +487,7 @@ const mxFunction = base => {
     }
 
     checkValidity() {
-      return (
-        this._getValidity(this.value) &&
-        ((this._internals && this._internals.checkValidity && this._internals.checkValidity()) || true)
-      );
+      return this._getValidity(this.value);
     }
 
     /**

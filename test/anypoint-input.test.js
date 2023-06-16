@@ -92,9 +92,6 @@ describe('<anypoint-input>', () => {
     </anypoint-input>`);
   }
 
-  const hasFormAssociatedElements =
-    'attachInternals' in document.createElement('span');
-
   describe('setters and getters', () => {
     let element;
     beforeEach(async () => {
@@ -987,106 +984,6 @@ describe('<anypoint-input>', () => {
       assert.equal(document.activeElement, input);
     });
   });
-
-  (hasFormAssociatedElements ? describe : describe.skip)(
-    'form-associated custom elements',
-    () => {
-      async function formFixture() {
-        return fixture(`
-      <form>
-        <fieldset name="form-fields">
-          <anypoint-input name="formItem" value="test-value">
-            <label slot="label">Text input</label>
-          </anypoint-listbox>
-        </fieldset>
-        <input type="reset" value="Reset">
-        <input type="submit" value="Submit">
-      </form>`);
-      }
-
-      describe('Internal basics', () => {
-        let element;
-        let form;
-        beforeEach(async () => {
-          form = await formFixture();
-          element = form.querySelector('anypoint-input');
-        });
-
-        it('initializes ElementInternals interface', () => {
-          assert.ok(element._internals);
-        });
-
-        it('has associated form', () => {
-          assert.equal(element.form, form);
-        });
-
-        it('the element is in the list of form elements', () => {
-          const elements = Array.from(form.elements);
-          assert.notEqual(elements.indexOf(element), -1);
-        });
-      });
-
-      describe('Submitting the form', () => {
-        let element;
-        let form;
-        beforeEach(async () => {
-          form = await formFixture();
-          element = form.querySelector('anypoint-input');
-        });
-
-        it('set value in forms submission value', () => {
-          const spy = sinon.spy(element._internals, 'setFormValue');
-          element.value = 'test';
-          assert.isTrue(spy.called);
-        });
-      });
-
-      describe('Resetting the form', () => {
-        let element;
-        let form;
-        beforeEach(async () => {
-          form = await formFixture();
-          element = form.querySelector('anypoint-input');
-        });
-
-        it('resets input value', () => {
-          form.reset();
-          assert.equal(element.value, '');
-        });
-      });
-
-      describe('Disables the input when fieldset is disabled', () => {
-        let element;
-        let form;
-        let fieldset;
-        beforeEach(async () => {
-          form = await formFixture();
-          element = form.querySelector('anypoint-input');
-          fieldset = form.querySelector('fieldset');
-        });
-
-        it('resets input value', () => {
-          fieldset.disabled = true;
-          assert.isTrue(element.disabled);
-        });
-      });
-
-      describe('checkValidity()', () => {
-        let element;
-        let form;
-        beforeEach(async () => {
-          form = await formFixture();
-          element = form.querySelector('anypoint-input');
-        });
-
-        it('calls internal checkValidity()', () => {
-          const spy = sinon.spy(element._internals, 'checkValidity');
-          element.checkValidity();
-          assert.isTrue(spy.called);
-        });
-      });
-    }
-  );
 
   describe('Info message', () => {
     let element;
