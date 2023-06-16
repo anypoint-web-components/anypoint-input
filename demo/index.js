@@ -19,8 +19,6 @@ import './minimum-maximum-length.js';
 import './number-required.js';
 import './uppercase-required.js';
 
-// const hasFormAssociatedElements = 'attachInternals' in document.createElement('span');
-
 class ComponentDemo extends ArcDemoPage {
   constructor() {
     super();
